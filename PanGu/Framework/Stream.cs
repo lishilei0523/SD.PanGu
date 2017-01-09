@@ -16,9 +16,8 @@
  */
 
 using System;
-using System.Collections.Generic;
-using System.Text;
 using System.IO;
+using System.Text;
 
 namespace PanGu.Framework
 {
@@ -47,7 +46,7 @@ namespace PanGu.Framework
         public static void ReadStreamToString(System.IO.Stream input, out String str, Encoding Encode)
         {
             input.Position = 0;
-            System.IO.StreamReader readStream = new System.IO.StreamReader(input, Encode);
+            StreamReader readStream = new StreamReader(input, Encode);
             str = readStream.ReadToEnd();
         }
 

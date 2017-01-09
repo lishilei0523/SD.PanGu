@@ -1,7 +1,9 @@
-﻿using System;
+﻿using PanGu.Enums;
+using PanGu.Match;
+using PanGu.Setting;
 using System.Collections.Generic;
-using System.Text;
 using System.IO;
+using System.Text;
 
 namespace PanGu.Dict
 {
@@ -16,8 +18,8 @@ namespace PanGu.Dict
 
             public List<WordInfo> Segments = new List<WordInfo>();
 
-            public WildcardInfo(string wildcard, Segment segment, 
-                Match.MatchOptions options, Match.MatchParameter parameter)
+            public WildcardInfo(string wildcard, Segment segment,
+                MatchOptions options, MatchParameter parameter)
             {
                 this.Key = wildcard.ToLower();
 
@@ -36,8 +38,8 @@ namespace PanGu.Dict
         object _LockObj = new object();
 
         bool _Init = false;
-        Match.MatchOptions _Options;
-        Match.MatchParameter _Parameter;
+        MatchOptions _Options;
+        MatchParameter _Parameter;
 
         List<WildcardInfo> _WildcardList = null; //通配符词汇列表
 
@@ -49,7 +51,7 @@ namespace PanGu.Dict
             {
                 _WildcardList = new List<WildcardInfo>();
 
-                if (!System.IO.File.Exists(fileName))
+                if (!File.Exists(fileName))
                 {
                     return;
                 }
@@ -76,7 +78,7 @@ namespace PanGu.Dict
             }
         }
 
-        internal Wildcard(Match.MatchOptions options, Match.MatchParameter parameter)
+        internal Wildcard(MatchOptions options, MatchParameter parameter)
         {
             _Options = options.Clone();
             _Options.SynonymOutput = false;
@@ -107,7 +109,7 @@ namespace PanGu.Dict
             {
                 if (!_Init)
                 {
-                    string dir = Setting.PanGuSettings.Config.GetDictionaryPath();
+                    string dir = PanGuSettings.Config.GetDictionaryPath();
                     Load(dir);
                 }
             }

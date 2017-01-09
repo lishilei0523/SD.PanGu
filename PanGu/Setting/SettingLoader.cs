@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using PanGu.Framework;
 
 namespace PanGu.Setting
 {
@@ -18,7 +16,7 @@ namespace PanGu.Setting
 
         public SettingLoader()
         {
-            string fileName = PanGu.Framework.Path.GetAssemblyPath() + "PanGu.xml";
+            string fileName = Path.GetAssemblyPath() + "PanGu.xml";
             Load(fileName);
         }
     }

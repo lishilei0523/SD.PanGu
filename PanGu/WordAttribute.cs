@@ -15,9 +15,8 @@
  * limitations under the License.
  */
 
+using PanGu.Enums;
 using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace PanGu
 {
@@ -102,7 +101,7 @@ namespace PanGu
 
         public override string ToString()
         {
-            return Word;
+            return this.Word;
         }
 
     }

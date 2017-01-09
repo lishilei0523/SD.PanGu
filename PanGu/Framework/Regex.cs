@@ -18,8 +18,8 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Text;
 using System.Diagnostics;
+using System.Text.RegularExpressions;
 
 namespace PanGu.Framework
 {
@@ -62,14 +62,14 @@ namespace PanGu.Framework
 
             if (ignoreCase)
             {
-                reg = new System.Text.RegularExpressions.Regex(regx, System.Text.RegularExpressions.RegexOptions.IgnoreCase | System.Text.RegularExpressions.RegexOptions.Singleline);
+                reg = new System.Text.RegularExpressions.Regex(regx, RegexOptions.IgnoreCase | RegexOptions.Singleline);
             }
             else
             {
-                reg = new System.Text.RegularExpressions.Regex(regx, System.Text.RegularExpressions.RegexOptions.Singleline);
+                reg = new System.Text.RegularExpressions.Regex(regx, RegexOptions.Singleline);
             }
 
-            System.Text.RegularExpressions.MatchCollection m = reg.Matches(text);
+            MatchCollection m = reg.Matches(text);
 
             if (m.Count == 0)
                 return false;
@@ -123,14 +123,14 @@ namespace PanGu.Framework
 
             if (ignoreCase)
             {
-                reg = new System.Text.RegularExpressions.Regex(regx, System.Text.RegularExpressions.RegexOptions.IgnoreCase | System.Text.RegularExpressions.RegexOptions.Singleline);
+                reg = new System.Text.RegularExpressions.Regex(regx, RegexOptions.IgnoreCase | RegexOptions.Singleline);
             }
             else
             {
-                reg = new System.Text.RegularExpressions.Regex(regx, System.Text.RegularExpressions.RegexOptions.Singleline);
+                reg = new System.Text.RegularExpressions.Regex(regx, RegexOptions.Singleline);
             }
 
-            System.Text.RegularExpressions.MatchCollection m = reg.Matches(text);
+            MatchCollection m = reg.Matches(text);
 
             if (m.Count == 0)
                 return false;
@@ -166,11 +166,11 @@ namespace PanGu.Framework
 
             if (ignoreCase)
             {
-                reg = new System.Text.RegularExpressions.Regex(regx, System.Text.RegularExpressions.RegexOptions.IgnoreCase | System.Text.RegularExpressions.RegexOptions.Singleline);
+                reg = new System.Text.RegularExpressions.Regex(regx, RegexOptions.IgnoreCase | RegexOptions.Singleline);
             }
             else
             {
-                reg = new System.Text.RegularExpressions.Regex(regx, System.Text.RegularExpressions.RegexOptions.Singleline);
+                reg = new System.Text.RegularExpressions.Regex(regx, RegexOptions.Singleline);
             }
 
             String[] strs = reg.Split(text);
@@ -229,11 +229,11 @@ namespace PanGu.Framework
 
             if (ignoreCase)
             {
-                reg = new System.Text.RegularExpressions.Regex(regx, System.Text.RegularExpressions.RegexOptions.IgnoreCase | System.Text.RegularExpressions.RegexOptions.Singleline);
+                reg = new System.Text.RegularExpressions.Regex(regx, RegexOptions.IgnoreCase | RegexOptions.Singleline);
             }
             else
             {
-                reg = new System.Text.RegularExpressions.Regex(regx, System.Text.RegularExpressions.RegexOptions.Singleline);
+                reg = new System.Text.RegularExpressions.Regex(regx, RegexOptions.Singleline);
             }
 
             String ret = "";
@@ -280,11 +280,11 @@ namespace PanGu.Framework
 
             if (ignoreCase)
             {
-                reg = new System.Text.RegularExpressions.Regex(regx, System.Text.RegularExpressions.RegexOptions.IgnoreCase | System.Text.RegularExpressions.RegexOptions.Singleline);
+                reg = new System.Text.RegularExpressions.Regex(regx, RegexOptions.IgnoreCase | RegexOptions.Singleline);
             }
             else
             {
-                reg = new System.Text.RegularExpressions.Regex(regx, System.Text.RegularExpressions.RegexOptions.Singleline);
+                reg = new System.Text.RegularExpressions.Regex(regx, RegexOptions.Singleline);
             }
 
             String ret = "";
@@ -303,7 +303,7 @@ namespace PanGu.Framework
             return reg.Split(Src);
         }
 
-        public static String[] Split(String Src, String SplitStr, System.Text.RegularExpressions.RegexOptions option)
+        public static String[] Split(String Src, String SplitStr, RegexOptions option)
         {
             System.Text.RegularExpressions.Regex reg = new System.Text.RegularExpressions.Regex(SplitStr, option);
             return reg.Split(Src);
@@ -315,11 +315,11 @@ namespace PanGu.Framework
 
             if (ignoreCase)
             {
-                reg = new System.Text.RegularExpressions.Regex(regx, System.Text.RegularExpressions.RegexOptions.IgnoreCase | System.Text.RegularExpressions.RegexOptions.Singleline);
+                reg = new System.Text.RegularExpressions.Regex(regx, RegexOptions.IgnoreCase | RegexOptions.Singleline);
             }
             else
             {
-                reg = new System.Text.RegularExpressions.Regex(regx, System.Text.RegularExpressions.RegexOptions.Singleline);
+                reg = new System.Text.RegularExpressions.Regex(regx, RegexOptions.Singleline);
             }
 
             return reg.Replace(text, newText);

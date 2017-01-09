@@ -15,6 +15,7 @@
  * limitations under the License.
  */
 
+using PanGu.Enums;
 using System;
 using System.Windows.Forms;
 

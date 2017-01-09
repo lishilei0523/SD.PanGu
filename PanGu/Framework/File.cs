@@ -16,9 +16,10 @@
  */
 
 using System;
-using System.Collections.Generic;
-using System.Text;
 using System.IO;
+using System.Runtime.InteropServices;
+using System.Text;
+using System.Threading;
 
 namespace PanGu.Framework
 {
@@ -34,7 +35,7 @@ namespace PanGu.Framework
         /// <returns></returns>
         static public long GetFileLength(string fileName)
         {
-            System.IO.FileInfo fileInfo = new System.IO.FileInfo(fileName);
+            FileInfo fileInfo = new FileInfo(fileName);
             return fileInfo.Length;
         }
 
@@ -56,7 +57,7 @@ namespace PanGu.Framework
                 }
                 catch (IOException e)
                 {
-                    uint hResult = (uint)System.Runtime.InteropServices.Marshal.GetHRForException(e);
+                    uint hResult = (uint)Marshal.GetHRForException(e);
                     if (hResult == ERR_PROCESS_CANNOT_ACCESS_FILE)
                     {
                         if (times > 10)
@@ -66,7 +67,7 @@ namespace PanGu.Framework
                             throw e;
                         }
 
-                        System.Threading.Thread.Sleep(200);
+                        Thread.Sleep(200);
                         times++;
                     }
                     else
@@ -104,7 +105,7 @@ namespace PanGu.Framework
                 }
                 catch (IOException e)
                 {
-                    uint hResult = (uint)System.Runtime.InteropServices.Marshal.GetHRForException(e);
+                    uint hResult = (uint)Marshal.GetHRForException(e);
                     if (hResult == ERR_PROCESS_CANNOT_ACCESS_FILE)
                     {
                         if (times > 10)
@@ -114,7 +115,7 @@ namespace PanGu.Framework
                             throw e;
                         }
 
-                        System.Threading.Thread.Sleep(200);
+                        Thread.Sleep(200);
                         times++;
                     }
                     else
@@ -146,7 +147,7 @@ namespace PanGu.Framework
                 }
                 catch (IOException e)
                 {
-                    uint hResult = (uint)System.Runtime.InteropServices.Marshal.GetHRForException(e);
+                    uint hResult = (uint)Marshal.GetHRForException(e);
                     if (hResult == ERR_PROCESS_CANNOT_ACCESS_FILE)
                     {
                         if (times > 10)
@@ -156,7 +157,7 @@ namespace PanGu.Framework
                             throw e;
                         }
 
-                        System.Threading.Thread.Sleep(200);
+                        Thread.Sleep(200);
                         times++;
                     }
                     else
@@ -187,7 +188,7 @@ namespace PanGu.Framework
                 }
                 catch (IOException e)
                 {
-                    uint hResult = (uint)System.Runtime.InteropServices.Marshal.GetHRForException(e);
+                    uint hResult = (uint)Marshal.GetHRForException(e);
                     if (hResult == ERR_PROCESS_CANNOT_ACCESS_FILE)
                     {
                         if (times > 10)
@@ -197,7 +198,7 @@ namespace PanGu.Framework
                             throw e;
                         }
 
-                        System.Threading.Thread.Sleep(200);
+                        Thread.Sleep(200);
                         times++;
                     }
                     else
@@ -232,7 +233,7 @@ namespace PanGu.Framework
                 }
                 catch (IOException e)
                 {
-                    uint hResult = (uint)System.Runtime.InteropServices.Marshal.GetHRForException(e);
+                    uint hResult = (uint)Marshal.GetHRForException(e);
                     if (hResult == ERR_PROCESS_CANNOT_ACCESS_FILE)
                     {
                         if (times > 10)
@@ -242,7 +243,7 @@ namespace PanGu.Framework
                             throw e;
                         }
 
-                        System.Threading.Thread.Sleep(200);
+                        Thread.Sleep(200);
                         times++;
                     }
                     else
@@ -269,7 +270,7 @@ namespace PanGu.Framework
             {
                 System.IO.File.Delete(path + fileName);
 
-                string[] subFolders = System.IO.Directory.GetDirectories(path);
+                string[] subFolders = Directory.GetDirectories(path);
 
                 foreach (string folder in subFolders)
                 {
@@ -278,6 +279,6 @@ namespace PanGu.Framework
             }
 
         }
-    
+
     }
 }

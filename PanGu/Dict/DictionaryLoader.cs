@@ -1,21 +1,22 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using PanGu.Enums;
+using PanGu.Framework;
+using System;
 using System.Threading;
+using File = System.IO.File;
 
 namespace PanGu.Dict
 {
     class DictionaryLoader
     {
-        public static Framework.Lock Lock = new PanGu.Framework.Lock();
+        public static Lock Lock = new Lock();
 
-        private string _DictionaryDir;
+        private readonly string _dictionaryDir;
 
         public string DictionaryDir
         {
             get
             {
-                return _DictionaryDir;
+                return this._dictionaryDir;
             }
         }
 
@@ -31,19 +32,19 @@ namespace PanGu.Dict
 
         private DateTime GetLastTime(string fileName)
         {
-            return System.IO.File.GetLastWriteTime(DictionaryDir + fileName);
+            return File.GetLastWriteTime(this.DictionaryDir + fileName);
         }
 
         public DictionaryLoader(string dictDir)
         {
-            _DictionaryDir = Framework.Path.AppendDivision(dictDir, '\\');
+            this._dictionaryDir = Path.AppendDivision(dictDir, '\\');
             _MainDictLastTime = GetLastTime("Dict.dct");
-            _ChsSingleLastTime = GetLastTime(Dict.ChsName.ChsSingleNameFileName);
-            _ChsName1LastTime = GetLastTime(Dict.ChsName.ChsDoubleName1FileName);
-            _ChsName2LastTime = GetLastTime(Dict.ChsName.ChsDoubleName2FileName);
+            _ChsSingleLastTime = GetLastTime(ChsName.ChsSingleNameFileName);
+            _ChsName1LastTime = GetLastTime(ChsName.ChsDoubleName1FileName);
+            _ChsName2LastTime = GetLastTime(ChsName.ChsDoubleName2FileName);
             _StopWordLastTime = GetLastTime("Stopword.txt");
-            _SynonymLastTime = GetLastTime(Dict.Synonym.SynonymFileName);
-            _WildcardLastTime = GetLastTime(Dict.Wildcard.WildcardFileName);
+            _SynonymLastTime = GetLastTime(Synonym.SynonymFileName);
+            _WildcardLastTime = GetLastTime(Wildcard.WildcardFileName);
 
             _Thread = new Thread(MonitorDictionary);
             _Thread.IsBackground = true;
@@ -66,9 +67,9 @@ namespace PanGu.Dict
         {
             try
             {
-                return (_ChsSingleLastTime != GetLastTime(Dict.ChsName.ChsSingleNameFileName) ||
-                    _ChsName1LastTime != GetLastTime(Dict.ChsName.ChsDoubleName1FileName) ||
-                    _ChsName2LastTime != GetLastTime(Dict.ChsName.ChsDoubleName2FileName));
+                return (_ChsSingleLastTime != GetLastTime(ChsName.ChsSingleNameFileName) ||
+                    _ChsName1LastTime != GetLastTime(ChsName.ChsDoubleName1FileName) ||
+                    _ChsName2LastTime != GetLastTime(ChsName.ChsDoubleName2FileName));
             }
             catch
             {
@@ -92,7 +93,7 @@ namespace PanGu.Dict
         {
             try
             {
-                return _SynonymLastTime != GetLastTime(Dict.Synonym.SynonymFileName);
+                return _SynonymLastTime != GetLastTime(Synonym.SynonymFileName);
             }
             catch
             {
@@ -104,7 +105,7 @@ namespace PanGu.Dict
         {
             try
             {
-                return _WildcardLastTime != GetLastTime(Dict.Wildcard.WildcardFileName);
+                return _WildcardLastTime != GetLastTime(Wildcard.WildcardFileName);
             }
             catch
             {
@@ -126,13 +127,13 @@ namespace PanGu.Dict
                     {
                         try
                         {
-                            DictionaryLoader.Lock.Enter(PanGu.Framework.Lock.Mode.Mutex);
-                            Segment._WordDictionary.Load(_DictionaryDir + "Dict.dct");
+                            Lock.Enter(Mode.Mutex);
+                            Segment._WordDictionary.Load(this._dictionaryDir + "Dict.dct");
                             _MainDictLastTime = GetLastTime("Dict.dct");
                         }
                         finally
                         {
-                            DictionaryLoader.Lock.Leave();
+                            Lock.Leave();
                         }
                     }
 
@@ -140,16 +141,16 @@ namespace PanGu.Dict
                     {
                         try
                         {
-                            DictionaryLoader.Lock.Enter(PanGu.Framework.Lock.Mode.Mutex);
+                            Lock.Enter(Mode.Mutex);
 
-                            Segment._ChsName.LoadChsName(_DictionaryDir);
-                            _ChsSingleLastTime = GetLastTime(Dict.ChsName.ChsSingleNameFileName);
-                            _ChsName1LastTime = GetLastTime(Dict.ChsName.ChsDoubleName1FileName);
-                            _ChsName2LastTime = GetLastTime(Dict.ChsName.ChsDoubleName2FileName);
+                            Segment._ChsName.LoadChsName(this._dictionaryDir);
+                            _ChsSingleLastTime = GetLastTime(ChsName.ChsSingleNameFileName);
+                            _ChsName1LastTime = GetLastTime(ChsName.ChsDoubleName1FileName);
+                            _ChsName2LastTime = GetLastTime(ChsName.ChsDoubleName2FileName);
                         }
                         finally
                         {
-                            DictionaryLoader.Lock.Leave();
+                            Lock.Leave();
                         }
                     }
 
@@ -157,14 +158,14 @@ namespace PanGu.Dict
                     {
                         try
                         {
-                            DictionaryLoader.Lock.Enter(PanGu.Framework.Lock.Mode.Mutex);
+                            Lock.Enter(Mode.Mutex);
 
-                            Segment._StopWord.LoadStopwordsDict(_DictionaryDir + "Stopword.txt");
+                            Segment._StopWord.LoadStopwordsDict(this._dictionaryDir + "Stopword.txt");
                             _StopWordLastTime = GetLastTime("Stopword.txt");
                         }
                         finally
                         {
-                            DictionaryLoader.Lock.Leave();
+                            Lock.Leave();
                         }
                     }
 
@@ -174,14 +175,14 @@ namespace PanGu.Dict
                         {
                             try
                             {
-                                DictionaryLoader.Lock.Enter(PanGu.Framework.Lock.Mode.Mutex);
+                                Lock.Enter(Mode.Mutex);
 
-                                Segment._Synonym.Load(_DictionaryDir);
-                                _SynonymLastTime = GetLastTime(Dict.Synonym.SynonymFileName);
+                                Segment._Synonym.Load(this._dictionaryDir);
+                                _SynonymLastTime = GetLastTime(Synonym.SynonymFileName);
                             }
                             finally
                             {
-                                DictionaryLoader.Lock.Leave();
+                                Lock.Leave();
                             }
                         }
                     }
@@ -192,8 +193,8 @@ namespace PanGu.Dict
                         {
                             try
                             {
-                                Segment._Wildcard.Load(_DictionaryDir);
-                                _WildcardLastTime = GetLastTime(Dict.Wildcard.WildcardFileName);
+                                Segment._Wildcard.Load(this._dictionaryDir);
+                                _WildcardLastTime = GetLastTime(Wildcard.WildcardFileName);
                             }
                             finally
                             {
@@ -206,7 +207,7 @@ namespace PanGu.Dict
                 {
                 }
 
-                
+
             }
         }
     }

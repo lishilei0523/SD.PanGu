@@ -16,10 +16,8 @@
  */
 
 using System;
-using System.Collections.Generic;
-using System.Text;
 
-namespace PanGu
+namespace PanGu.Enums
 {
     [Flags]
     public enum POS

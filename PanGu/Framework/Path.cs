@@ -16,9 +16,8 @@
  */
 
 using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Diagnostics;
+using System.Reflection;
 
 namespace PanGu.Framework
 {
@@ -27,7 +26,7 @@ namespace PanGu.Framework
         static public string GetAssemblyPath()
         {
             const string _PREFIX = @"file:///";
-            string codeBase = System.Reflection.Assembly.GetExecutingAssembly().CodeBase;
+            string codeBase = Assembly.GetExecutingAssembly().CodeBase;
 
             codeBase = codeBase.Substring(_PREFIX.Length, codeBase.Length - _PREFIX.Length).Replace("/", "\\");
             return System.IO.Path.GetDirectoryName(codeBase) + @"\";
@@ -37,7 +36,7 @@ namespace PanGu.Framework
         {
             get
             {
-                string curFileName = System.Diagnostics.Process.GetCurrentProcess().MainModule.FileName;
+                string curFileName = Process.GetCurrentProcess().MainModule.FileName;
 
                 return System.IO.Path.GetDirectoryName(curFileName);
             }

@@ -15,17 +15,18 @@
  * limitations under the License.
  */
 
+using System.Diagnostics;
+using System.Runtime.InteropServices;
+using System.Runtime.Serialization;
+using System.Security.Permissions;
+using System.Threading;
+
 namespace System.Collections.Generic
 {
-    using System;
-    using System.Diagnostics;
-    using System.Runtime.Serialization;
-    using System.Security.Permissions;
-
     [Serializable()]
-    [System.Runtime.InteropServices.ComVisible(false)]
+    [ComVisible(false)]
     [DebuggerDisplay("Count = {Count}")]
-    public class SuperLinkedList<T> : ICollection<T>, System.Collections.ICollection, ISerializable, IDeserializationCallback
+    public class SuperLinkedList<T> : ICollection<T>, ICollection, ISerializable, IDeserializationCallback
     {
         // This SuperLinkedList is a doubly-Linked circular list.
         internal SuperLinkedListNode<T> head;
@@ -378,7 +379,7 @@ namespace System.Collections.Generic
             InternalRemoveNode(head.prev);
         }
 
-        [SecurityPermissionAttribute(SecurityAction.LinkDemand, Flags = SecurityPermissionFlag.SerializationFormatter)]
+        [SecurityPermission(SecurityAction.LinkDemand, Flags = SecurityPermissionFlag.SerializationFormatter)]
         public virtual void GetObjectData(SerializationInfo info, StreamingContext context)
         {
             // Customized serialization for SuperLinkedList.
@@ -501,24 +502,24 @@ namespace System.Collections.Generic
             }
         }
 
-        bool System.Collections.ICollection.IsSynchronized
+        bool ICollection.IsSynchronized
         {
             get { return false; }
         }
 
-        object System.Collections.ICollection.SyncRoot
+        object ICollection.SyncRoot
         {
             get
             {
                 if (_syncRoot == null)
                 {
-                    System.Threading.Interlocked.CompareExchange(ref _syncRoot, new Object(), null);
+                    Interlocked.CompareExchange(ref _syncRoot, new Object(), null);
                 }
                 return _syncRoot;
             }
         }
 
-        void System.Collections.ICollection.CopyTo(Array array, int index)
+        void ICollection.CopyTo(Array array, int index)
         {
             if (array == null)
             {
@@ -589,14 +590,14 @@ namespace System.Collections.Generic
             }
         }
 
-        System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator()
+        IEnumerator IEnumerable.GetEnumerator()
         {
             return GetEnumerator();
         }
 
 
         [Serializable()]
-        public struct Enumerator : IEnumerator<T>, System.Collections.IEnumerator, ISerializable, IDeserializationCallback
+        public struct Enumerator : IEnumerator<T>, IEnumerator, ISerializable, IDeserializationCallback
         {
             private SuperLinkedList<T> list;
             private SuperLinkedListNode<T> node;
@@ -635,7 +636,7 @@ namespace System.Collections.Generic
                 get { return current; }
             }
 
-            object System.Collections.IEnumerator.Current
+            object IEnumerator.Current
             {
                 get
                 {
@@ -671,7 +672,7 @@ namespace System.Collections.Generic
                 return true;
             }
 
-            void System.Collections.IEnumerator.Reset()
+            void IEnumerator.Reset()
             {
                 if (version != list.version)
                 {
@@ -750,7 +751,7 @@ namespace System.Collections.Generic
     }
 
     // Note following class is not serializable since we customized the serialization of LinkedList. 
-    [System.Runtime.InteropServices.ComVisible(false)]
+    [ComVisible(false)]
     public sealed class SuperLinkedListNode<T>
     {
         internal SuperLinkedList<T> list;

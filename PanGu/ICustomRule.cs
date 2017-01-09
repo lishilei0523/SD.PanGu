@@ -1,7 +1,6 @@
-﻿using System;
+﻿using PanGu.Framework;
+using System;
 using System.Collections.Generic;
-using System.Text;
-using PanGu.Framework;
 
 namespace PanGu
 {
@@ -10,7 +9,7 @@ namespace PanGu
     /// </summary>
     public interface ICustomRule
     {
-        string Text {get; set;}
+        string Text { get; set; }
         void AfterSegment(SuperLinkedList<WordInfo> result);
     }
 

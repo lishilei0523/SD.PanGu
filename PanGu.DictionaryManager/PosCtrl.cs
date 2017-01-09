@@ -16,6 +16,7 @@
  */
 
 
+using PanGu.Enums;
 using System;
 using System.Collections;
 using System.Drawing;
@@ -256,7 +257,7 @@ namespace PanGu.DictionaryManager
 
             if (this.m_Pos == 0)
             {
-                foreach(object key in this.m_PosTable.Keys)
+                foreach (object key in this.m_PosTable.Keys)
                 {
                     ((CheckBox)this.m_PosTable[key]).Checked = false;
                 }

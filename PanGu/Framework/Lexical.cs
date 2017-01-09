@@ -1,21 +1,8 @@
-﻿using System;
+﻿using PanGu.Enums;
 using System.Collections.Generic;
-using System.Text;
 
 namespace PanGu.Framework
 {
-    public enum LexicalFunction
-    {
-        None = 0,
-        OutputIdentifier = 1,
-        DoSpace = 2,
-        OutputSpace = 3,
-        OutputNumeric = 4,
-        OutputChinese = 5,
-
-        Other = 255,
-    }
-
     class LexicalState : DFAState<int, LexicalFunction>
     {
         public LexicalState(int id, bool isQuit, LexicalFunction function, IDictionary<int, int> nextStateIdDict)
@@ -28,7 +15,7 @@ namespace PanGu.Framework
             NextStateIdDict = nextStateIdDict;
         }
 
-        public LexicalState(int id, bool isQuit, LexicalFunction function):
+        public LexicalState(int id, bool isQuit, LexicalFunction function) :
             this(id, isQuit, function, null)
         {
 
@@ -80,7 +67,7 @@ namespace PanGu.Framework
             if (endIndex == lexical.InputText.Length)
             {
                 lexical.OutputToken.Position = lexical.beginIndex;
-                
+
                 lexical.OutputToken.Word = lexical.InputText.Substring(lexical.beginIndex,
                     endIndex - lexical.beginIndex);
             }
@@ -115,9 +102,9 @@ namespace PanGu.Framework
             switch (Func)
             {
                 case LexicalFunction.OutputIdentifier:
-                    lexical.OutputToken = new WordInfo(); 
+                    lexical.OutputToken = new WordInfo();
                     GetTextElse(dfa);
-                    lexical.OutputToken.WordType = WordType.English; 
+                    lexical.OutputToken.WordType = WordType.English;
 
                     break;
                 case LexicalFunction.OutputSpace:
@@ -146,7 +133,7 @@ namespace PanGu.Framework
         #endregion
     }
 
-    public class Lexical:DFA<int, LexicalFunction>
+    public class Lexical : DFA<int, LexicalFunction>
     {
         public int beginIndex = 0;
 
@@ -187,7 +174,7 @@ namespace PanGu.Framework
             DFAState<int, LexicalFunction> s4 = AddState(new LexicalState(4, true, LexicalFunction.OutputSpace)); //Space quit state;
 
             //s0 [ \t\r\n] s3
-            s0.AddNextState(new int[]{' ', '\t', '\r', '\n'}, s3.Id);
+            s0.AddNextState(new int[] { ' ', '\t', '\r', '\n' }, s3.Id);
 
             //s3 [ \t\r\n] s3
             s3.AddNextState(new int[] { ' ', '\t', '\r', '\n' }, s3.Id);

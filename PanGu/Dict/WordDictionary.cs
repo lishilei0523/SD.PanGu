@@ -16,11 +16,14 @@
  */
 
 
+using PanGu.Enums;
+using PanGu.Framework;
 using System;
 using System.Collections.Generic;
-using System.Text;
-using System.IO;
 using System.Diagnostics;
+using System.Globalization;
+using System.IO;
+using System.Text;
 
 namespace PanGu.Dict
 {
@@ -73,7 +76,7 @@ namespace PanGu.Dict
 
     public struct PositionLength
     {
-        public int Level ;
+        public int Level;
         public int Position;
         public int Length;
         public WordAttribute WordAttr;
@@ -103,7 +106,7 @@ namespace PanGu.Dict
         Dictionary<uint, WordAttribute> _DoubleCharDict = new Dictionary<uint, WordAttribute>();
         Dictionary<long, byte[]> _TripleCharDict = new Dictionary<long, byte[]>();
 
-        internal Dict.ChsName ChineseName = null;
+        internal ChsName ChineseName = null;
         private string _Version = "00";
 
         public int Count
@@ -139,7 +142,7 @@ namespace PanGu.Dict
                     {
                         string word = strs[0].Trim();
 
-                        POS pos = (POS)int.Parse(strs[1].Substring(2, strs[1].Length - 2), System.Globalization.NumberStyles.HexNumber);
+                        POS pos = (POS)int.Parse(strs[1].Substring(2, strs[1].Length - 2), NumberStyles.HexNumber);
                         double frequency = double.Parse(strs[2]);
                         WordAttribute dict = new WordAttribute(word, pos, frequency);
 
@@ -169,7 +172,7 @@ namespace PanGu.Dict
                 ver = ver.Substring(0, zeroPosition);
             }
 
-            verNumStr = Framework.Regex.GetMatch(ver, "Pan Gu Segment V(.+)", true);
+            verNumStr = Regex.GetMatch(ver, "Pan Gu Segment V(.+)", true);
 
             while (fs.Position < fs.Length)
             {
@@ -234,7 +237,7 @@ namespace PanGu.Dict
                 byte[] version = new byte[32];
 
                 int i = 0;
-                foreach (byte v in System.Text.Encoding.UTF8.GetBytes("Pan Gu Segment V" + verStr))
+                foreach (byte v in Encoding.UTF8.GetBytes("Pan Gu Segment V" + verStr))
                 {
                     version[i] = v;
                     i++;
@@ -244,10 +247,10 @@ namespace PanGu.Dict
 
                 foreach (WordAttribute wa in _FirstCharDict.Values)
                 {
-                    byte[] word = System.Text.Encoding.UTF8.GetBytes(wa.Word);
-                    byte[] pos = System.BitConverter.GetBytes((int)wa.Pos);
-                    byte[] frequency = System.BitConverter.GetBytes(wa.Frequency);
-                    byte[] length = System.BitConverter.GetBytes(word.Length + frequency.Length + pos.Length);
+                    byte[] word = Encoding.UTF8.GetBytes(wa.Word);
+                    byte[] pos = BitConverter.GetBytes((int)wa.Pos);
+                    byte[] frequency = BitConverter.GetBytes(wa.Frequency);
+                    byte[] length = BitConverter.GetBytes(word.Length + frequency.Length + pos.Length);
 
                     fs.Write(length, 0, length.Length);
                     fs.Write(word, 0, word.Length);
@@ -257,10 +260,10 @@ namespace PanGu.Dict
 
                 foreach (WordAttribute wa in _DoubleCharDict.Values)
                 {
-                    byte[] word = System.Text.Encoding.UTF8.GetBytes(wa.Word);
-                    byte[] pos = System.BitConverter.GetBytes((int)wa.Pos);
-                    byte[] frequency = System.BitConverter.GetBytes(wa.Frequency);
-                    byte[] length = System.BitConverter.GetBytes(word.Length + frequency.Length + pos.Length);
+                    byte[] word = Encoding.UTF8.GetBytes(wa.Word);
+                    byte[] pos = BitConverter.GetBytes((int)wa.Pos);
+                    byte[] frequency = BitConverter.GetBytes(wa.Frequency);
+                    byte[] length = BitConverter.GetBytes(word.Length + frequency.Length + pos.Length);
 
                     fs.Write(length, 0, length.Length);
                     fs.Write(word, 0, word.Length);
@@ -270,10 +273,10 @@ namespace PanGu.Dict
 
                 foreach (WordAttribute wa in _WordDict.Values)
                 {
-                    byte[] word = System.Text.Encoding.UTF8.GetBytes(wa.Word);
-                    byte[] pos = System.BitConverter.GetBytes((int)wa.Pos);
-                    byte[] frequency = System.BitConverter.GetBytes(wa.Frequency);
-                    byte[] length = System.BitConverter.GetBytes(word.Length + frequency.Length + pos.Length);
+                    byte[] word = Encoding.UTF8.GetBytes(wa.Word);
+                    byte[] pos = BitConverter.GetBytes((int)wa.Pos);
+                    byte[] frequency = BitConverter.GetBytes(wa.Frequency);
+                    byte[] length = BitConverter.GetBytes(word.Length + frequency.Length + pos.Length);
 
                     fs.Write(length, 0, length.Length);
                     fs.Write(word, 0, word.Length);
@@ -317,9 +320,9 @@ namespace PanGu.Dict
 
         }
 
-        public Framework.AppendList<PositionLength> GetAllMatchs(string text, bool chineseNameIdentify)
+        public AppendList<PositionLength> GetAllMatchs(string text, bool chineseNameIdentify)
         {
-            Framework.AppendList<PositionLength> result = new PanGu.Framework.AppendList<PositionLength>();
+            AppendList<PositionLength> result = new AppendList<PositionLength>();
 
             if (text == null && text == "")
             {
@@ -365,7 +368,7 @@ namespace PanGu.Dict
 
                 if (i < keyText.Length - 1)
                 {
-                    uint doubleChar = ((uint)keyText[i] * 65536) + keyText[i+1];
+                    uint doubleChar = ((uint)keyText[i] * 65536) + keyText[i + 1];
 
                     if (_DoubleCharDict.TryGetValue(doubleChar, out fwa))
                     {
@@ -378,7 +381,7 @@ namespace PanGu.Dict
                     continue;
                 }
 
-                long tripleChar = ((long)keyText[i]) * 0x100000000 + (uint)(keyText[i + 1] * 65536) + keyText[i+2];
+                long tripleChar = ((long)keyText[i]) * 0x100000000 + (uint)(keyText[i + 1] * 65536) + keyText[i + 2];
 
                 if (_TripleCharDict.TryGetValue(tripleChar, out lenList))
                 {
@@ -505,7 +508,7 @@ namespace PanGu.Dict
                     {
                         bool find = false;
                         int i;
-                        for(i = 0 ; i < wordLenArray.Length; i++)
+                        for (i = 0; i < wordLenArray.Length; i++)
                         {
                             byte len = wordLenArray[i];
                             if (len == key.Length)

@@ -18,8 +18,8 @@
 
 using System;
 using System.Collections.Generic;
-using System.Text;
 using System.IO;
+using System.Text;
 
 namespace PanGu.Dict
 {
@@ -27,8 +27,8 @@ namespace PanGu.Dict
     {
         Dictionary<string, string> _StopwordTbl = new Dictionary<string, string>();
 
-        public bool IsStopWord(string word, bool filterEnglish, int filterEnglishLength, 
-            bool filterNumeric, int filterNumericLength) 
+        public bool IsStopWord(string word, bool filterEnglish, int filterEnglishLength,
+            bool filterNumeric, int filterNumericLength)
         {
             if (string.IsNullOrEmpty(word))
             {

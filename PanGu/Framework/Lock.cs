@@ -15,9 +15,7 @@
  * limitations under the License.
  */
 
-using System;
-using System.Collections.Generic;
-using System.Text;
+using PanGu.Enums;
 using System.Threading;
 
 namespace PanGu.Framework
@@ -27,18 +25,6 @@ namespace PanGu.Framework
     /// </summary>
     public class Lock
     {
-        public enum Mode
-        {
-            Share = 0,
-            Mutex = 1,
-        }
-
-        enum State
-        {
-            Share = 0,
-            Mutex = 1,
-        }
-
         State _State = State.Share;
 
         int _ShareCounter = 0;

@@ -16,7 +16,7 @@
  */
 
 
-using System;
+using PanGu.Framework;
 using System.Collections.Generic;
 using System.Text;
 
@@ -158,9 +158,9 @@ namespace PanGu.Dict
         {
             dict = new Dictionary<char, char>();
 
-            string content = Framework.File.ReadFileToString(filePath, Encoding.UTF8);
+            string content = File.ReadFileToString(filePath, Encoding.UTF8);
 
-            foreach (string name in Framework.Regex.Split(content, @"\r\n"))
+            foreach (string name in Regex.Split(content, @"\r\n"))
             {
                 if (string.IsNullOrEmpty(name))
                 {
@@ -178,7 +178,7 @@ namespace PanGu.Dict
 
         public void LoadChsName(string dictPath)
         {
-            dictPath = Framework.Path.AppendDivision(dictPath, '\\');
+            dictPath = Path.AppendDivision(dictPath, '\\');
 
             LoadNameDict(dictPath + ChsSingleNameFileName, ref _SingleNameDict);
             LoadNameDict(dictPath + ChsDoubleName1FileName, ref _DoubleName1Dict);
@@ -193,7 +193,7 @@ namespace PanGu.Dict
 
             if (cur > text.Length - 2)
             {
-                return null; 
+                return null;
             }
 
             char f1 = text[cur];
@@ -211,7 +211,7 @@ namespace PanGu.Dict
             {
                 bool find = false;
                 bool hasZero = false;
-                foreach(char c in f2List)
+                foreach (char c in f2List)
                 {
                     if (c == f2)
                     {

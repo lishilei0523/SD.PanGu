@@ -1,18 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
 using System.Diagnostics;
+using PanGu.Enums;
 
 namespace PanGu.Framework
 {
-    public enum DFAResult
-    {
-        Continue = 0,
-        Quit = 1,
-        ElseQuit = 2,
-        End = 3,
-    }
-
     public abstract class DFAState<Token, Function>
     {
         public bool NoFunction = true;
@@ -38,7 +30,7 @@ namespace PanGu.Framework
         }
 
 
-             
+
         public virtual void AddNextState(int action, int nextstate)
         {
             Debug.Assert(action >= 0);
@@ -180,7 +172,7 @@ namespace PanGu.Framework
         public abstract void DoThings(int action, DFA<Token, Function> dfa);
     }
 
-    public abstract class DFA <Token, Function>
+    public abstract class DFA<Token, Function>
     {
         protected static DFAState<Token, Function>[] States = new DFAState<Token, Function>[32];
 

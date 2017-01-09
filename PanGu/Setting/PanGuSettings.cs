@@ -15,19 +15,23 @@
  * limitations under the License.
  */
 
-using System;
-using System.Collections.Generic;
-using System.Text;
 using PanGu.Framework;
+using PanGu.Match;
+using System;
+using System.IO;
+using System.Text;
+using System.Xml.Serialization;
+using File = System.IO.File;
+using Path = PanGu.Framework.Path;
 
 namespace PanGu.Setting
 {
-    [Serializable, System.Xml.Serialization.XmlRoot(Namespace = "http://www.codeplex.com/pangusegment")] 
+    [Serializable, XmlRoot(Namespace = "http://www.codeplex.com/pangusegment")]
     public class PanGuSettings
     {
         #region static members
         private static PanGuSettings _Config;
-        
+
         public static PanGuSettings Config
         {
             get
@@ -38,12 +42,12 @@ namespace PanGu.Setting
 
         static public void Load(string fileName)
         {
-            if (System.IO.File.Exists(fileName))
+            if (File.Exists(fileName))
             {
                 try
                 {
-                    using (System.IO.FileStream fs = new System.IO.FileStream(fileName, System.IO.FileMode.Open,
-                         System.IO.FileAccess.Read))
+                    using (FileStream fs = new FileStream(fileName, FileMode.Open,
+                         FileAccess.Read))
                     {
                         _Config = XmlSerialization<PanGuSettings>.Deserialize(fs);
                     }
@@ -61,8 +65,8 @@ namespace PanGu.Setting
 
         static public void Save(string fileName)
         {
-            using (System.IO.FileStream fs = new System.IO.FileStream(fileName, System.IO.FileMode.Create,
-                 System.IO.FileAccess.ReadWrite))
+            using (FileStream fs = new FileStream(fileName, FileMode.Create,
+                 FileAccess.ReadWrite))
             {
                 XmlSerialization<PanGuSettings>.Serialize(Config, Encoding.UTF8, fs);
             }
@@ -74,10 +78,10 @@ namespace PanGu.Setting
         {
             string path = DictionaryPath;
 
-            string currentDir = System.IO.Directory.GetCurrentDirectory();
-            System.IO.Directory.SetCurrentDirectory(Framework.Path.GetAssemblyPath());
+            string currentDir = Directory.GetCurrentDirectory();
+            Directory.SetCurrentDirectory(Path.GetAssemblyPath());
             path = System.IO.Path.GetFullPath(path);
-            System.IO.Directory.SetCurrentDirectory(currentDir);
+            Directory.SetCurrentDirectory(currentDir);
 
             return Path.AppendDivision(path, '\\');
 
@@ -100,9 +104,9 @@ namespace PanGu.Setting
             }
         }
 
-        private Match.MatchOptions _MatchOptions = new PanGu.Match.MatchOptions();
+        private MatchOptions _MatchOptions = new MatchOptions();
 
-        public Match.MatchOptions MatchOptions
+        public MatchOptions MatchOptions
         {
             get
             {
@@ -115,9 +119,9 @@ namespace PanGu.Setting
             }
         }
 
-        private Match.MatchParameter _Parameters = new PanGu.Match.MatchParameter();
+        private MatchParameter _Parameters = new MatchParameter();
 
-        public Match.MatchParameter Parameters
+        public MatchParameter Parameters
         {
             get
             {
@@ -132,9 +136,9 @@ namespace PanGu.Setting
 
         #endregion
 
-        public Match.MatchOptions GetOptionsCopy()
+        public MatchOptions GetOptionsCopy()
         {
-            Match.MatchOptions options = new PanGu.Match.MatchOptions();
+            MatchOptions options = new MatchOptions();
 
             options.ChineseNameIdentify = this.MatchOptions.ChineseNameIdentify;
             options.FrequencyFirst = this.MatchOptions.FrequencyFirst;
@@ -148,9 +152,9 @@ namespace PanGu.Setting
             return options;
         }
 
-        public Match.MatchParameter GetParameterCopy()
+        public MatchParameter GetParameterCopy()
         {
-            Match.MatchParameter parameter = new PanGu.Match.MatchParameter();
+            MatchParameter parameter = new MatchParameter();
 
             parameter.Redundancy = this.Parameters.Redundancy;
             parameter.UnknowRank = this.Parameters.UnknowRank;

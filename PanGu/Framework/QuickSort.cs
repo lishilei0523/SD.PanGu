@@ -18,7 +18,6 @@
 
 using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace PanGu.Framework
 {
@@ -178,7 +177,7 @@ namespace PanGu.Framework
             //Judge input
             if (arrayLen <= 2 || top >= arrayLen / 2)
             {
-                Array.Sort(array,0, arrayLen, comparer);
+                Array.Sort(array, 0, arrayLen, comparer);
                 return;
             }
 

@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Reflection;
 
 namespace PanGu.Match
@@ -8,7 +6,7 @@ namespace PanGu.Match
     [Serializable]
     public class MatchParameter
     {
- 
+
         private int _Redundancy;
 
         /// <summary>

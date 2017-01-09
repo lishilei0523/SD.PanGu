@@ -15,9 +15,8 @@
  * limitations under the License.
  */
 
-using System;
+using PanGu.Dict;
 using System.Collections.Generic;
-using System.Text;
 
 namespace PanGu.Match
 {
@@ -37,7 +36,7 @@ namespace PanGu.Match
         /// <param name="positionLenArr">array of position length</param>
         /// <param name="count">count of items of position length list</param>
         /// <returns>Word Info list</returns>
-        SuperLinkedList<WordInfo> Match(Dict.PositionLength[] positionLenArr, string orginalText, int count);
-        
+        SuperLinkedList<WordInfo> Match(PositionLength[] positionLenArr, string orginalText, int count);
+
     }
 }

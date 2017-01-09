@@ -15,13 +15,16 @@
  * limitations under the License.
  */
 
+using PanGu.Dict;
+using PanGu.Enums;
+using PanGu.Framework;
+using PanGu.Setting;
 using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace PanGu.Match
 {
-    public class ChsFullTextMatch: IChsFullTextMatch
+    public class ChsFullTextMatch : IChsFullTextMatch
     {
         class NodeComparer : IComparer<Node>
         {
@@ -122,8 +125,8 @@ namespace PanGu.Match
             public int SpaceCount;
             public double FreqSum;
             public int SingleWordCount;
-            
-            public Dict.PositionLength PositionLength;
+
+            public PositionLength PositionLength;
             public Node Parent;
 
             public Node()
@@ -141,7 +144,7 @@ namespace PanGu.Match
                 this.Parent = null;
             }
 
-            public Node(Dict.PositionLength pl, Node parent, int aboveCount, 
+            public Node(PositionLength pl, Node parent, int aboveCount,
                 int spaceCount, int singleWordCount, double freqSum)
             {
                 PositionLength = pl;
@@ -210,13 +213,13 @@ namespace PanGu.Match
 
         Node _Root = new Node();
 
-        Framework.AppendList<Node> _LeafNodeList = new PanGu.Framework.AppendList<Node>();
-        Dict.PositionLength[] _PositionLengthArr;
+        AppendList<Node> _LeafNodeList = new AppendList<Node>();
+        PositionLength[] _PositionLengthArr;
         int _InputStringLength;
         int _PositionLengthArrCount;
 
-        List<Dict.PositionLength[]> _AllCombinations = new List<PanGu.Dict.PositionLength[]>();
-        Dict.WordDictionary _WordDict;
+        List<PositionLength[]> _AllCombinations = new List<PositionLength[]>();
+        WordDictionary _WordDict;
 
         const int TopRecord = 3;
         const POS SingleWordMask = POS.POS_D_C | POS.POS_D_P | POS.POS_D_R | POS.POS_D_U;
@@ -388,9 +391,9 @@ namespace PanGu.Match
             }
         }
 
-        private ICollection<Dict.PositionLength> MergeAllCombinations(int redundancy)
+        private ICollection<PositionLength> MergeAllCombinations(int redundancy)
         {
-            LinkedList<Dict.PositionLength> result = new LinkedList<PanGu.Dict.PositionLength>();
+            LinkedList<PositionLength> result = new LinkedList<PositionLength>();
 
             if ((redundancy == 0 || !_Options.MultiDimensionality) && !_Options.ForceSingleWord)
             {
@@ -399,11 +402,11 @@ namespace PanGu.Match
 
             int i = 0;
 
-            LinkedListNode<Dict.PositionLength> cur;
+            LinkedListNode<PositionLength> cur;
 
             bool forceOnce = false;
 
-            Loop:
+        Loop:
 
             while (i <= redundancy && i < _AllCombinations.Count)
             {
@@ -634,7 +637,7 @@ namespace PanGu.Match
             return unknownWords;
         }
 
-        public ChsFullTextMatch(Dict.WordDictionary wordDict)
+        public ChsFullTextMatch(WordDictionary wordDict)
         {
             _WordDict = wordDict;
         }
@@ -762,7 +765,7 @@ namespace PanGu.Match
         /// <param name="orginalTextLength">原始字符串长度</param>
         /// <param name="count">positionLenArr 的 count</param>
         /// <returns></returns>
-        private Node[] GetLeafNodeArray(PanGu.Dict.PositionLength[] positionLenArr, int orginalTextLength, int count)
+        private Node[] GetLeafNodeArray(PositionLength[] positionLenArr, int orginalTextLength, int count)
         {
             //Split by isolated point
 
@@ -777,10 +780,10 @@ namespace PanGu.Match
                 {
                     //last is isolated point
                     int c = i - lastIndex;
-                    PanGu.Dict.PositionLength[] arr = new PanGu.Dict.PositionLength[c];
+                    PositionLength[] arr = new PositionLength[c];
                     Array.Copy(positionLenArr, lastIndex, arr, 0, c);
                     Node[] leafNodeArray = GetLeafNodeArrayCore(arr, lastRightBoundary - positionLenArr[lastIndex].Position, c);
-                    Framework.QuickSort<Node>.TopSort(leafNodeArray, _LeafNodeList.Count, (int)Math.Min(TopRecord, _LeafNodeList.Count), new NodeComparer(_Options.FrequencyFirst));
+                    QuickSort<Node>.TopSort(leafNodeArray, _LeafNodeList.Count, (int)Math.Min(TopRecord, _LeafNodeList.Count), new NodeComparer(_Options.FrequencyFirst));
                     CombineNodeArr(result, leafNodeArray);
 
                     lastIndex = i;
@@ -800,10 +803,10 @@ namespace PanGu.Match
                 //last is isolated point
                 int c = count - lastIndex;
 
-                PanGu.Dict.PositionLength[] arr = new PanGu.Dict.PositionLength[c];
+                PositionLength[] arr = new PositionLength[c];
                 Array.Copy(positionLenArr, lastIndex, arr, 0, c);
                 Node[] leafNodeArray = GetLeafNodeArrayCore(arr, lastRightBoundary - positionLenArr[lastIndex].Position, c);
-                Framework.QuickSort<Node>.TopSort(leafNodeArray, _LeafNodeList.Count, (int)Math.Min(TopRecord, _LeafNodeList.Count), new NodeComparer(_Options.FrequencyFirst));
+                QuickSort<Node>.TopSort(leafNodeArray, _LeafNodeList.Count, (int)Math.Min(TopRecord, _LeafNodeList.Count), new NodeComparer(_Options.FrequencyFirst));
                 CombineNodeArr(result, leafNodeArray);
             }
 
@@ -819,7 +822,7 @@ namespace PanGu.Match
         /// <param name="orginalText"></param>
         /// <param name="count"></param>
         /// <returns></returns>
-        private Node[] GetLeafNodeArrayCore(PanGu.Dict.PositionLength[] positionLenArr, int orginalTextLength, int count)
+        private Node[] GetLeafNodeArrayCore(PositionLength[] positionLenArr, int orginalTextLength, int count)
         {
             _LeafNodeList.Clear();
             _PositionLengthArr = positionLenArr;
@@ -837,16 +840,16 @@ namespace PanGu.Match
 
         }
 
-        public SuperLinkedList<WordInfo> Match(PanGu.Dict.PositionLength[] positionLenArr, string orginalText, int count)
+        public SuperLinkedList<WordInfo> Match(PositionLength[] positionLenArr, string orginalText, int count)
         {
             if (_Options == null)
             {
-                _Options = Setting.PanGuSettings.Config.MatchOptions;
+                _Options = PanGuSettings.Config.MatchOptions;
             }
 
             if (_Parameters == null)
             {
-                _Parameters = Setting.PanGuSettings.Config.Parameters;
+                _Parameters = PanGuSettings.Config.Parameters;
             }
 
             int[] masks = new int[orginalText.Length];
@@ -904,7 +907,7 @@ namespace PanGu.Match
                     break;
                 }
 
-                Dict.PositionLength[] comb = new PanGu.Dict.PositionLength[node.AboveCount];
+                PositionLength[] comb = new PositionLength[node.AboveCount];
 
                 int i = node.AboveCount - 1;
                 Node cur = node;
@@ -925,11 +928,11 @@ namespace PanGu.Match
             //强制一元分词
             if (_Options.ForceSingleWord)
             {
-                Dict.PositionLength[] comb = new PanGu.Dict.PositionLength[orginalText.Length];
+                PositionLength[] comb = new PositionLength[orginalText.Length];
 
                 for (int i = 0; i < comb.Length; i++)
                 {
-                    PanGu.Dict.PositionLength pl = new PanGu.Dict.PositionLength(i, 1, new WordAttribute(orginalText[i].ToString(), POS.POS_UNK, 0));
+                    PositionLength pl = new PositionLength(i, 1, new WordAttribute(orginalText[i].ToString(), POS.POS_UNK, 0));
                     pl.Level = 3;
                     comb[i] = pl;
                 }
@@ -939,9 +942,9 @@ namespace PanGu.Match
 
             if (_AllCombinations.Count > 0)
             {
-                ICollection<Dict.PositionLength> positionCollection = MergeAllCombinations(redundancy);
+                ICollection<PositionLength> positionCollection = MergeAllCombinations(redundancy);
 
-                foreach (Dict.PositionLength pl in positionCollection)
+                foreach (PositionLength pl in positionCollection)
                 //for (int i = 0; i < _AllCombinations[0].Length; i++)
                 {
                     //result.AddLast(new WordInfo(_AllCombinations[0][i], orginalText));

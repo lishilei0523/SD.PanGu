@@ -1,7 +1,7 @@
-﻿using System;
+﻿using PanGu.Setting;
 using System.Collections.Generic;
-using System.Text;
 using System.IO;
+using System.Text;
 
 namespace PanGu.Dict
 {
@@ -25,7 +25,7 @@ namespace PanGu.Dict
             _GroupList = new List<string[]>();
             _WordToGroupId = new Dictionary<string, List<int>>();
 
-            if (!System.IO.File.Exists(fileName))
+            if (!File.Exists(fileName))
             {
                 return;
             }
@@ -41,7 +41,7 @@ namespace PanGu.Dict
                     {
                         continue;
                     }
-                    
+
                     string[] words = line.Split(new char[] { ',' });
                     _GroupList.Add(words);
                     int groupId = _GroupList.Count - 1;
@@ -53,7 +53,7 @@ namespace PanGu.Dict
                         List<int> idList;
                         if (_WordToGroupId.TryGetValue(words[i], out idList))
                         {
-                            if (idList[idList.Count-1] == groupId)
+                            if (idList[idList.Count - 1] == groupId)
                             {
                                 continue;
                             }
@@ -95,7 +95,7 @@ namespace PanGu.Dict
             {
                 if (!_Init)
                 {
-                    string dir = Setting.PanGuSettings.Config.GetDictionaryPath();
+                    string dir = PanGuSettings.Config.GetDictionaryPath();
                     Load(dir);
                 }
             }

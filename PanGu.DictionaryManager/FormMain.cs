@@ -16,12 +16,13 @@
  */
 
 
+using PanGu.Dict;
+using PanGu.Enums;
+using PanGu.Framework;
 using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Windows.Forms;
-using PanGu.Dict;
-using PanGu.Framework;
 
 namespace PanGu.DictionaryManager
 {
@@ -104,7 +105,7 @@ namespace PanGu.DictionaryManager
                 frmInputDictVersion.Version = this._Version;
                 if (frmInputDictVersion.ShowDialog() == DialogResult.OK)
                 {
-                    this._WordDict.Save(this.saveFileDialogDict.FileName, 
+                    this._WordDict.Save(this.saveFileDialogDict.FileName,
                         frmInputDictVersion.Version);
                 }
             }
@@ -272,7 +273,7 @@ namespace PanGu.DictionaryManager
                     MessageBox.Show("批量增加成功,注意只有保存字典后,导入的单词才会生效!", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     this.ShowCount();
                 }
-                catch(Exception e1)
+                catch (Exception e1)
                 {
                     MessageBox.Show(e1.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }

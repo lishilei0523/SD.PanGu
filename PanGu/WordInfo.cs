@@ -1,22 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using PanGu.Dict;
+using PanGu.Enums;
+using PanGu.Match;
+using System;
 
 namespace PanGu
 {
-    public enum WordType
-    {
-        None = 0,
-        English = 1,
-        SimplifiedChinese = 2,
-        TraditionalChinese = 3,
-        Numeric = 4,
-        Symbol = 5,
-        Space = 6,
-        Synonym = 7, //同义词
-    }
-
-
+    /// <summary>
+    /// 词信息
+    /// </summary>
     public class WordInfo : WordAttribute, IComparable<WordInfo>
     {
         /// <summary>
@@ -54,7 +45,7 @@ namespace PanGu
         }
 
         public WordInfo(string word, POS pos, double frequency)
-            :base(word, pos, frequency)
+            : base(word, pos, frequency)
         {
         }
 
@@ -65,7 +56,7 @@ namespace PanGu
             this.Frequency = wordAttr.Frequency;
         }
 
-        public WordInfo(Dict.PositionLength pl, string oringinalText, Match.MatchParameter parameters)
+        public WordInfo(PositionLength pl, string oringinalText, MatchParameter parameters)
         {
             this.Word = oringinalText.Substring(pl.Position, pl.Length);
             this.Pos = pl.WordAttr.Pos;

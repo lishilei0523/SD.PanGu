@@ -16,13 +16,13 @@
  */
 
 using System;
+using System.Collections;
 using System.Collections.Generic;
-using System.Text;
 
 namespace PanGu.Framework
 {
 
-    public class AppendList<T> : IList<T>, System.Collections.IList
+    public class AppendList<T> : IList<T>, IList
     {
         private const int _DefaultCapacity = 4;
         T[] _Items;
@@ -46,7 +46,7 @@ namespace PanGu.Framework
                 throw new ArgumentException("ThrowWrongValueTypeArgumentException");
             }
         }
-        
+
         // Ensures that the capacity of this list is at least the given minimum
         // value. If the currect capacity of the list is less than min, the 
         // capacity is increased to twice the current capacity or to min, 
@@ -59,8 +59,8 @@ namespace PanGu.Framework
                 if (newCapacity < min) newCapacity = min;
                 Capacity = newCapacity;
             }
-        } 
- 
+        }
+
 
 
         public AppendList()
@@ -206,7 +206,7 @@ namespace PanGu.Framework
                     throw new ArgumentOutOfRangeException();
                 }
 
-                return _Items[index]; 
+                return _Items[index];
             }
 
             set
@@ -234,7 +234,7 @@ namespace PanGu.Framework
         public void Clear()
         {
             _Size = 0;
-            _Version++; 
+            _Version++;
         }
 
         public bool Contains(T item)
@@ -265,7 +265,7 @@ namespace PanGu.Framework
 
         public int Count
         {
-            get 
+            get
             {
                 return _Size;
             }
@@ -273,7 +273,7 @@ namespace PanGu.Framework
 
         public bool IsReadOnly
         {
-            get 
+            get
             {
                 return false;
             }
@@ -297,7 +297,7 @@ namespace PanGu.Framework
 
         #region IEnumerable Members
 
-        System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator()
+        IEnumerator IEnumerable.GetEnumerator()
         {
             return new Enumerator(this);
         }
@@ -338,7 +338,7 @@ namespace PanGu.Framework
 
         public bool IsFixedSize
         {
-            get 
+            get
             {
                 return false;
             }
@@ -349,7 +349,7 @@ namespace PanGu.Framework
             throw new NotImplementedException();
         }
 
-        object System.Collections.IList.this[int index]
+        object IList.this[int index]
         {
             get
             {
@@ -360,7 +360,7 @@ namespace PanGu.Framework
             {
                 VerifyValueType(value);
                 this[index] = (T)value;
-            } 
+            }
         }
 
         #endregion
@@ -374,7 +374,7 @@ namespace PanGu.Framework
 
         public bool IsSynchronized
         {
-            get 
+            get
             {
                 return false;
             }
@@ -388,7 +388,7 @@ namespace PanGu.Framework
         #endregion
 
         [Serializable()]
-        public struct Enumerator : IEnumerator<T>, System.Collections.IEnumerator
+        public struct Enumerator : IEnumerator<T>, IEnumerator
         {
             private AppendList<T> list;
             private int index;
@@ -433,7 +433,7 @@ namespace PanGu.Framework
                 }
             }
 
-            Object System.Collections.IEnumerator.Current
+            Object IEnumerator.Current
             {
                 get
                 {
@@ -445,7 +445,7 @@ namespace PanGu.Framework
                 }
             }
 
-            void System.Collections.IEnumerator.Reset()
+            void IEnumerator.Reset()
             {
                 if (version != list._Version)
                 {
