@@ -1,11 +1,11 @@
-﻿using PanGu.Enums;
-using PanGu.Match;
-using PanGu.Setting;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.IO;
 using System.Text;
+using PanGu.Enums;
+using PanGu.Match;
+using PanGu.Setting;
 
-namespace PanGu.Dict
+namespace PanGu.Dictionaries
 {
     /// <summary>
     /// 通配符词汇
@@ -43,13 +43,11 @@ namespace PanGu.Dict
 
         List<WildcardInfo> _WildcardList = null; //通配符词汇列表
 
-        internal const string WildcardFileName = "Wildcard.txt";
-
         private void LoadWildcard(string fileName)
         {
-            lock (_LockObj)
+            lock (this._LockObj)
             {
-                _WildcardList = new List<WildcardInfo>();
+                this._WildcardList = new List<WildcardInfo>();
 
                 if (!File.Exists(fileName))
                 {
@@ -70,58 +68,58 @@ namespace PanGu.Dict
                             continue;
                         }
 
-                        _WildcardList.Add(new WildcardInfo(line, segment, _Options, _Parameter));
+                        this._WildcardList.Add(new WildcardInfo(line, segment, this._Options, this._Parameter));
                     }
                 }
 
-                _Init = true;
+                this._Init = true;
             }
         }
 
         internal Wildcard(MatchOptions options, MatchParameter parameter)
         {
-            _Options = options.Clone();
-            _Options.SynonymOutput = false;
-            _Options.WildcardOutput = false;
+            this._Options = options.Clone();
+            this._Options.SynonymOutput = false;
+            this._Options.WildcardOutput = false;
 
-            _Parameter = parameter.Clone();
+            this._Parameter = parameter.Clone();
         }
 
         internal bool Inited
         {
             get
             {
-                lock (_LockObj)
+                lock (this._LockObj)
                 {
-                    return _Init;
+                    return this._Init;
                 }
             }
         }
 
         public void Load(string dictPath)
         {
-            LoadWildcard(dictPath + WildcardFileName);
+            this.LoadWildcard(dictPath + Constants.WildcardFileName);
         }
 
         private void Load()
         {
-            lock (_LockObj)
+            lock (this._LockObj)
             {
-                if (!_Init)
+                if (!this._Init)
                 {
                     string dir = PanGuSettings.Config.GetDictionaryPath();
-                    Load(dir);
+                    this.Load(dir);
                 }
             }
         }
 
         internal List<WildcardInfo> GetWildcards(string word)
         {
-            lock (_LockObj)
+            lock (this._LockObj)
             {
-                if (!_Init)
+                if (!this._Init)
                 {
-                    Load();
+                    this.Load();
                 }
             }
 
@@ -130,13 +128,13 @@ namespace PanGu.Dict
                 return null;
             }
 
-            lock (_LockObj)
+            lock (this._LockObj)
             {
                 word = word.ToLower().Trim();
 
                 List<WildcardInfo> result = new List<WildcardInfo>();
 
-                foreach (WildcardInfo wi in _WildcardList)
+                foreach (WildcardInfo wi in this._WildcardList)
                 {
                     if (wi.Key.Contains(word))
                     {

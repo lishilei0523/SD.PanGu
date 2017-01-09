@@ -25,7 +25,6 @@ using System.Windows.Forms;
 using System.Diagnostics;
 
 using PanGu;
-using PanGu.Dict;
 
 namespace Demo
 {

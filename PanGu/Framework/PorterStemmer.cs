@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace porter
+namespace PanGu.Framework
 {
     /*
 
@@ -55,9 +55,9 @@ namespace porter
 
         public Stemmer()
         {
-            b = new char[INC];
-            i = 0;
-            i_end = 0;
+            this.b = new char[INC];
+            this.i = 0;
+            this.i_end = 0;
         }
 
         /**
@@ -67,14 +67,14 @@ namespace porter
 
         public void add(char ch)
         {
-            if (i == b.Length)
+            if (this.i == this.b.Length)
             {
-                char[] new_b = new char[i + INC];
-                for (int c = 0; c < i; c++)
-                    new_b[c] = b[c];
-                b = new_b;
+                char[] new_b = new char[this.i + INC];
+                for (int c = 0; c < this.i; c++)
+                    new_b[c] = this.b[c];
+                this.b = new_b;
             }
-            b[i++] = ch;
+            this.b[this.i++] = ch;
         }
 
 
@@ -85,15 +85,15 @@ namespace porter
 
         public void add(char[] w, int wLen)
         {
-            if (i + wLen >= b.Length)
+            if (this.i + wLen >= this.b.Length)
             {
-                char[] new_b = new char[i + wLen + INC];
-                for (int c = 0; c < i; c++)
-                    new_b[c] = b[c];
-                b = new_b;
+                char[] new_b = new char[this.i + wLen + INC];
+                for (int c = 0; c < this.i; c++)
+                    new_b[c] = this.b[c];
+                this.b = new_b;
             }
             for (int c = 0; c < wLen; c++)
-                b[i++] = w[c];
+                this.b[this.i++] = w[c];
         }
 
         /**
@@ -103,7 +103,7 @@ namespace porter
          */
         public override string ToString()
         {
-            return new String(b, 0, i_end);
+            return new String(this.b, 0, this.i_end);
         }
 
         /**
@@ -111,7 +111,7 @@ namespace porter
          */
         public int getResultLength()
         {
-            return i_end;
+            return this.i_end;
         }
 
         /**
@@ -121,20 +121,20 @@ namespace porter
          */
         public char[] getResultBuffer()
         {
-            return b;
+            return this.b;
         }
 
         /* cons(i) is true <=> b[i] is a consonant. */
         private bool cons(int i)
         {
-            switch (b[i])
+            switch (this.b[i])
             {
                 case 'a':
                 case 'e':
                 case 'i':
                 case 'o':
                 case 'u': return false;
-                case 'y': return (i == 0) ? true : !cons(i - 1);
+                case 'y': return (i == 0) ? true : !this.cons(i - 1);
                 default: return true;
             }
         }
@@ -155,24 +155,24 @@ namespace porter
             int i = 0;
             while (true)
             {
-                if (i > j) return n;
-                if (!cons(i)) break; i++;
+                if (i > this.j) return n;
+                if (!this.cons(i)) break; i++;
             }
             i++;
             while (true)
             {
                 while (true)
                 {
-                    if (i > j) return n;
-                    if (cons(i)) break;
+                    if (i > this.j) return n;
+                    if (this.cons(i)) break;
                     i++;
                 }
                 i++;
                 n++;
                 while (true)
                 {
-                    if (i > j) return n;
-                    if (!cons(i)) break;
+                    if (i > this.j) return n;
+                    if (!this.cons(i)) break;
                     i++;
                 }
                 i++;
@@ -183,8 +183,8 @@ namespace porter
         private bool vowelinstem()
         {
             int i;
-            for (i = 0; i <= j; i++)
-                if (!cons(i))
+            for (i = 0; i <= this.j; i++)
+                if (!this.cons(i))
                     return true;
             return false;
         }
@@ -194,9 +194,9 @@ namespace porter
         {
             if (j < 1)
                 return false;
-            if (b[j] != b[j - 1])
+            if (this.b[j] != this.b[j - 1])
                 return false;
-            return cons(j);
+            return this.cons(j);
         }
 
         /* cvc(i) is true <=> i-2,i-1,i has the form consonant - vowel - consonant
@@ -209,9 +209,9 @@ namespace porter
         */
         private bool cvc(int i)
         {
-            if (i < 2 || !cons(i) || cons(i - 1) || !cons(i - 2))
+            if (i < 2 || !this.cons(i) || this.cons(i - 1) || !this.cons(i - 2))
                 return false;
-            int ch = b[i];
+            int ch = this.b[i];
             if (ch == 'w' || ch == 'x' || ch == 'y')
                 return false;
             return true;
@@ -220,14 +220,14 @@ namespace porter
         private bool ends(String s)
         {
             int l = s.Length;
-            int o = k - l + 1;
+            int o = this.k - l + 1;
             if (o < 0)
                 return false;
             char[] sc = s.ToCharArray();
             for (int i = 0; i < l; i++)
-                if (b[o + i] != sc[i])
+                if (this.b[o + i] != sc[i])
                     return false;
-            j = k - l;
+            this.j = this.k - l;
             return true;
         }
 
@@ -236,18 +236,18 @@ namespace porter
         private void setto(String s)
         {
             int l = s.Length;
-            int o = j + 1;
+            int o = this.j + 1;
             char[] sc = s.ToCharArray();
             for (int i = 0; i < l; i++)
-                b[o + i] = sc[i];
-            k = j + l;
+                this.b[o + i] = sc[i];
+            this.k = this.j + l;
         }
 
         /* r(s) is used further down. */
         private void r(String s)
         {
-            if (m() > 0)
-                setto(s);
+            if (this.m() > 0)
+                this.setto(s);
         }
 
         /* step1() gets rid of plurals and -ed or -ing. e.g.
@@ -273,45 +273,45 @@ namespace porter
 
         private void step1()
         {
-            if (b[k] == 's')
+            if (this.b[this.k] == 's')
             {
-                if (ends("sses"))
-                    k -= 2;
-                else if (ends("ies"))
-                    setto("i");
-                else if (b[k - 1] != 's')
-                    k--;
+                if (this.ends("sses"))
+                    this.k -= 2;
+                else if (this.ends("ies"))
+                    this.setto("i");
+                else if (this.b[this.k - 1] != 's')
+                    this.k--;
             }
-            if (ends("eed"))
+            if (this.ends("eed"))
             {
-                if (m() > 0)
-                    k--;
+                if (this.m() > 0)
+                    this.k--;
             }
-            else if ((ends("ed") || ends("ing")) && vowelinstem())
+            else if ((this.ends("ed") || this.ends("ing")) && this.vowelinstem())
             {
-                k = j;
-                if (ends("at"))
-                    setto("ate");
-                else if (ends("bl"))
-                    setto("ble");
-                else if (ends("iz"))
-                    setto("ize");
-                else if (doublec(k))
+                this.k = this.j;
+                if (this.ends("at"))
+                    this.setto("ate");
+                else if (this.ends("bl"))
+                    this.setto("ble");
+                else if (this.ends("iz"))
+                    this.setto("ize");
+                else if (this.doublec(this.k))
                 {
-                    k--;
-                    int ch = b[k];
+                    this.k--;
+                    int ch = this.b[this.k];
                     if (ch == 'l' || ch == 's' || ch == 'z')
-                        k++;
+                        this.k++;
                 }
-                else if (m() == 1 && cvc(k)) setto("e");
+                else if (this.m() == 1 && this.cvc(this.k)) this.setto("e");
             }
         }
 
         /* step2() turns terminal y to i when there is another vowel in the stem. */
         private void step2()
         {
-            if (ends("y") && vowelinstem())
-                b[k] = 'i';
+            if (this.ends("y") && this.vowelinstem())
+                this.b[this.k] = 'i';
         }
 
         /* step3() maps double suffices to single ones. so -ization ( = -ize plus
@@ -319,48 +319,48 @@ namespace porter
            m() > 0. */
         private void step3()
         {
-            if (k == 0)
+            if (this.k == 0)
                 return;
 
             /* For Bug 1 */
-            switch (b[k - 1])
+            switch (this.b[this.k - 1])
             {
                 case 'a':
-                    if (ends("ational")) { r("ate"); break; }
-                    if (ends("tional")) { r("tion"); break; }
+                    if (this.ends("ational")) { this.r("ate"); break; }
+                    if (this.ends("tional")) { this.r("tion"); break; }
                     break;
                 case 'c':
-                    if (ends("enci")) { r("ence"); break; }
-                    if (ends("anci")) { r("ance"); break; }
+                    if (this.ends("enci")) { this.r("ence"); break; }
+                    if (this.ends("anci")) { this.r("ance"); break; }
                     break;
                 case 'e':
-                    if (ends("izer")) { r("ize"); break; }
+                    if (this.ends("izer")) { this.r("ize"); break; }
                     break;
                 case 'l':
-                    if (ends("bli")) { r("ble"); break; }
-                    if (ends("alli")) { r("al"); break; }
-                    if (ends("entli")) { r("ent"); break; }
-                    if (ends("eli")) { r("e"); break; }
-                    if (ends("ousli")) { r("ous"); break; }
+                    if (this.ends("bli")) { this.r("ble"); break; }
+                    if (this.ends("alli")) { this.r("al"); break; }
+                    if (this.ends("entli")) { this.r("ent"); break; }
+                    if (this.ends("eli")) { this.r("e"); break; }
+                    if (this.ends("ousli")) { this.r("ous"); break; }
                     break;
                 case 'o':
-                    if (ends("ization")) { r("ize"); break; }
-                    if (ends("ation")) { r("ate"); break; }
-                    if (ends("ator")) { r("ate"); break; }
+                    if (this.ends("ization")) { this.r("ize"); break; }
+                    if (this.ends("ation")) { this.r("ate"); break; }
+                    if (this.ends("ator")) { this.r("ate"); break; }
                     break;
                 case 's':
-                    if (ends("alism")) { r("al"); break; }
-                    if (ends("iveness")) { r("ive"); break; }
-                    if (ends("fulness")) { r("ful"); break; }
-                    if (ends("ousness")) { r("ous"); break; }
+                    if (this.ends("alism")) { this.r("al"); break; }
+                    if (this.ends("iveness")) { this.r("ive"); break; }
+                    if (this.ends("fulness")) { this.r("ful"); break; }
+                    if (this.ends("ousness")) { this.r("ous"); break; }
                     break;
                 case 't':
-                    if (ends("aliti")) { r("al"); break; }
-                    if (ends("iviti")) { r("ive"); break; }
-                    if (ends("biliti")) { r("ble"); break; }
+                    if (this.ends("aliti")) { this.r("al"); break; }
+                    if (this.ends("iviti")) { this.r("ive"); break; }
+                    if (this.ends("biliti")) { this.r("ble"); break; }
                     break;
                 case 'g':
-                    if (ends("logi")) { r("log"); break; }
+                    if (this.ends("logi")) { this.r("log"); break; }
                     break;
                 default:
                     break;
@@ -370,22 +370,22 @@ namespace porter
         /* step4() deals with -ic-, -full, -ness etc. similar strategy to step3. */
         private void step4()
         {
-            switch (b[k])
+            switch (this.b[this.k])
             {
                 case 'e':
-                    if (ends("icate")) { r("ic"); break; }
-                    if (ends("ative")) { r(""); break; }
-                    if (ends("alize")) { r("al"); break; }
+                    if (this.ends("icate")) { this.r("ic"); break; }
+                    if (this.ends("ative")) { this.r(""); break; }
+                    if (this.ends("alize")) { this.r("al"); break; }
                     break;
                 case 'i':
-                    if (ends("iciti")) { r("ic"); break; }
+                    if (this.ends("iciti")) { this.r("ic"); break; }
                     break;
                 case 'l':
-                    if (ends("ical")) { r("ic"); break; }
-                    if (ends("ful")) { r(""); break; }
+                    if (this.ends("ical")) { this.r("ic"); break; }
+                    if (this.ends("ful")) { this.r(""); break; }
                     break;
                 case 's':
-                    if (ends("ness")) { r(""); break; }
+                    if (this.ends("ness")) { this.r(""); break; }
                     break;
             }
         }
@@ -393,66 +393,66 @@ namespace porter
         /* step5() takes off -ant, -ence etc., in context <c>vcvc<v>. */
         private void step5()
         {
-            if (k == 0)
+            if (this.k == 0)
                 return;
 
             /* for Bug 1 */
-            switch (b[k - 1])
+            switch (this.b[this.k - 1])
             {
                 case 'a':
-                    if (ends("al")) break; return;
+                    if (this.ends("al")) break; return;
                 case 'c':
-                    if (ends("ance")) break;
-                    if (ends("ence")) break; return;
+                    if (this.ends("ance")) break;
+                    if (this.ends("ence")) break; return;
                 case 'e':
-                    if (ends("er")) break; return;
+                    if (this.ends("er")) break; return;
                 case 'i':
-                    if (ends("ic")) break; return;
+                    if (this.ends("ic")) break; return;
                 case 'l':
-                    if (ends("able")) break;
-                    if (ends("ible")) break; return;
+                    if (this.ends("able")) break;
+                    if (this.ends("ible")) break; return;
                 case 'n':
-                    if (ends("ant")) break;
-                    if (ends("ement")) break;
-                    if (ends("ment")) break;
+                    if (this.ends("ant")) break;
+                    if (this.ends("ement")) break;
+                    if (this.ends("ment")) break;
                     /* element etc. not stripped before the m */
-                    if (ends("ent")) break; return;
+                    if (this.ends("ent")) break; return;
                 case 'o':
-                    if (ends("ion") && j >= 0 && (b[j] == 's' || b[j] == 't')) break;
+                    if (this.ends("ion") && this.j >= 0 && (this.b[this.j] == 's' || this.b[this.j] == 't')) break;
                     /* j >= 0 fixes Bug 2 */
-                    if (ends("ou")) break; return;
+                    if (this.ends("ou")) break; return;
                 /* takes care of -ous */
                 case 's':
-                    if (ends("ism")) break; return;
+                    if (this.ends("ism")) break; return;
                 case 't':
-                    if (ends("ate")) break;
-                    if (ends("iti")) break; return;
+                    if (this.ends("ate")) break;
+                    if (this.ends("iti")) break; return;
                 case 'u':
-                    if (ends("ous")) break; return;
+                    if (this.ends("ous")) break; return;
                 case 'v':
-                    if (ends("ive")) break; return;
+                    if (this.ends("ive")) break; return;
                 case 'z':
-                    if (ends("ize")) break; return;
+                    if (this.ends("ize")) break; return;
                 default:
                     return;
             }
-            if (m() > 1)
-                k = j;
+            if (this.m() > 1)
+                this.k = this.j;
         }
 
         /* step6() removes a final -e if m() > 1. */
         private void step6()
         {
-            j = k;
+            this.j = this.k;
 
-            if (b[k] == 'e')
+            if (this.b[this.k] == 'e')
             {
-                int a = m();
-                if (a > 1 || a == 1 && !cvc(k - 1))
-                    k--;
+                int a = this.m();
+                if (a > 1 || a == 1 && !this.cvc(this.k - 1))
+                    this.k--;
             }
-            if (b[k] == 'l' && doublec(k) && m() > 1)
-                k--;
+            if (this.b[this.k] == 'l' && this.doublec(this.k) && this.m() > 1)
+                this.k--;
         }
 
         /** Stem the word placed into the Stemmer buffer through calls to add().
@@ -462,18 +462,18 @@ namespace porter
          */
         public void stem()
         {
-            k = i - 1;
-            if (k > 1)
+            this.k = this.i - 1;
+            if (this.k > 1)
             {
-                step1();
-                step2();
-                step3();
-                step4();
-                step5();
-                step6();
+                this.step1();
+                this.step2();
+                this.step3();
+                this.step4();
+                this.step5();
+                this.step6();
             }
-            i_end = k + 1;
-            i = 0;
+            this.i_end = this.k + 1;
+            this.i = 0;
         }
     }
 }

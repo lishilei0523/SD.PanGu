@@ -16,11 +16,11 @@
  */
 
 
-using PanGu.Framework;
 using System.Collections.Generic;
 using System.Text;
+using PanGu.Framework;
 
-namespace PanGu.Dict
+namespace PanGu.Dictionaries
 {
     /// <summary>
     /// 匹配中文人名
@@ -115,40 +115,34 @@ namespace PanGu.Dict
         Dictionary<char, char> _DoubleName1Dict = new Dictionary<char, char>();
         Dictionary<char, char> _DoubleName2Dict = new Dictionary<char, char>();
 
-        public const string ChsSingleNameFileName = "ChsSingleName.txt";
-        public const string ChsDoubleName1FileName = "ChsDoubleName1.txt";
-        public const string ChsDoubleName2FileName = "ChsDoubleName2.txt";
-
-
-
         public ChsName()
         {
             foreach (string familyName in FAMILY_NAMES)
             {
                 if (familyName.Length == 1)
                 {
-                    if (!_FamilyNameDict.ContainsKey(familyName[0]))
+                    if (!this._FamilyNameDict.ContainsKey(familyName[0]))
                     {
-                        _FamilyNameDict.Add(familyName[0], null);
+                        this._FamilyNameDict.Add(familyName[0], null);
                     }
                 }
                 else
                 {
                     List<char> sec = new List<char>();
-                    if (_FamilyNameDict.ContainsKey(familyName[0]))
+                    if (this._FamilyNameDict.ContainsKey(familyName[0]))
                     {
-                        if (_FamilyNameDict[familyName[0]] == null)
+                        if (this._FamilyNameDict[familyName[0]] == null)
                         {
                             sec.Add((char)0);
-                            _FamilyNameDict[familyName[0]] = sec;
+                            this._FamilyNameDict[familyName[0]] = sec;
                         }
 
-                        _FamilyNameDict[familyName[0]].Add(familyName[1]);
+                        this._FamilyNameDict[familyName[0]].Add(familyName[1]);
                     }
                     else
                     {
                         sec.Add(familyName[1]);
-                        _FamilyNameDict[familyName[0]] = sec;
+                        this._FamilyNameDict[familyName[0]] = sec;
                     }
                 }
             }
@@ -180,9 +174,9 @@ namespace PanGu.Dict
         {
             dictPath = Path.AppendDivision(dictPath, '\\');
 
-            LoadNameDict(dictPath + ChsSingleNameFileName, ref _SingleNameDict);
-            LoadNameDict(dictPath + ChsDoubleName1FileName, ref _DoubleName1Dict);
-            LoadNameDict(dictPath + ChsDoubleName2FileName, ref _DoubleName2Dict);
+            this.LoadNameDict(dictPath + Constants.ChsSingleNameFileName, ref this._SingleNameDict);
+            this.LoadNameDict(dictPath + Constants.ChsDoubleName1FileName, ref this._DoubleName1Dict);
+            this.LoadNameDict(dictPath + Constants.ChsDoubleName2FileName, ref this._DoubleName2Dict);
         }
 
         public List<string> Match(string text, int start)
@@ -202,7 +196,7 @@ namespace PanGu.Dict
             char f2 = text[cur];
 
             List<char> f2List;
-            if (!_FamilyNameDict.TryGetValue(f1, out f2List))
+            if (!this._FamilyNameDict.TryGetValue(f1, out f2List))
             {
                 return null;
             }
@@ -240,13 +234,13 @@ namespace PanGu.Dict
 
             char name1 = text[cur];
 
-            if (_SingleNameDict.ContainsKey(name1))
+            if (this._SingleNameDict.ContainsKey(name1))
             {
                 result = new List<string>();
                 result.Add(text.Substring(start, cur - start + 1));
             }
 
-            if (_DoubleName1Dict.ContainsKey(name1))
+            if (this._DoubleName1Dict.ContainsKey(name1))
             {
                 cur++;
 
@@ -256,7 +250,7 @@ namespace PanGu.Dict
                 }
 
                 char name2 = text[cur];
-                if (_DoubleName2Dict.ContainsKey(name2))
+                if (this._DoubleName2Dict.ContainsKey(name2))
                 {
                     if (result == null)
                     {

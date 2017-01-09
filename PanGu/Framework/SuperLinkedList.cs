@@ -15,13 +15,16 @@
  * limitations under the License.
  */
 
+using System;
+using System.Collections;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Runtime.InteropServices;
 using System.Runtime.Serialization;
 using System.Security.Permissions;
 using System.Threading;
 
-namespace System.Collections.Generic
+namespace PanGu.Framework
 {
     [Serializable()]
     [ComVisible(false)]
@@ -54,28 +57,28 @@ namespace System.Collections.Generic
 
             foreach (T item in collection)
             {
-                AddLast(item);
+                this.AddLast(item);
             }
         }
 
         protected SuperLinkedList(SerializationInfo info, StreamingContext context)
         {
-            siInfo = info;
+            this.siInfo = info;
         }
 
         public int Count
         {
-            get { return count; }
+            get { return this.count; }
         }
 
         public SuperLinkedListNode<T> First
         {
-            get { return head; }
+            get { return this.head; }
         }
 
         public SuperLinkedListNode<T> Last
         {
-            get { return head == null ? null : head.prev; }
+            get { return this.head == null ? null : this.head.prev; }
         }
 
         bool ICollection<T>.IsReadOnly
@@ -85,22 +88,22 @@ namespace System.Collections.Generic
 
         void ICollection<T>.Add(T value)
         {
-            AddLast(value);
+            this.AddLast(value);
         }
 
         public SuperLinkedListNode<T> AddAfter(SuperLinkedListNode<T> node, T value)
         {
-            ValidateNode(node);
+            this.ValidateNode(node);
             SuperLinkedListNode<T> result = new SuperLinkedListNode<T>(node.list, value);
-            InternalInsertNodeBefore(node.next, result);
+            this.InternalInsertNodeBefore(node.next, result);
             return result;
         }
 
         public void AddAfter(SuperLinkedListNode<T> node, SuperLinkedListNode<T> newNode)
         {
-            ValidateNode(node);
-            ValidateNewNode(newNode);
-            InternalInsertNodeBefore(node.next, newNode);
+            this.ValidateNode(node);
+            this.ValidateNewNode(newNode);
+            this.InternalInsertNodeBefore(node.next, newNode);
             newNode.list = this;
         }
 
@@ -142,55 +145,55 @@ namespace System.Collections.Generic
 
         public SuperLinkedListNode<T> AddBefore(SuperLinkedListNode<T> node, T value)
         {
-            ValidateNode(node);
+            this.ValidateNode(node);
             SuperLinkedListNode<T> result = new SuperLinkedListNode<T>(node.list, value);
-            InternalInsertNodeBefore(node, result);
-            if (node == head)
+            this.InternalInsertNodeBefore(node, result);
+            if (node == this.head)
             {
-                head = result;
+                this.head = result;
             }
             return result;
         }
 
         public void AddBefore(SuperLinkedListNode<T> node, SuperLinkedListNode<T> newNode)
         {
-            ValidateNode(node);
-            ValidateNewNode(newNode);
-            InternalInsertNodeBefore(node, newNode);
+            this.ValidateNode(node);
+            this.ValidateNewNode(newNode);
+            this.InternalInsertNodeBefore(node, newNode);
             newNode.list = this;
-            if (node == head)
+            if (node == this.head)
             {
-                head = newNode;
+                this.head = newNode;
             }
         }
 
         public SuperLinkedListNode<T> AddFirst(T value)
         {
             SuperLinkedListNode<T> result = new SuperLinkedListNode<T>(this, value);
-            if (head == null)
+            if (this.head == null)
             {
-                InternalInsertNodeToEmptyList(result);
+                this.InternalInsertNodeToEmptyList(result);
             }
             else
             {
-                InternalInsertNodeBefore(head, result);
-                head = result;
+                this.InternalInsertNodeBefore(this.head, result);
+                this.head = result;
             }
             return result;
         }
 
         public void AddFirst(SuperLinkedListNode<T> node)
         {
-            ValidateNewNode(node);
+            this.ValidateNewNode(node);
 
-            if (head == null)
+            if (this.head == null)
             {
-                InternalInsertNodeToEmptyList(node);
+                this.InternalInsertNodeToEmptyList(node);
             }
             else
             {
-                InternalInsertNodeBefore(head, node);
-                head = node;
+                this.InternalInsertNodeBefore(this.head, node);
+                this.head = node;
             }
             node.list = this;
         }
@@ -198,35 +201,35 @@ namespace System.Collections.Generic
         public SuperLinkedListNode<T> AddLast(T value)
         {
             SuperLinkedListNode<T> result = new SuperLinkedListNode<T>(this, value);
-            if (head == null)
+            if (this.head == null)
             {
-                InternalInsertNodeToEmptyList(result);
+                this.InternalInsertNodeToEmptyList(result);
             }
             else
             {
-                InternalInsertNodeBefore(head, result);
+                this.InternalInsertNodeBefore(this.head, result);
             }
             return result;
         }
 
         public void AddLast(SuperLinkedListNode<T> node)
         {
-            ValidateNewNode(node);
+            this.ValidateNewNode(node);
 
-            if (head == null)
+            if (this.head == null)
             {
-                InternalInsertNodeToEmptyList(node);
+                this.InternalInsertNodeToEmptyList(node);
             }
             else
             {
-                InternalInsertNodeBefore(head, node);
+                this.InternalInsertNodeBefore(this.head, node);
             }
             node.list = this;
         }
 
         public void Clear()
         {
-            SuperLinkedListNode<T> current = head;
+            SuperLinkedListNode<T> current = this.head;
             while (current != null)
             {
                 SuperLinkedListNode<T> temp = current;
@@ -234,14 +237,14 @@ namespace System.Collections.Generic
                 temp.Invalidate();
             }
 
-            head = null;
-            count = 0;
-            version++;
+            this.head = null;
+            this.count = 0;
+            this.version++;
         }
 
         public bool Contains(T value)
         {
-            return Find(value) != null;
+            return this.Find(value) != null;
         }
 
         public void CopyTo(T[] array, int index)
@@ -256,25 +259,25 @@ namespace System.Collections.Generic
                 throw new ArgumentOutOfRangeException("index", index.ToString());
             }
 
-            if (array.Length - index < Count)
+            if (array.Length - index < this.Count)
             {
                 throw new ArgumentException("SR.Arg_InsufficientSpace");
             }
 
-            SuperLinkedListNode<T> node = head;
+            SuperLinkedListNode<T> node = this.head;
             if (node != null)
             {
                 do
                 {
                     array[index++] = node.item;
                     node = node.next;
-                } while (node != head);
+                } while (node != this.head);
             }
         }
 
         public SuperLinkedListNode<T> Find(T value)
         {
-            SuperLinkedListNode<T> node = head;
+            SuperLinkedListNode<T> node = this.head;
             EqualityComparer<T> c = EqualityComparer<T>.Default;
             if (node != null)
             {
@@ -287,7 +290,7 @@ namespace System.Collections.Generic
                             return node;
                         }
                         node = node.next;
-                    } while (node != head);
+                    } while (node != this.head);
                 }
                 else
                 {
@@ -298,7 +301,7 @@ namespace System.Collections.Generic
                             return node;
                         }
                         node = node.next;
-                    } while (node != head);
+                    } while (node != this.head);
                 }
             }
             return null;
@@ -306,9 +309,9 @@ namespace System.Collections.Generic
 
         public SuperLinkedListNode<T> FindLast(T value)
         {
-            if (head == null) return null;
+            if (this.head == null) return null;
 
-            SuperLinkedListNode<T> last = head.prev;
+            SuperLinkedListNode<T> last = this.head.prev;
             SuperLinkedListNode<T> node = last;
             EqualityComparer<T> c = EqualityComparer<T>.Default;
             if (node != null)
@@ -347,15 +350,15 @@ namespace System.Collections.Generic
 
         IEnumerator<T> IEnumerable<T>.GetEnumerator()
         {
-            return GetEnumerator();
+            return this.GetEnumerator();
         }
 
         public bool Remove(T value)
         {
-            SuperLinkedListNode<T> node = Find(value);
+            SuperLinkedListNode<T> node = this.Find(value);
             if (node != null)
             {
-                InternalRemoveNode(node);
+                this.InternalRemoveNode(node);
                 return true;
             }
             return false;
@@ -363,20 +366,20 @@ namespace System.Collections.Generic
 
         public void Remove(SuperLinkedListNode<T> node)
         {
-            ValidateNode(node);
-            InternalRemoveNode(node);
+            this.ValidateNode(node);
+            this.InternalRemoveNode(node);
         }
 
         public void RemoveFirst()
         {
-            if (head == null) { throw new InvalidOperationException("LinkedListEmpty"); }
-            InternalRemoveNode(head);
+            if (this.head == null) { throw new InvalidOperationException("LinkedListEmpty"); }
+            this.InternalRemoveNode(this.head);
         }
 
         public void RemoveLast()
         {
-            if (head == null) { throw new InvalidOperationException("SR.LinkedListEmpty"); }
-            InternalRemoveNode(head.prev);
+            if (this.head == null) { throw new InvalidOperationException("SR.LinkedListEmpty"); }
+            this.InternalRemoveNode(this.head.prev);
         }
 
         [SecurityPermission(SecurityAction.LinkDemand, Flags = SecurityPermissionFlag.SerializationFormatter)]
@@ -389,29 +392,29 @@ namespace System.Collections.Generic
             {
                 throw new ArgumentNullException("info");
             }
-            info.AddValue(VersionName, version);
-            info.AddValue(CountName, count); //This is the length of the bucket array. 
-            if (count != 0)
+            info.AddValue(VersionName, this.version);
+            info.AddValue(CountName, this.count); //This is the length of the bucket array. 
+            if (this.count != 0)
             {
-                T[] array = new T[Count];
-                CopyTo(array, 0);
+                T[] array = new T[this.Count];
+                this.CopyTo(array, 0);
                 info.AddValue(ValuesName, array, typeof(T[]));
             }
         }
 
         public virtual void OnDeserialization(Object sender)
         {
-            if (siInfo == null)
+            if (this.siInfo == null)
             {
                 return; //Somebody had a dependency on this Dictionary and fixed us up before the ObjectManager got to it. 
             }
 
-            int realVersion = siInfo.GetInt32(VersionName);
-            int count = siInfo.GetInt32(CountName);
+            int realVersion = this.siInfo.GetInt32(VersionName);
+            int count = this.siInfo.GetInt32(CountName);
 
             if (count != 0)
             {
-                T[] array = (T[])siInfo.GetValue(ValuesName, typeof(T[]));
+                T[] array = (T[])this.siInfo.GetValue(ValuesName, typeof(T[]));
 
                 if (array == null)
                 {
@@ -419,16 +422,16 @@ namespace System.Collections.Generic
                 }
                 for (int i = 0; i < array.Length; i++)
                 {
-                    AddLast(array[i]);
+                    this.AddLast(array[i]);
                 }
             }
             else
             {
-                head = null;
+                this.head = null;
             }
 
-            version = realVersion;
-            siInfo = null;
+            this.version = realVersion;
+            this.siInfo = null;
         }
 
 
@@ -438,41 +441,41 @@ namespace System.Collections.Generic
             newNode.prev = node.prev;
             node.prev.next = newNode;
             node.prev = newNode;
-            version++;
-            count++;
+            this.version++;
+            this.count++;
         }
 
         private void InternalInsertNodeToEmptyList(SuperLinkedListNode<T> newNode)
         {
-            Debug.Assert(head == null && count == 0, "SuperLinkedList must be empty when this method is called!");
+            Debug.Assert(this.head == null && this.count == 0, "SuperLinkedList must be empty when this method is called!");
             newNode.next = newNode;
             newNode.prev = newNode;
-            head = newNode;
-            version++;
-            count++;
+            this.head = newNode;
+            this.version++;
+            this.count++;
         }
 
         internal void InternalRemoveNode(SuperLinkedListNode<T> node)
         {
             Debug.Assert(node.list == this, "Deleting the node from another list!");
-            Debug.Assert(head != null, "This method shouldn't be called on empty list!");
+            Debug.Assert(this.head != null, "This method shouldn't be called on empty list!");
             if (node.next == node)
             {
-                Debug.Assert(count == 1 && head == node, "this should only be true for a list with only one node");
-                head = null;
+                Debug.Assert(this.count == 1 && this.head == node, "this should only be true for a list with only one node");
+                this.head = null;
             }
             else
             {
                 node.next.prev = node.prev;
                 node.prev.next = node.next;
-                if (head == node)
+                if (this.head == node)
                 {
-                    head = node.next;
+                    this.head = node.next;
                 }
             }
             node.Invalidate();
-            count--;
-            version++;
+            this.count--;
+            this.version++;
         }
 
         internal void ValidateNewNode(SuperLinkedListNode<T> node)
@@ -511,11 +514,11 @@ namespace System.Collections.Generic
         {
             get
             {
-                if (_syncRoot == null)
+                if (this._syncRoot == null)
                 {
-                    Interlocked.CompareExchange(ref _syncRoot, new Object(), null);
+                    Interlocked.CompareExchange(ref this._syncRoot, new Object(), null);
                 }
-                return _syncRoot;
+                return this._syncRoot;
             }
         }
 
@@ -541,7 +544,7 @@ namespace System.Collections.Generic
                 throw new ArgumentOutOfRangeException("index", index.ToString());
             }
 
-            if (array.Length - index < Count)
+            if (array.Length - index < this.Count)
             {
                 throw new ArgumentException("SR.Arg_InsufficientSpace");
             }
@@ -549,7 +552,7 @@ namespace System.Collections.Generic
             T[] tArray = array as T[];
             if (tArray != null)
             {
-                CopyTo(tArray, index);
+                this.CopyTo(tArray, index);
             }
             else
             {
@@ -571,7 +574,7 @@ namespace System.Collections.Generic
                 {
                     throw new ArgumentException("SR.Invalid_Array_Type");
                 }
-                SuperLinkedListNode<T> node = head;
+                SuperLinkedListNode<T> node = this.head;
                 try
                 {
                     if (node != null)
@@ -580,7 +583,7 @@ namespace System.Collections.Generic
                         {
                             objects[index++] = node.item;
                             node = node.next;
-                        } while (node != head);
+                        } while (node != this.head);
                     }
                 }
                 catch (ArrayTypeMismatchException)
@@ -592,7 +595,7 @@ namespace System.Collections.Generic
 
         IEnumerator IEnumerable.GetEnumerator()
         {
-            return GetEnumerator();
+            return this.GetEnumerator();
         }
 
 
@@ -614,74 +617,74 @@ namespace System.Collections.Generic
             internal Enumerator(SuperLinkedList<T> list)
             {
                 this.list = list;
-                version = list.version;
-                node = list.head;
-                current = default(T);
-                index = 0;
-                siInfo = null;
+                this.version = list.version;
+                this.node = list.head;
+                this.current = default(T);
+                this.index = 0;
+                this.siInfo = null;
             }
 
             internal Enumerator(SerializationInfo info, StreamingContext context)
             {
-                siInfo = info;
-                list = null;
-                version = 0;
-                node = null;
-                current = default(T);
-                index = 0;
+                this.siInfo = info;
+                this.list = null;
+                this.version = 0;
+                this.node = null;
+                this.current = default(T);
+                this.index = 0;
             }
 
             public T Current
             {
-                get { return current; }
+                get { return this.current; }
             }
 
             object IEnumerator.Current
             {
                 get
                 {
-                    if (index == 0 || (index == list.Count + 1))
+                    if (this.index == 0 || (this.index == this.list.Count + 1))
                     {
                         throw new InvalidOperationException("ExceptionResource.InvalidOperation_EnumOpCantHappen");
                     }
 
-                    return current;
+                    return this.current;
                 }
             }
 
             public bool MoveNext()
             {
-                if (version != list.version)
+                if (this.version != this.list.version)
                 {
                     throw new InvalidOperationException("SR.InvalidOperation_EnumFailedVersion");
                 }
 
-                if (node == null)
+                if (this.node == null)
                 {
-                    index = list.Count + 1;
+                    this.index = this.list.Count + 1;
                     return false;
                 }
 
-                ++index;
-                current = node.item;
-                node = node.next;
-                if (node == list.head)
+                ++this.index;
+                this.current = this.node.item;
+                this.node = this.node.next;
+                if (this.node == this.list.head)
                 {
-                    node = null;
+                    this.node = null;
                 }
                 return true;
             }
 
             void IEnumerator.Reset()
             {
-                if (version != list.version)
+                if (this.version != this.list.version)
                 {
                     throw new InvalidOperationException("SR.InvalidOperation_EnumFailedVersion");
                 }
 
-                current = default(T);
-                node = list.head;
-                index = 0;
+                this.current = default(T);
+                this.node = this.list.head;
+                this.index = 0;
             }
 
             public void Dispose()
@@ -695,56 +698,56 @@ namespace System.Collections.Generic
                     throw new ArgumentNullException("info");
                 }
 
-                info.AddValue(LinkedListName, list);
-                info.AddValue(VersionName, version);
-                info.AddValue(CurrentValueName, current);
-                info.AddValue(IndexName, index);
+                info.AddValue(LinkedListName, this.list);
+                info.AddValue(VersionName, this.version);
+                info.AddValue(CurrentValueName, this.current);
+                info.AddValue(IndexName, this.index);
             }
 
             void IDeserializationCallback.OnDeserialization(Object sender)
             {
-                if (list != null)
+                if (this.list != null)
                 {
                     return; //Somebody had a dependency on this Dictionary and fixed us up before the ObjectManager got to it. 
                 }
 
-                if (siInfo == null)
+                if (this.siInfo == null)
                 {
                     throw new SerializationException("SR.Serialization_InvalidOnDeser");
                 }
 
-                list = (SuperLinkedList<T>)siInfo.GetValue(LinkedListName, typeof(SuperLinkedList<T>));
-                version = siInfo.GetInt32(VersionName);
-                current = (T)siInfo.GetValue(CurrentValueName, typeof(T));
-                index = siInfo.GetInt32(IndexName);
+                this.list = (SuperLinkedList<T>)this.siInfo.GetValue(LinkedListName, typeof(SuperLinkedList<T>));
+                this.version = this.siInfo.GetInt32(VersionName);
+                this.current = (T)this.siInfo.GetValue(CurrentValueName, typeof(T));
+                this.index = this.siInfo.GetInt32(IndexName);
 
-                if (list.siInfo != null)
+                if (this.list.siInfo != null)
                 {
-                    list.OnDeserialization(sender);
+                    this.list.OnDeserialization(sender);
                 }
 
-                if (index == list.Count + 1)
+                if (this.index == this.list.Count + 1)
                 {  // end of enumeration
-                    node = null;
+                    this.node = null;
                 }
                 else
                 {
-                    node = list.First;
+                    this.node = this.list.First;
                     // We don't care if we can point to the correct node if the LinkedList was changed 
                     // MoveNext will throw upon next call and Current has the correct value.
-                    if (node != null && index != 0)
+                    if (this.node != null && this.index != 0)
                     {
-                        for (int i = 0; i < index; i++)
+                        for (int i = 0; i < this.index; i++)
                         {
-                            node = node.next;
+                            this.node = this.node.next;
                         }
-                        if (node == list.First)
+                        if (this.node == this.list.First)
                         {
-                            node = null;
+                            this.node = null;
                         }
                     }
                 }
-                siInfo = null;
+                this.siInfo = null;
             }
         }
 
@@ -772,30 +775,30 @@ namespace System.Collections.Generic
 
         public SuperLinkedList<T> List
         {
-            get { return list; }
+            get { return this.list; }
         }
 
         public SuperLinkedListNode<T> Next
         {
-            get { return next == null || next == list.head ? null : next; }
+            get { return this.next == null || this.next == this.list.head ? null : this.next; }
         }
 
         public SuperLinkedListNode<T> Previous
         {
-            get { return prev == null || this == list.head ? null : prev; }
+            get { return this.prev == null || this == this.list.head ? null : this.prev; }
         }
 
         public T Value
         {
-            get { return item; }
-            set { item = value; }
+            get { return this.item; }
+            set { this.item = value; }
         }
 
         internal void Invalidate()
         {
-            list = null;
-            next = null;
-            prev = null;
+            this.list = null;
+            this.next = null;
+            this.prev = null;
         }
     }
 }

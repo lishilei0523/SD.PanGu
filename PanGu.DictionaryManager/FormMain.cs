@@ -16,13 +16,13 @@
  */
 
 
-using PanGu.Dict;
 using PanGu.Enums;
 using PanGu.Framework;
 using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Windows.Forms;
+using PanGu.Dictionaries;
 
 namespace PanGu.DictionaryManager
 {

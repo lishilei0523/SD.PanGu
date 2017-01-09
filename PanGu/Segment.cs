@@ -16,16 +16,15 @@
  */
 
 using Microsoft.VisualBasic;
-using PanGu.Dict;
 using PanGu.Enums;
 using PanGu.Framework;
 using PanGu.Match;
 using PanGu.Setting;
-using porter;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
+using PanGu.Dictionaries;
 
 namespace PanGu
 {
@@ -715,7 +714,7 @@ namespace PanGu
         {
             _WordDictionary = new WordDictionary();
             string dir = PanGuSettings.Config.GetDictionaryPath();
-            _WordDictionary.Load(dir + "Dict.Dct");
+            _WordDictionary.Load(dir + Constants.DictionaryFileName);
 
             _ChsName = new ChsName();
             _ChsName.LoadChsName(PanGuSettings.Config.GetDictionaryPath());
@@ -724,7 +723,7 @@ namespace PanGu
             _WordDictionary.ChineseName = _ChsName;
 
             _StopWord = new StopWord();
-            _StopWord.LoadStopwordsDict(dir + "Stopword.txt");
+            _StopWord.LoadStopwordsDict(dir + Constants.StopwordFileName);
 
             _Synonym = new Synonym();
 

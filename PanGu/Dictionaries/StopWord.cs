@@ -21,7 +21,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Text;
 
-namespace PanGu.Dict
+namespace PanGu.Dictionaries
 {
     class StopWord
     {
@@ -63,12 +63,12 @@ namespace PanGu.Dict
                 key = word;
             }
 
-            return _StopwordTbl.ContainsKey(key);
+            return this._StopwordTbl.ContainsKey(key);
         }
 
         public void LoadStopwordsDict(String fileName)
         {
-            _StopwordTbl = new Dictionary<string, string>();
+            this._StopwordTbl = new Dictionary<string, string>();
 
             using (StreamReader sw = new StreamReader(fileName, Encoding.GetEncoding("UTF-8")))
             {
@@ -95,9 +95,9 @@ namespace PanGu.Dict
                     }
 
                     //如果哈希表中不包括该停用词则添加到哈希表中
-                    if (!_StopwordTbl.ContainsKey(key))
+                    if (!this._StopwordTbl.ContainsKey(key))
                     {
-                        _StopwordTbl.Add(key, stopWord);
+                        this._StopwordTbl.Add(key, stopWord);
                     }
                 }
 

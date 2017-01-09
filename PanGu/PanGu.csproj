@@ -51,11 +51,52 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>AnalyzerResource.resx</DependentUpon>
     </Compile>
-    <Compile Include="Dict\DictionaryLoader.cs" />
-    <Compile Include="Dict\StopWord.cs" />
-    <Compile Include="Dict\Synonym.cs" />
-    <Compile Include="Dict\Wildcard.cs" />
-    <Compile Include="Dict\WordDictionary.cs" />
+    <Compile Include="Configurations\DictionaryPathElement.cs" />
+    <Compile Include="Configurations\MatchOptionsElement.cs" />
+    <Compile Include="Configurations\MatchOptions\ChineseNameIdentifyElement.cs" />
+    <Compile Include="Configurations\MatchOptions\CustomRuleElement.cs" />
+    <Compile Include="Configurations\MatchOptions\EnglishMultiDimensionalityElement.cs" />
+    <Compile Include="Configurations\MatchOptions\EnglishSegmentElement.cs" />
+    <Compile Include="Configurations\MatchOptions\FilterEnglishElement.cs" />
+    <Compile Include="Configurations\MatchOptions\FilterNumericElement.cs" />
+    <Compile Include="Configurations\MatchOptions\FilterStopWordsElement.cs" />
+    <Compile Include="Configurations\MatchOptions\ForceSingleWordElement.cs" />
+    <Compile Include="Configurations\MatchOptions\FrequencyFirstElement.cs" />
+    <Compile Include="Configurations\MatchOptions\IgnoreCapitalElement.cs" />
+    <Compile Include="Configurations\MatchOptions\IgnoreSpaceElement.cs" />
+    <Compile Include="Configurations\MatchOptions\MultiDimensionalityElement.cs" />
+    <Compile Include="Configurations\MatchOptions\OutputSimplifiedTraditionalElement.cs" />
+    <Compile Include="Configurations\MatchOptions\SynonymOutputElement.cs" />
+    <Compile Include="Configurations\MatchOptions\TraditionalChineseEnabledElement.cs" />
+    <Compile Include="Configurations\MatchOptions\UnknownWordIdentifyElement.cs" />
+    <Compile Include="Configurations\MatchOptions\WildcardOutputElement.cs" />
+    <Compile Include="Configurations\MatchOptions\WildcardSegmentElement.cs" />
+    <Compile Include="Configurations\MatchParametersElement.cs" />
+    <Compile Include="Configurations\MatchParameters\BestRankElement.cs" />
+    <Compile Include="Configurations\MatchParameters\CustomRuleAssemblyFileNameElement.cs" />
+    <Compile Include="Configurations\MatchParameters\CustomRuleFullClassNameElement.cs" />
+    <Compile Include="Configurations\MatchParameters\EnglishLowerRankElement.cs" />
+    <Compile Include="Configurations\MatchParameters\EnglishRankElement.cs" />
+    <Compile Include="Configurations\MatchParameters\EnglishStemRankElement.cs" />
+    <Compile Include="Configurations\MatchParameters\FilterEnglishLengthElement.cs" />
+    <Compile Include="Configurations\MatchParameters\FilterNumericLengthElement.cs" />
+    <Compile Include="Configurations\MatchParameters\NumericRankElement.cs" />
+    <Compile Include="Configurations\MatchParameters\RedundancyElement.cs" />
+    <Compile Include="Configurations\MatchParameters\SecRankElement.cs" />
+    <Compile Include="Configurations\MatchParameters\SimplifiedTraditionalRankElement.cs" />
+    <Compile Include="Configurations\MatchParameters\SingleRankElement.cs" />
+    <Compile Include="Configurations\MatchParameters\SymbolRankElement.cs" />
+    <Compile Include="Configurations\MatchParameters\SynonymRankElement.cs" />
+    <Compile Include="Configurations\MatchParameters\ThirdRankElement.cs" />
+    <Compile Include="Configurations\MatchParameters\UnknowRankElement.cs" />
+    <Compile Include="Configurations\MatchParameters\WildcardRankElement.cs" />
+    <Compile Include="Configurations\PanGuConfiguration.cs" />
+    <Compile Include="Constants\Constants.cs" />
+    <Compile Include="Dictionaries\DictionaryLoader.cs" />
+    <Compile Include="Dictionaries\StopWord.cs" />
+    <Compile Include="Dictionaries\Synonym.cs" />
+    <Compile Include="Dictionaries\Wildcard.cs" />
+    <Compile Include="Dictionaries\WordDictionary.cs" />
     <Compile Include="Enums\DFAResult.cs" />
     <Compile Include="Enums\LexicalFunction.cs" />
     <Compile Include="Enums\Mode.cs" />
@@ -76,7 +117,7 @@
     <Compile Include="Framework\XmlSerialization.cs" />
     <Compile Include="ICustomRule.cs" />
     <Compile Include="Match\ChsFullTextMatch.cs" />
-    <Compile Include="Dict\ChsName.cs" />
+    <Compile Include="Dictionaries\ChsName.cs" />
     <Compile Include="Match\IChsFullTextMatch.cs" />
     <Compile Include="Match\MatchOptions.cs" />
     <Compile Include="Match\MatchParameter.cs" />
@@ -96,26 +137,26 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Dict\ChsDoubleName1.txt">
+    <Content Include="DictionaryFiles\ChsDoubleName1.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Dict\ChsDoubleName2.txt">
+    <Content Include="DictionaryFiles\ChsDoubleName2.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Dict\ChsSingleName.txt">
+    <Content Include="DictionaryFiles\ChsSingleName.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Dict\Stopword.txt">
+    <Content Include="DictionaryFiles\Stopword.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Dict\Synonym.txt">
+    <Content Include="DictionaryFiles\Synonym.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Dict\Wildcard.txt" />
+    <Content Include="DictionaryFiles\Wildcard.txt" />
     <Content Include="PanGu.xml" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Dict\Dict.dct">
+    <None Include="DictionaryFiles\Dictionary.dct">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
   </ItemGroup>

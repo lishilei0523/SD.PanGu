@@ -1,9 +1,9 @@
-﻿using PanGu.Setting;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.IO;
 using System.Text;
+using PanGu.Setting;
 
-namespace PanGu.Dict
+namespace PanGu.Dictionaries
 {
     /// <summary>
     /// 同义词
@@ -18,12 +18,10 @@ namespace PanGu.Dict
 
         Dictionary<string, List<int>> _WordToGroupId = null; //单词到同义词组的对应关系，一个单词可能对于多个同义词组
 
-        internal const string SynonymFileName = "Synonym.txt";
-
         private void LoadSynonym(string fileName)
         {
-            _GroupList = new List<string[]>();
-            _WordToGroupId = new Dictionary<string, List<int>>();
+            this._GroupList = new List<string[]>();
+            this._WordToGroupId = new Dictionary<string, List<int>>();
 
             if (!File.Exists(fileName))
             {
@@ -43,15 +41,15 @@ namespace PanGu.Dict
                     }
 
                     string[] words = line.Split(new char[] { ',' });
-                    _GroupList.Add(words);
-                    int groupId = _GroupList.Count - 1;
+                    this._GroupList.Add(words);
+                    int groupId = this._GroupList.Count - 1;
 
                     for (int i = 0; i < words.Length; i++)
                     {
                         words[i] = words[i].Trim();
 
                         List<int> idList;
-                        if (_WordToGroupId.TryGetValue(words[i], out idList))
+                        if (this._WordToGroupId.TryGetValue(words[i], out idList))
                         {
                             if (idList[idList.Count - 1] == groupId)
                             {
@@ -64,63 +62,63 @@ namespace PanGu.Dict
                         {
                             idList = new List<int>(1);
                             idList.Add(groupId);
-                            _WordToGroupId.Add(words[i], idList);
+                            this._WordToGroupId.Add(words[i], idList);
                         }
                     }
                 }
             }
 
-            _Init = true;
+            this._Init = true;
         }
 
         internal bool Inited
         {
             get
             {
-                lock (_LockObj)
+                lock (this._LockObj)
                 {
-                    return _Init;
+                    return this._Init;
                 }
             }
         }
 
         public void Load(string dictPath)
         {
-            LoadSynonym(dictPath + SynonymFileName);
+            this.LoadSynonym(dictPath + Constants.SynonymFileName);
         }
 
         private void Load()
         {
-            lock (_LockObj)
+            lock (this._LockObj)
             {
-                if (!_Init)
+                if (!this._Init)
                 {
                     string dir = PanGuSettings.Config.GetDictionaryPath();
-                    Load(dir);
+                    this.Load(dir);
                 }
             }
         }
 
         public List<string> GetSynonyms(string word)
         {
-            lock (_LockObj)
+            lock (this._LockObj)
             {
-                if (!_Init)
+                if (!this._Init)
                 {
-                    Load();
+                    this.Load();
                 }
             }
 
             word = word.Trim().ToLower();
 
             List<int> idList;
-            if (_WordToGroupId.TryGetValue(word, out idList))
+            if (this._WordToGroupId.TryGetValue(word, out idList))
             {
                 List<string> result = new List<string>();
 
                 foreach (int groupId in idList)
                 {
-                    foreach (string w in _GroupList[groupId])
+                    foreach (string w in this._GroupList[groupId])
                     {
                         if (w == word)
                         {

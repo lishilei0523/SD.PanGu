@@ -23,8 +23,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PanGu.DictionaryManager", "
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PanGu.Tests", "PanGu.Tests\PanGu.Tests.csproj", "{3EFC5D8F-2A1C-4015-8F76-C8B61A7D19A9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PanGuConfig", "PanGuConfig\PanGuConfig.csproj", "{02716DC8-96BC-4BD8-AC62-1BF115BEF5CC}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|.NET = Debug|.NET
@@ -105,16 +103,6 @@ Global
 		{3EFC5D8F-2A1C-4015-8F76-C8B61A7D19A9}.Release|Any CPU.Build.0 = Release|Any CPU
 		{3EFC5D8F-2A1C-4015-8F76-C8B61A7D19A9}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{3EFC5D8F-2A1C-4015-8F76-C8B61A7D19A9}.Release|Mixed Platforms.Build.0 = Release|Any CPU
-		{02716DC8-96BC-4BD8-AC62-1BF115BEF5CC}.Debug|.NET.ActiveCfg = Debug|Any CPU
-		{02716DC8-96BC-4BD8-AC62-1BF115BEF5CC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{02716DC8-96BC-4BD8-AC62-1BF115BEF5CC}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{02716DC8-96BC-4BD8-AC62-1BF115BEF5CC}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
-		{02716DC8-96BC-4BD8-AC62-1BF115BEF5CC}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
-		{02716DC8-96BC-4BD8-AC62-1BF115BEF5CC}.Release|.NET.ActiveCfg = Release|Any CPU
-		{02716DC8-96BC-4BD8-AC62-1BF115BEF5CC}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{02716DC8-96BC-4BD8-AC62-1BF115BEF5CC}.Release|Any CPU.Build.0 = Release|Any CPU
-		{02716DC8-96BC-4BD8-AC62-1BF115BEF5CC}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
-		{02716DC8-96BC-4BD8-AC62-1BF115BEF5CC}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

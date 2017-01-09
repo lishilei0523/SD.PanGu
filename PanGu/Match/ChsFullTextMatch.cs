@@ -15,12 +15,12 @@
  * limitations under the License.
  */
 
-using PanGu.Dict;
 using PanGu.Enums;
 using PanGu.Framework;
 using PanGu.Setting;
 using System;
 using System.Collections.Generic;
+using PanGu.Dictionaries;
 
 namespace PanGu.Match
 {

@@ -15,8 +15,9 @@
  * limitations under the License.
  */
 
-using PanGu.Dict;
 using System.Collections.Generic;
+using PanGu.Dictionaries;
+using PanGu.Framework;
 
 namespace PanGu.Match
 {
