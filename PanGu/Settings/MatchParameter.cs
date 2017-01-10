@@ -186,16 +186,16 @@ namespace PanGu.Settings
         public int FilterNumericLength { get; private set; }
         #endregion
 
-        #region 用户自定义规则的配件文件名 —— string CustomRuleAssemblyFileName
+        #region 用户自定义规则的配件程序集名 —— string CustomRuleAssemblyFileName
         /// <summary>
-        /// 用户自定义规则的配件文件名
+        /// 用户自定义规则的配件程序集名
         /// </summary>
         public string CustomRuleAssemblyFileName { get; private set; }
         #endregion
 
-        #region 用户自定义规则的类的完整名 —— string CustomRuleFullClassName
+        #region 用户自定义规则的类的完整类名 —— string CustomRuleFullClassName
         /// <summary>
-        /// 用户自定义规则的类的完整名，即带名字空间的名称
+        /// 用户自定义规则的类的完整类名，即带名字空间的名称
         /// </summary>
         public string CustomRuleFullClassName { get; private set; }
         #endregion

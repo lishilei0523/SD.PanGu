@@ -153,9 +153,11 @@
     <Content Include="DictionaryFiles\Wildcard.txt" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="App.config.transform" />
     <None Include="DictionaryFiles\Dictionary.dct">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Include="Web.config.transform" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
