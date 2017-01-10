@@ -52,11 +52,6 @@
     <DocumentationFile>bin\Release\PanGu.HighLight.XML</DocumentationFile>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="System" />
-    <Reference Include="System.Data" />
-    <Reference Include="System.Xml" />
-  </ItemGroup>
-  <ItemGroup>
     <Compile Include="Formatter.cs" />
     <Compile Include="Fragment.cs" />
     <Compile Include="SimpleHTMLFormatter.cs" />
