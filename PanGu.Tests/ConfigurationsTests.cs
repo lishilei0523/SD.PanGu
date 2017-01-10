@@ -16,7 +16,7 @@ namespace PanGu.Tests
         {
             PanGuConfiguration setting = PanGuConfiguration.Setting;
 
-            Assert.AreEqual(setting.DictionaryPathElement.Path, @"..\DictionaryFiles");
+            Assert.AreEqual(setting.DictionaryPathElement.Path, @"DictionaryFiles");
         }
 
         /// <summary>

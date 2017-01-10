@@ -8,7 +8,7 @@ namespace PanGu.Tests
     public class SegmentTests
     {
         [TestMethod]
-        public void TestMethod1()
+        public void TestSegment()
         {
             string text = "盘古分词简介: 盘古分词是由eaglet开发的一款基于字典的中英文分词组件";
 
@@ -21,6 +21,7 @@ namespace PanGu.Tests
                 Trace.WriteLine(word.Word);
             }
 
+            Assert.AreEqual(words.Count, 17);
         }
     }
 }
