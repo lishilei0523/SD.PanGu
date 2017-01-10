@@ -1,5 +1,4 @@
 ﻿using PanGu.Configurations;
-using System;
 using System.Configuration;
 
 // ReSharper disable once CheckNamespace
@@ -10,41 +9,25 @@ namespace PanGu
     /// </summary>
     internal class PanGuConfiguration : ConfigurationSection
     {
-        #region # 字段及构造器
-
-        /// <summary>
-        /// 单例
-        /// </summary>
-        private static readonly PanGuConfiguration _Setting;
-
-        /// <summary>
-        /// 静态构造器
-        /// </summary>
-        static PanGuConfiguration()
-        {
-            _Setting = (PanGuConfiguration)ConfigurationManager.GetSection("panGuConfiguration");
-
-            #region # 非空验证
-
-            if (_Setting == null)
-            {
-                throw new ApplicationException("盘古分词节点未配置，请检查程序！");
-            }
-
-            #endregion
-
-
-        }
-
-        #endregion
-
         #region # 访问器 —— static PanGuConfiguration Setting
         /// <summary>
         /// 访问器
         /// </summary>
         public static PanGuConfiguration Setting
         {
-            get { return _Setting; }
+            get
+            {
+                try
+                {
+                    PanGuConfiguration setting = (PanGuConfiguration)ConfigurationManager.GetSection("panGuConfiguration");
+
+                    return setting;
+                }
+                catch (ConfigurationErrorsException)
+                {
+                    return null;
+                }
+            }
         }
         #endregion
 

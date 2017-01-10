@@ -156,28 +156,27 @@ namespace PanGu.Demo
 
         private void UpdateSettings()
         {
-            this._Options.FrequencyFirst = this.checkBoxFreqFirst.Checked;
-            this._Options.FilterStopWords = this.checkBoxFilterStopWords.Checked;
-            this._Options.ChineseNameIdentify = this.checkBoxMatchName.Checked;
-            this._Options.MultiDimensionality = this.checkBoxMultiSelect.Checked;
-            this._Options.EnglishMultiDimensionality = this.checkBoxEnglishMultiSelect.Checked;
-            this._Options.ForceSingleWord = this.checkBoxForceSingleWord.Checked;
-            this._Options.TraditionalChineseEnabled = this.checkBoxTraditionalChs.Checked;
-            this._Options.OutputSimplifiedTraditional = this.checkBoxST.Checked;
-            this._Options.UnknownWordIdentify = this.checkBoxUnknownWord.Checked;
-            this._Options.FilterEnglish = this.checkBoxFilterEnglish.Checked;
-            this._Options.FilterNumeric = this.checkBoxFilterNumeric.Checked;
-            this._Options.IgnoreCapital = this.checkBoxIgnoreCapital.Checked;
-            this._Options.EnglishSegment = this.checkBoxEnglishSegment.Checked;
-            this._Options.SynonymOutput = this.checkBoxSynonymOutput.Checked;
-            this._Options.WildcardOutput = this.checkBoxWildcard.Checked;
-            this._Options.WildcardSegment = this.checkBoxWildcardSegment.Checked;
-            this._Options.CustomRule = this.checkBoxCustomRule.Checked;
+            this._Options = new MatchOption(true,
+            this.checkBoxFreqFirst.Checked,
+            this.checkBoxFilterStopWords.Checked,
+            this.checkBoxMatchName.Checked,
+            this.checkBoxMultiSelect.Checked,
+            this.checkBoxEnglishMultiSelect.Checked,
+            this.checkBoxForceSingleWord.Checked,
+            this.checkBoxTraditionalChs.Checked,
+            this.checkBoxST.Checked,
+            this.checkBoxUnknownWord.Checked,
+            this.checkBoxFilterEnglish.Checked,
+            this.checkBoxFilterNumeric.Checked,
+            this.checkBoxIgnoreCapital.Checked,
+            this.checkBoxEnglishSegment.Checked,
+            this.checkBoxSynonymOutput.Checked,
+            this.checkBoxWildcard.Checked,
+            this.checkBoxWildcardSegment.Checked,
+            this.checkBoxCustomRule.Checked);
 
-            this._Parameters.Redundancy = (int)this.numericUpDownRedundancy.Value;
-            this._Parameters.FilterEnglishLength = (int)this.numericUpDownFilterEnglishLength.Value;
-            this._Parameters.FilterNumericLength = (int)this.numericUpDownFilterNumericLength.Value;
-
+            //更新 - 2017.1.10
+            this._Parameters.Update((int)this.numericUpDownFilterEnglishLength.Value, (int)this.numericUpDownFilterNumericLength.Value, (int)this.numericUpDownRedundancy.Value);
         }
 
         private void buttonSegment_Click(object sender, EventArgs e)
@@ -203,9 +202,6 @@ namespace PanGu.Demo
             this._Parameters = PanGuSettings.CurrentMatchParameter;
 
             this.UpdateSettings();
-
-            //TODO 此处暂停使用 2017.1.10
-            //PanGuSettings.Save("PanGu.xml");
         }
     }
 }

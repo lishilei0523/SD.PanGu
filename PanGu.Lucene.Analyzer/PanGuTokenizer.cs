@@ -33,23 +33,6 @@ namespace Lucene.Net.Analysis.PanGu
             }
         }
 
-        /// <summary>
-        /// Init PanGu Segment
-        /// </summary>
-        /// <param name="fileName">PanGu.xml file path</param>
-        static public void InitPanGuSegment(string fileName)
-        {
-            lock (_LockObj)
-            {
-                //Init PanGu Segment.
-                if (!_Inited)
-                {
-                    global::PanGu.Segment.Init(fileName);
-                    _Inited = true;
-                }
-            }
-        }
-
         private void Init()
         {
             InitPanGuSegment();

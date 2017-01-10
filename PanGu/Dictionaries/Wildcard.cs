@@ -1,5 +1,4 @@
 ﻿using PanGu.Enums;
-using PanGu.Match;
 using PanGu.Settings;
 using System.Collections.Generic;
 using System.IO;
@@ -78,11 +77,10 @@ namespace PanGu.Dictionaries
 
         internal Wildcard(MatchOption options, MatchParameter parameter)
         {
-            this._Options = options.Clone();
-            this._Options.SynonymOutput = false;
-            this._Options.WildcardOutput = false;
+            this._Options = (MatchOption)options.Clone();
+            this._Options.Update(false, false);
 
-            this._Parameter = parameter.Clone();
+            this._Parameter = (MatchParameter)parameter.Clone();
         }
 
         internal bool Inited

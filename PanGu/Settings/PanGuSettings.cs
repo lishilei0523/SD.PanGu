@@ -1,27 +1,12 @@
-﻿/*
- * Licensed to the Apache Software Foundation (ASF) under one or more
- * contributor license agreements.  See the NOTICE file distributed with
- * this work for additional information regarding copyright ownership.
- * The ASF licenses this file to You under the Apache License, Version 2.0
- * (the "License"); you may not use this file except in compliance with
- * the License.  You may obtain a copy of the License at
- * 
- * http://www.apache.org/licenses/LICENSE-2.0
- * 
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
-
-using System;
-using System.Xml.Serialization;
+﻿using System;
 
 namespace PanGu.Settings
 {
-    [Serializable, XmlRoot(Namespace = "http://www.codeplex.com/pangusegment")]
-    public class PanGuSettings
+    /// <summary>
+    /// 盘古分词设置
+    /// </summary>
+    [Serializable]
+    public static class PanGuSettings
     {
         #region # 静态字段与构造器
 
@@ -45,54 +30,70 @@ namespace PanGu.Settings
         /// </summary>
         static PanGuSettings()
         {
-            //字典路径
-            _CurrentDictionaryPath = PanGuConfiguration.Setting.DictionaryPathElement.Path;
-
-            //匹配选项
-            _CurrentMatchOption = new MatchOption
+            if (PanGuConfiguration.Setting == null)
             {
-                ChineseNameIdentify = PanGuConfiguration.Setting.MatchOptionsElement.ChineseNameIdentifyElement.Enabled,
-                FrequencyFirst = PanGuConfiguration.Setting.MatchOptionsElement.FrequencyFirstElement.Enabled,
-                MultiDimensionality = PanGuConfiguration.Setting.MatchOptionsElement.MultiDimensionalityElement.Enabled,
-                EnglishMultiDimensionality = PanGuConfiguration.Setting.MatchOptionsElement.EnglishMultiDimensionalityElement.Enabled,
-                FilterStopWords = PanGuConfiguration.Setting.MatchOptionsElement.FilterStopWordsElement.Enabled,
-                IgnoreSpace = PanGuConfiguration.Setting.MatchOptionsElement.IgnoreSpaceElement.Enabled,
-                ForceSingleWord = PanGuConfiguration.Setting.MatchOptionsElement.ForceSingleWordElement.Enabled,
-                TraditionalChineseEnabled = PanGuConfiguration.Setting.MatchOptionsElement.TraditionalChineseEnabledElement.Enabled,
-                OutputSimplifiedTraditional = PanGuConfiguration.Setting.MatchOptionsElement.OutputSimplifiedTraditionalElement.Enabled,
-                UnknownWordIdentify = PanGuConfiguration.Setting.MatchOptionsElement.UnknownWordIdentifyElement.Enabled,
-                FilterEnglish = PanGuConfiguration.Setting.MatchOptionsElement.FilterEnglishElement.Enabled,
-                FilterNumeric = PanGuConfiguration.Setting.MatchOptionsElement.FilterNumericElement.Enabled,
-                IgnoreCapital = PanGuConfiguration.Setting.MatchOptionsElement.IgnoreCapitalElement.Enabled,
-                EnglishSegment = PanGuConfiguration.Setting.MatchOptionsElement.EnglishSegmentElement.Enabled,
-                SynonymOutput = PanGuConfiguration.Setting.MatchOptionsElement.SynonymOutputElement.Enabled,
-                WildcardOutput = PanGuConfiguration.Setting.MatchOptionsElement.WildcardOutputElement.Enabled,
-                WildcardSegment = PanGuConfiguration.Setting.MatchOptionsElement.WildcardSegmentElement.Enabled,
-                CustomRule = PanGuConfiguration.Setting.MatchOptionsElement.CustomRuleElement.Enabled
-            };
+                //字典路径
+                _CurrentDictionaryPath = "DictionaryFiles";
 
-            //匹配参数
-            _CurrentMatchParameter = new MatchParameter
+                //匹配选项
+                _CurrentMatchOption = new MatchOption();
+
+                //匹配参数
+                _CurrentMatchParameter = new MatchParameter();
+            }
+            else
             {
-                UnknowRank = PanGuConfiguration.Setting.MatchParametersElement.UnknowRankElement.Rank,
-                BestRank = PanGuConfiguration.Setting.MatchParametersElement.BestRankElement.Rank,
-                SecRank = PanGuConfiguration.Setting.MatchParametersElement.SecRankElement.Rank,
-                ThirdRank = PanGuConfiguration.Setting.MatchParametersElement.ThirdRankElement.Rank,
-                SingleRank = PanGuConfiguration.Setting.MatchParametersElement.SingleRankElement.Rank,
-                NumericRank = PanGuConfiguration.Setting.MatchParametersElement.NumericRankElement.Rank,
-                EnglishRank = PanGuConfiguration.Setting.MatchParametersElement.EnglishRankElement.Rank,
-                EnglishLowerRank = PanGuConfiguration.Setting.MatchParametersElement.EnglishLowerRankElement.Rank,
-                EnglishStemRank = PanGuConfiguration.Setting.MatchParametersElement.EnglishStemRankElement.Rank,
-                SymbolRank = PanGuConfiguration.Setting.MatchParametersElement.SymbolRankElement.Rank,
-                SimplifiedTraditionalRank = PanGuConfiguration.Setting.MatchParametersElement.SimplifiedTraditionalRankElement.Rank,
-                SynonymRank = PanGuConfiguration.Setting.MatchParametersElement.SynonymRankElement.Rank,
-                WildcardRank = PanGuConfiguration.Setting.MatchParametersElement.WildcardRankElement.Rank,
-                FilterEnglishLength = PanGuConfiguration.Setting.MatchParametersElement.FilterEnglishLengthElement.Length,
-                FilterNumericLength = PanGuConfiguration.Setting.MatchParametersElement.FilterNumericLengthElement.Length,
-                CustomRuleAssemblyFileName = PanGuConfiguration.Setting.MatchParametersElement.CustomRuleAssemblyFileNameElement.Name,
-                CustomRuleFullClassName = PanGuConfiguration.Setting.MatchParametersElement.CustomRuleFullClassNameElement.Name,
-                Redundancy = PanGuConfiguration.Setting.MatchParametersElement.RedundancyElement.Value
-            };
+                PanGuConfiguration config = PanGuConfiguration.Setting;
+
+                //字典路径
+                _CurrentDictionaryPath = config.DictionaryPathElement.Path;
+
+                //匹配选项
+                _CurrentMatchOption = new MatchOption
+                (
+                    config.MatchOptionsElement.ChineseNameIdentifyElement.Enabled,
+                    config.MatchOptionsElement.FrequencyFirstElement.Enabled,
+                    config.MatchOptionsElement.MultiDimensionalityElement.Enabled,
+                    config.MatchOptionsElement.EnglishMultiDimensionalityElement.Enabled,
+                    config.MatchOptionsElement.FilterStopWordsElement.Enabled,
+                    config.MatchOptionsElement.IgnoreSpaceElement.Enabled,
+                    config.MatchOptionsElement.ForceSingleWordElement.Enabled,
+                    config.MatchOptionsElement.TraditionalChineseEnabledElement.Enabled,
+                    config.MatchOptionsElement.OutputSimplifiedTraditionalElement.Enabled,
+                    config.MatchOptionsElement.UnknownWordIdentifyElement.Enabled,
+                    config.MatchOptionsElement.FilterEnglishElement.Enabled,
+                    config.MatchOptionsElement.FilterNumericElement.Enabled,
+                    config.MatchOptionsElement.IgnoreCapitalElement.Enabled,
+                    config.MatchOptionsElement.EnglishSegmentElement.Enabled,
+                    config.MatchOptionsElement.SynonymOutputElement.Enabled,
+                    config.MatchOptionsElement.WildcardOutputElement.Enabled,
+                    config.MatchOptionsElement.WildcardSegmentElement.Enabled,
+                    config.MatchOptionsElement.CustomRuleElement.Enabled
+                );
+
+                //匹配参数
+                _CurrentMatchParameter = new MatchParameter
+                (
+                    config.MatchParametersElement.UnknowRankElement.Rank,
+                    config.MatchParametersElement.BestRankElement.Rank,
+                    config.MatchParametersElement.SecRankElement.Rank,
+                    config.MatchParametersElement.ThirdRankElement.Rank,
+                    config.MatchParametersElement.SingleRankElement.Rank,
+                    config.MatchParametersElement.NumericRankElement.Rank,
+                    config.MatchParametersElement.EnglishRankElement.Rank,
+                    config.MatchParametersElement.EnglishLowerRankElement.Rank,
+                    config.MatchParametersElement.EnglishStemRankElement.Rank,
+                    config.MatchParametersElement.SymbolRankElement.Rank,
+                    config.MatchParametersElement.SimplifiedTraditionalRankElement.Rank,
+                    config.MatchParametersElement.SynonymRankElement.Rank,
+                    config.MatchParametersElement.WildcardRankElement.Rank,
+                    config.MatchParametersElement.FilterEnglishLengthElement.Length,
+                    config.MatchParametersElement.FilterNumericLengthElement.Length,
+                    config.MatchParametersElement.CustomRuleAssemblyFileNameElement.Name,
+                    config.MatchParametersElement.CustomRuleFullClassNameElement.Name,
+                    config.MatchParametersElement.RedundancyElement.Value
+                );
+            }
         }
 
         #endregion

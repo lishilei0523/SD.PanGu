@@ -152,7 +152,6 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="DictionaryFiles\Wildcard.txt" />
-    <Content Include="PanGu.xml" />
   </ItemGroup>
   <ItemGroup>
     <None Include="DictionaryFiles\Dictionary.dct">
