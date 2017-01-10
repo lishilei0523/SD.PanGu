@@ -1,8 +1,11 @@
 ﻿using System;
 using System.Reflection;
 
-namespace PanGu.Match
+namespace PanGu.Settings
 {
+    /// <summary>
+    /// 匹配参数
+    /// </summary>
     [Serializable]
     public class MatchParameter
     {
@@ -16,22 +19,22 @@ namespace PanGu.Match
         {
             get
             {
-                return _Redundancy;
+                return this._Redundancy;
             }
 
             set
             {
                 if (value < 0)
                 {
-                    _Redundancy = 0;
+                    this._Redundancy = 0;
                 }
                 else if (value >= 3)
                 {
-                    _Redundancy = 2;
+                    this._Redundancy = 2;
                 }
                 else
                 {
-                    _Redundancy = value;
+                    this._Redundancy = value;
                 }
             }
         }

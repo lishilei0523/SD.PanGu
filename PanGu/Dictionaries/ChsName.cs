@@ -16,9 +16,9 @@
  */
 
 
+using PanGu.Framework;
 using System.Collections.Generic;
 using System.Text;
-using PanGu.Framework;
 
 namespace PanGu.Dictionaries
 {
@@ -174,9 +174,9 @@ namespace PanGu.Dictionaries
         {
             dictPath = Path.AppendDivision(dictPath, '\\');
 
-            this.LoadNameDict(dictPath + Constants.ChsSingleNameFileName, ref this._SingleNameDict);
-            this.LoadNameDict(dictPath + Constants.ChsDoubleName1FileName, ref this._DoubleName1Dict);
-            this.LoadNameDict(dictPath + Constants.ChsDoubleName2FileName, ref this._DoubleName2Dict);
+            this.LoadNameDict(string.Format(@"{0}\{1}", dictPath, Constants.ChsSingleNameFileName), ref this._SingleNameDict);
+            this.LoadNameDict(string.Format(@"{0}\{1}", dictPath, Constants.ChsDoubleName1FileName), ref this._DoubleName1Dict);
+            this.LoadNameDict(string.Format(@"{0}\{1}", dictPath, Constants.ChsDoubleName2FileName), ref this._DoubleName2Dict);
         }
 
         public List<string> Match(string text, int start)

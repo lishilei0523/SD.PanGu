@@ -1,29 +1,25 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
+using PanGu.Settings;
 using System.IO;
-using System.Diagnostics;
-using PanGu.Match;
 
 namespace Lucene.Net.Analysis.PanGu
 {
     public class PanGuAnalyzer : Analyzer
     {
         private bool _OriginalResult = false;
-        private MatchOptions _options;
+        private MatchOption _options;
         private MatchParameter _parameters;
-        
+
         public PanGuAnalyzer()
         {
         }
 
-        public PanGuAnalyzer(MatchOptions options, MatchParameter parameters)
+        public PanGuAnalyzer(MatchOption options, MatchParameter parameters)
             : base()
         {
             _options = options;
             _parameters = parameters;
         }
-        
+
         /// <summary>
         /// Return original string.
         /// Does not use only segment

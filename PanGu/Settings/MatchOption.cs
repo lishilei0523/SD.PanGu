@@ -1,10 +1,13 @@
 ﻿using System;
 using System.Reflection;
 
-namespace PanGu.Match
+namespace PanGu.Settings
 {
+    /// <summary>
+    /// 匹配选项
+    /// </summary>
     [Serializable]
-    public class MatchOptions
+    public class MatchOption
     {
         /// <summary>
         /// 中文人名识别
@@ -103,9 +106,9 @@ namespace PanGu.Match
         /// </summary>
         public bool CustomRule = false;
 
-        public MatchOptions Clone()
+        public MatchOption Clone()
         {
-            MatchOptions result = new MatchOptions();
+            MatchOption result = new MatchOption();
 
             foreach (FieldInfo fi in this.GetType().GetFields())
             {

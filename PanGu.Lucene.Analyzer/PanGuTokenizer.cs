@@ -1,11 +1,9 @@
+using Lucene.Net.Analysis.Tokenattributes;
+using PanGu;
+using PanGu.Settings;
 using System;
 using System.Collections.Generic;
 using System.Text;
-using System.IO;
-using Lucene.Net.Analysis;
-using PanGu;
-using PanGu.Match;
-using Lucene.Net.Analysis.Tokenattributes;
 
 namespace Lucene.Net.Analysis.PanGu
 {
@@ -67,7 +65,7 @@ namespace Lucene.Net.Analysis.PanGu
 
         }
 
-        public PanGuTokenizer(System.IO.TextReader input, bool originalResult, MatchOptions options, MatchParameter parameters)
+        public PanGuTokenizer(System.IO.TextReader input, bool originalResult, MatchOption options, MatchParameter parameters)
             : this(input, options, parameters)
         {
             _OriginalResult = originalResult;
@@ -81,7 +79,7 @@ namespace Lucene.Net.Analysis.PanGu
             }
         }
 
-        public PanGuTokenizer(System.IO.TextReader input, MatchOptions options, MatchParameter parameters)
+        public PanGuTokenizer(System.IO.TextReader input, MatchOption options, MatchParameter parameters)
             : base(input)
         {
             lock (_LockObj)

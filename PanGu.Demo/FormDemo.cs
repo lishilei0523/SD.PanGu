@@ -15,16 +15,13 @@
  * limitations under the License.
  */
 
+using PanGu;
+using PanGu.Settings;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
+using System.Diagnostics;
 using System.Text;
 using System.Windows.Forms;
-using System.Diagnostics;
-
-using PanGu;
 
 namespace Demo
 {
@@ -43,8 +40,8 @@ namespace Demo
             "于北京时间5月10日举行运动会\r\n" +
             "我的和服务必在明天做好";
 
-        private PanGu.Match.MatchOptions _Options;
-        private PanGu.Match.MatchParameter _Parameters;
+        private MatchOption _Options;
+        private MatchParameter _Parameters;
 
         public FormDemo()
         {
@@ -56,7 +53,7 @@ namespace Demo
             textBoxSource.Text = _InitSource;
             PanGu.Segment.Init();
 
-            PanGu.Match.MatchOptions options = PanGu.Setting.PanGuSettings.Config.MatchOptions;
+            MatchOption options = PanGuSettings.CurrentMatchOption;
             checkBoxFreqFirst.Checked = options.FrequencyFirst;
             checkBoxFilterStopWords.Checked = options.FilterStopWords;
             checkBoxMatchName.Checked = options.ChineseNameIdentify;
@@ -80,7 +77,7 @@ namespace Demo
                 checkBoxDisplayPosition.Checked = true;
             }
 
-            PanGu.Match.MatchParameter parameters = PanGu.Setting.PanGuSettings.Config.Parameters;
+            MatchParameter parameters = PanGuSettings.CurrentMatchParameter;
 
             numericUpDownRedundancy.Value = parameters.Redundancy;
             numericUpDownFilterEnglishLength.Value = parameters.FilterEnglishLength;
@@ -186,8 +183,8 @@ namespace Demo
 
         private void buttonSegment_Click(object sender, EventArgs e)
         {
-            _Options = PanGu.Setting.PanGuSettings.Config.MatchOptions.Clone();
-            _Parameters = PanGu.Setting.PanGuSettings.Config.Parameters.Clone();
+            _Options = PanGuSettings.CurrentMatchOption;
+            _Parameters = PanGuSettings.CurrentMatchParameter;
 
             UpdateSettings();
 
@@ -203,12 +200,13 @@ namespace Demo
 
         private void buttonSaveConfig_Click(object sender, EventArgs e)
         {
-            _Options = PanGu.Setting.PanGuSettings.Config.MatchOptions;
-            _Parameters = PanGu.Setting.PanGuSettings.Config.Parameters;
+            _Options = PanGuSettings.CurrentMatchOption;
+            _Parameters = PanGuSettings.CurrentMatchParameter;
 
             UpdateSettings();
 
-            PanGu.Setting.PanGuSettings.Save("PanGu.xml");
+            //TODO 此处暂停使用 2017.1.10
+            //PanGuSettings.Save("PanGu.xml");
         }
     }
 }

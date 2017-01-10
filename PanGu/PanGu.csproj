@@ -119,13 +119,12 @@
     <Compile Include="Match\ChsFullTextMatch.cs" />
     <Compile Include="Dictionaries\ChsName.cs" />
     <Compile Include="Match\IChsFullTextMatch.cs" />
-    <Compile Include="Match\MatchOptions.cs" />
-    <Compile Include="Match\MatchParameter.cs" />
+    <Compile Include="Settings\MatchOption.cs" />
+    <Compile Include="Settings\MatchParameter.cs" />
     <Compile Include="Enums\POS.cs" />
     <Compile Include="Segment.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Setting\PanGuSettings.cs" />
-    <Compile Include="Setting\SettingLoader.cs" />
+    <Compile Include="Settings\PanGuSettings.cs" />
     <Compile Include="WordAttribute.cs" />
     <Compile Include="WordInfo.cs" />
   </ItemGroup>

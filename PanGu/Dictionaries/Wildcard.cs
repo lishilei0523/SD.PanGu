@@ -1,9 +1,9 @@
-﻿using System.Collections.Generic;
+﻿using PanGu.Enums;
+using PanGu.Match;
+using PanGu.Settings;
+using System.Collections.Generic;
 using System.IO;
 using System.Text;
-using PanGu.Enums;
-using PanGu.Match;
-using PanGu.Setting;
 
 namespace PanGu.Dictionaries
 {
@@ -19,7 +19,7 @@ namespace PanGu.Dictionaries
             public List<WordInfo> Segments = new List<WordInfo>();
 
             public WildcardInfo(string wildcard, Segment segment,
-                MatchOptions options, MatchParameter parameter)
+                MatchOption options, MatchParameter parameter)
             {
                 this.Key = wildcard.ToLower();
 
@@ -38,7 +38,7 @@ namespace PanGu.Dictionaries
         object _LockObj = new object();
 
         bool _Init = false;
-        MatchOptions _Options;
+        MatchOption _Options;
         MatchParameter _Parameter;
 
         List<WildcardInfo> _WildcardList = null; //通配符词汇列表
@@ -76,7 +76,7 @@ namespace PanGu.Dictionaries
             }
         }
 
-        internal Wildcard(MatchOptions options, MatchParameter parameter)
+        internal Wildcard(MatchOption options, MatchParameter parameter)
         {
             this._Options = options.Clone();
             this._Options.SynonymOutput = false;
@@ -107,7 +107,7 @@ namespace PanGu.Dictionaries
             {
                 if (!this._Init)
                 {
-                    string dir = PanGuSettings.Config.GetDictionaryPath();
+                    string dir = PanGuSettings.CurrentDictionaryPath;
                     this.Load(dir);
                 }
             }

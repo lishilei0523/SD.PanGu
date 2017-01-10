@@ -1,7 +1,7 @@
-﻿using PanGu.Enums;
-using PanGu.Match;
+﻿using PanGu.Dictionaries;
+using PanGu.Enums;
+using PanGu.Settings;
 using System;
-using PanGu.Dictionaries;
 
 namespace PanGu
 {

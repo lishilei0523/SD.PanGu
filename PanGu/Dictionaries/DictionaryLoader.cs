@@ -1,7 +1,7 @@
-﻿using System;
-using System.Threading;
-using PanGu.Enums;
+﻿using PanGu.Enums;
 using PanGu.Framework;
+using System;
+using System.Threading;
 using File = System.IO.File;
 
 namespace PanGu.Dictionaries
@@ -128,7 +128,7 @@ namespace PanGu.Dictionaries
                         try
                         {
                             Lock.Enter(Mode.Mutex);
-                            Segment._WordDictionary.Load(this._dictionaryDir + Constants.DictionaryFileName);
+                            Segment._WordDictionary.Load(string.Format(@"{0}\{1}", this._dictionaryDir, Constants.DictionaryFileName));
                             this._MainDictLastTime = this.GetLastTime(Constants.DictionaryFileName);
                         }
                         finally
@@ -160,7 +160,7 @@ namespace PanGu.Dictionaries
                         {
                             Lock.Enter(Mode.Mutex);
 
-                            Segment._StopWord.LoadStopwordsDict(this._dictionaryDir + Constants.StopwordFileName);
+                            Segment._StopWord.LoadStopwordsDict(string.Format(@"{0}\{1}", this._dictionaryDir, Constants.StopwordFileName));
                             this._StopWordLastTime = this.GetLastTime(Constants.StopwordFileName);
                         }
                         finally

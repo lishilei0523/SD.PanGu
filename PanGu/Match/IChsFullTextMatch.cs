@@ -15,9 +15,9 @@
  * limitations under the License.
  */
 
-using System.Collections.Generic;
 using PanGu.Dictionaries;
 using PanGu.Framework;
+using PanGu.Settings;
 
 namespace PanGu.Match
 {
@@ -27,7 +27,7 @@ namespace PanGu.Match
     /// </summary>
     public interface IChsFullTextMatch
     {
-        MatchOptions Options { get; set; }
+        MatchOption Options { get; set; }
 
         MatchParameter Parameters { get; set; }
 

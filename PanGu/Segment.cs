@@ -16,15 +16,15 @@
  */
 
 using Microsoft.VisualBasic;
+using PanGu.Dictionaries;
 using PanGu.Enums;
 using PanGu.Framework;
 using PanGu.Match;
-using PanGu.Setting;
+using PanGu.Settings;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
-using PanGu.Dictionaries;
 
 namespace PanGu
 {
@@ -50,7 +50,7 @@ namespace PanGu
         internal static Wildcard _Wildcard = null;
 
         static DictionaryLoader _DictLoader;
-        private MatchOptions _Options;
+        private MatchOption _Options;
         private MatchParameter _Parameters;
         #endregion
 
@@ -659,12 +659,12 @@ namespace PanGu
             return DoSegment(text, null, null);
         }
 
-        public ICollection<WordInfo> DoSegment(string text, MatchOptions options)
+        public ICollection<WordInfo> DoSegment(string text, MatchOption options)
         {
             return DoSegment(text, options, null);
         }
 
-        public ICollection<WordInfo> DoSegment(string text, MatchOptions options, MatchParameter parameters)
+        public ICollection<WordInfo> DoSegment(string text, MatchOption options, MatchParameter parameters)
         {
             if (string.IsNullOrEmpty(text))
             {
@@ -681,12 +681,12 @@ namespace PanGu
 
                 if (_Options == null)
                 {
-                    _Options = PanGuSettings.Config.MatchOptions;
+                    _Options = PanGuSettings.CurrentMatchOption;
                 }
 
                 if (_Parameters == null)
                 {
-                    _Parameters = PanGuSettings.Config.Parameters;
+                    _Parameters = PanGuSettings.CurrentMatchParameter;
                 }
 
                 SuperLinkedList<WordInfo> result = PreSegment(text);
@@ -713,34 +713,34 @@ namespace PanGu
         static private void LoadDictionary()
         {
             _WordDictionary = new WordDictionary();
-            string dir = PanGuSettings.Config.GetDictionaryPath();
-            _WordDictionary.Load(dir + Constants.DictionaryFileName);
+            string dir = PanGuSettings.CurrentDictionaryPath;
+            _WordDictionary.Load(string.Format(@"{0}\{1}", dir, Constants.DictionaryFileName));
 
             _ChsName = new ChsName();
-            _ChsName.LoadChsName(PanGuSettings.Config.GetDictionaryPath());
+            _ChsName.LoadChsName(PanGuSettings.CurrentDictionaryPath);
 
 
             _WordDictionary.ChineseName = _ChsName;
 
             _StopWord = new StopWord();
-            _StopWord.LoadStopwordsDict(dir + Constants.StopwordFileName);
+            _StopWord.LoadStopwordsDict(string.Format(@"{0}\{1}", dir, Constants.StopwordFileName));
 
             _Synonym = new Synonym();
 
-            if (PanGuSettings.Config.MatchOptions.SynonymOutput)
+            if (PanGuSettings.CurrentMatchOption.SynonymOutput)
             {
                 _Synonym.Load(dir);
             }
 
-            _Wildcard = new Wildcard(PanGuSettings.Config.MatchOptions,
-                PanGuSettings.Config.Parameters);
+            _Wildcard = new Wildcard(PanGuSettings.CurrentMatchOption,
+                PanGuSettings.CurrentMatchParameter);
 
-            if (PanGuSettings.Config.MatchOptions.WildcardOutput)
+            if (PanGuSettings.CurrentMatchOption.WildcardOutput)
             {
                 _Wildcard.Load(dir);
             }
 
-            _DictLoader = new DictionaryLoader(PanGuSettings.Config.GetDictionaryPath());
+            _DictLoader = new DictionaryLoader(PanGuSettings.CurrentDictionaryPath);
         }
 
         private static void InitInfinitiveVerbTable()
@@ -798,15 +798,6 @@ namespace PanGu
                 }
 
                 InitInfinitiveVerbTable();
-
-                if (fileName == null)
-                {
-                    SettingLoader loader = new SettingLoader();
-                }
-                else
-                {
-                    SettingLoader loader = new SettingLoader(fileName);
-                }
 
                 LoadDictionary();
 

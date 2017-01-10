@@ -1,6 +1,6 @@
-﻿using System;
+﻿using PanGu.Configurations;
+using System;
 using System.Configuration;
-using PanGu.Configurations;
 
 // ReSharper disable once CheckNamespace
 namespace PanGu
@@ -32,6 +32,8 @@ namespace PanGu
             }
 
             #endregion
+
+
         }
 
         #endregion

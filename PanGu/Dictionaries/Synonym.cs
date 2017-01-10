@@ -1,7 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using PanGu.Settings;
+using System.Collections.Generic;
 using System.IO;
 using System.Text;
-using PanGu.Setting;
 
 namespace PanGu.Dictionaries
 {
@@ -93,7 +93,7 @@ namespace PanGu.Dictionaries
             {
                 if (!this._Init)
                 {
-                    string dir = PanGuSettings.Config.GetDictionaryPath();
+                    string dir = PanGuSettings.CurrentDictionaryPath;
                     this.Load(dir);
                 }
             }

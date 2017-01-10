@@ -15,12 +15,12 @@
  * limitations under the License.
  */
 
+using PanGu.Dictionaries;
 using PanGu.Enums;
 using PanGu.Framework;
-using PanGu.Setting;
+using PanGu.Settings;
 using System;
 using System.Collections.Generic;
-using PanGu.Dictionaries;
 
 namespace PanGu.Match
 {
@@ -364,8 +364,8 @@ namespace PanGu.Match
 
         #region IChsFullTextMatch Members
 
-        private MatchOptions _Options = null;
-        public MatchOptions Options
+        private MatchOption _Options = null;
+        public MatchOption Options
         {
             get
             {
@@ -844,12 +844,12 @@ namespace PanGu.Match
         {
             if (_Options == null)
             {
-                _Options = PanGuSettings.Config.MatchOptions;
+                _Options = PanGuSettings.CurrentMatchOption;
             }
 
             if (_Parameters == null)
             {
-                _Parameters = PanGuSettings.Config.Parameters;
+                _Parameters = PanGuSettings.CurrentMatchParameter;
             }
 
             int[] masks = new int[orginalText.Length];
