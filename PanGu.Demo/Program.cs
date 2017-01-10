@@ -16,10 +16,9 @@
  */
 
 using System;
-using System.Collections.Generic;
 using System.Windows.Forms;
 
-namespace Demo
+namespace PanGu.Demo
 {
     static class Program
     {

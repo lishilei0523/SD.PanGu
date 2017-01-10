@@ -8,8 +8,8 @@
     <ProjectGuid>{6B5AB614-25F9-4628-9F4C-594C3B2F4049}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Demo</RootNamespace>
-    <AssemblyName>Demo</AssemblyName>
+    <RootNamespace>PanGu.Demo</RootNamespace>
+    <AssemblyName>PanGu.Demo</AssemblyName>
     <TargetFrameworkVersion>v2.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ApplicationIcon>display.ico</ApplicationIcon>

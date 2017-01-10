@@ -15,7 +15,6 @@
  * limitations under the License.
  */
 
-using PanGu;
 using PanGu.Settings;
 using System;
 using System.Collections.Generic;
@@ -23,7 +22,7 @@ using System.Diagnostics;
 using System.Text;
 using System.Windows.Forms;
 
-namespace Demo
+namespace PanGu.Demo
 {
     public partial class FormDemo : Form
     {
@@ -45,43 +44,43 @@ namespace Demo
 
         public FormDemo()
         {
-            InitializeComponent();
+            this.InitializeComponent();
         }
 
         private void FormDemo_Load(object sender, EventArgs e)
         {
-            textBoxSource.Text = _InitSource;
+            this.textBoxSource.Text = this._InitSource;
             PanGu.Segment.Init();
 
             MatchOption options = PanGuSettings.CurrentMatchOption;
-            checkBoxFreqFirst.Checked = options.FrequencyFirst;
-            checkBoxFilterStopWords.Checked = options.FilterStopWords;
-            checkBoxMatchName.Checked = options.ChineseNameIdentify;
-            checkBoxMultiSelect.Checked = options.MultiDimensionality;
-            checkBoxEnglishMultiSelect.Checked = options.EnglishMultiDimensionality;
-            checkBoxForceSingleWord.Checked = options.ForceSingleWord;
-            checkBoxTraditionalChs.Checked = options.TraditionalChineseEnabled;
-            checkBoxST.Checked = options.OutputSimplifiedTraditional;
-            checkBoxUnknownWord.Checked = options.UnknownWordIdentify;
-            checkBoxFilterEnglish.Checked = options.FilterEnglish;
-            checkBoxFilterNumeric.Checked = options.FilterNumeric;
-            checkBoxIgnoreCapital.Checked = options.IgnoreCapital;
-            checkBoxEnglishSegment.Checked = options.EnglishSegment;
-            checkBoxSynonymOutput.Checked = options.SynonymOutput;
-            checkBoxWildcard.Checked = options.WildcardOutput;
-            checkBoxWildcardSegment.Checked = options.WildcardSegment;
-            checkBoxCustomRule.Checked = options.CustomRule;
+            this.checkBoxFreqFirst.Checked = options.FrequencyFirst;
+            this.checkBoxFilterStopWords.Checked = options.FilterStopWords;
+            this.checkBoxMatchName.Checked = options.ChineseNameIdentify;
+            this.checkBoxMultiSelect.Checked = options.MultiDimensionality;
+            this.checkBoxEnglishMultiSelect.Checked = options.EnglishMultiDimensionality;
+            this.checkBoxForceSingleWord.Checked = options.ForceSingleWord;
+            this.checkBoxTraditionalChs.Checked = options.TraditionalChineseEnabled;
+            this.checkBoxST.Checked = options.OutputSimplifiedTraditional;
+            this.checkBoxUnknownWord.Checked = options.UnknownWordIdentify;
+            this.checkBoxFilterEnglish.Checked = options.FilterEnglish;
+            this.checkBoxFilterNumeric.Checked = options.FilterNumeric;
+            this.checkBoxIgnoreCapital.Checked = options.IgnoreCapital;
+            this.checkBoxEnglishSegment.Checked = options.EnglishSegment;
+            this.checkBoxSynonymOutput.Checked = options.SynonymOutput;
+            this.checkBoxWildcard.Checked = options.WildcardOutput;
+            this.checkBoxWildcardSegment.Checked = options.WildcardSegment;
+            this.checkBoxCustomRule.Checked = options.CustomRule;
 
-            if (checkBoxMultiSelect.Checked)
+            if (this.checkBoxMultiSelect.Checked)
             {
-                checkBoxDisplayPosition.Checked = true;
+                this.checkBoxDisplayPosition.Checked = true;
             }
 
             MatchParameter parameters = PanGuSettings.CurrentMatchParameter;
 
-            numericUpDownRedundancy.Value = parameters.Redundancy;
-            numericUpDownFilterEnglishLength.Value = parameters.FilterEnglishLength;
-            numericUpDownFilterNumericLength.Value = parameters.FilterNumericLength;
+            this.numericUpDownRedundancy.Value = parameters.Redundancy;
+            this.numericUpDownFilterEnglishLength.Value = parameters.FilterEnglishLength;
+            this.numericUpDownFilterNumericLength.Value = parameters.FilterNumericLength;
 
             //str = Microsoft.VisualBasic.Strings.StrConv(str, Microsoft.VisualBasic.VbStrConv.SimplifiedChinese, 0);
 
@@ -89,7 +88,7 @@ namespace Demo
 
         private void DisplaySegment()
         {
-            DisplaySegment(false);
+            this.DisplaySegment(false);
         }
 
         private void DisplaySegment(bool showPosition)
@@ -97,24 +96,24 @@ namespace Demo
             Stopwatch watch = new Stopwatch();
             watch.Start();
             Segment segment = new Segment();
-            ICollection<WordInfo> words = segment.DoSegment(textBoxSource.Text, _Options, _Parameters);
+            ICollection<WordInfo> words = segment.DoSegment(this.textBoxSource.Text, this._Options, this._Parameters);
 
             watch.Stop();
 
-            labelSrcLength.Text = textBoxSource.Text.Length.ToString();
+            this.labelSrcLength.Text = this.textBoxSource.Text.Length.ToString();
 
-            labelSegTime.Text = watch.Elapsed.ToString();
+            this.labelSegTime.Text = watch.Elapsed.ToString();
             if (watch.ElapsedMilliseconds == 0)
             {
-                labelRegRate.Text = "无穷大";
+                this.labelRegRate.Text = "无穷大";
             }
             else
             {
-                labelRegRate.Text = ((double)(textBoxSource.Text.Length / watch.ElapsedMilliseconds) * 1000).ToString();
+                this.labelRegRate.Text = ((double)(this.textBoxSource.Text.Length / watch.ElapsedMilliseconds) * 1000).ToString();
             }
 
 
-            if (checkBoxShowTimeOnly.Checked)
+            if (this.checkBoxShowTimeOnly.Checked)
             {
                 return;
             }
@@ -145,65 +144,65 @@ namespace Demo
                 }
             }
 
-            textBoxSegwords.Text = wordsString.ToString();
+            this.textBoxSegwords.Text = wordsString.ToString();
 
 
         }
 
         private void DisplaySegmentAndPostion()
         {
-            DisplaySegment(true);
+            this.DisplaySegment(true);
         }
 
         private void UpdateSettings()
         {
-            _Options.FrequencyFirst = checkBoxFreqFirst.Checked;
-            _Options.FilterStopWords = checkBoxFilterStopWords.Checked;
-            _Options.ChineseNameIdentify = checkBoxMatchName.Checked;
-            _Options.MultiDimensionality = checkBoxMultiSelect.Checked;
-            _Options.EnglishMultiDimensionality = checkBoxEnglishMultiSelect.Checked;
-            _Options.ForceSingleWord = checkBoxForceSingleWord.Checked;
-            _Options.TraditionalChineseEnabled = checkBoxTraditionalChs.Checked;
-            _Options.OutputSimplifiedTraditional = checkBoxST.Checked;
-            _Options.UnknownWordIdentify = checkBoxUnknownWord.Checked;
-            _Options.FilterEnglish = checkBoxFilterEnglish.Checked;
-            _Options.FilterNumeric = checkBoxFilterNumeric.Checked;
-            _Options.IgnoreCapital = checkBoxIgnoreCapital.Checked;
-            _Options.EnglishSegment = checkBoxEnglishSegment.Checked;
-            _Options.SynonymOutput = checkBoxSynonymOutput.Checked;
-            _Options.WildcardOutput = checkBoxWildcard.Checked;
-            _Options.WildcardSegment = checkBoxWildcardSegment.Checked;
-            _Options.CustomRule = checkBoxCustomRule.Checked;
+            this._Options.FrequencyFirst = this.checkBoxFreqFirst.Checked;
+            this._Options.FilterStopWords = this.checkBoxFilterStopWords.Checked;
+            this._Options.ChineseNameIdentify = this.checkBoxMatchName.Checked;
+            this._Options.MultiDimensionality = this.checkBoxMultiSelect.Checked;
+            this._Options.EnglishMultiDimensionality = this.checkBoxEnglishMultiSelect.Checked;
+            this._Options.ForceSingleWord = this.checkBoxForceSingleWord.Checked;
+            this._Options.TraditionalChineseEnabled = this.checkBoxTraditionalChs.Checked;
+            this._Options.OutputSimplifiedTraditional = this.checkBoxST.Checked;
+            this._Options.UnknownWordIdentify = this.checkBoxUnknownWord.Checked;
+            this._Options.FilterEnglish = this.checkBoxFilterEnglish.Checked;
+            this._Options.FilterNumeric = this.checkBoxFilterNumeric.Checked;
+            this._Options.IgnoreCapital = this.checkBoxIgnoreCapital.Checked;
+            this._Options.EnglishSegment = this.checkBoxEnglishSegment.Checked;
+            this._Options.SynonymOutput = this.checkBoxSynonymOutput.Checked;
+            this._Options.WildcardOutput = this.checkBoxWildcard.Checked;
+            this._Options.WildcardSegment = this.checkBoxWildcardSegment.Checked;
+            this._Options.CustomRule = this.checkBoxCustomRule.Checked;
 
-            _Parameters.Redundancy = (int)numericUpDownRedundancy.Value;
-            _Parameters.FilterEnglishLength = (int)numericUpDownFilterEnglishLength.Value;
-            _Parameters.FilterNumericLength = (int)numericUpDownFilterNumericLength.Value;
+            this._Parameters.Redundancy = (int)this.numericUpDownRedundancy.Value;
+            this._Parameters.FilterEnglishLength = (int)this.numericUpDownFilterEnglishLength.Value;
+            this._Parameters.FilterNumericLength = (int)this.numericUpDownFilterNumericLength.Value;
 
         }
 
         private void buttonSegment_Click(object sender, EventArgs e)
         {
-            _Options = PanGuSettings.CurrentMatchOption;
-            _Parameters = PanGuSettings.CurrentMatchParameter;
+            this._Options = PanGuSettings.CurrentMatchOption;
+            this._Parameters = PanGuSettings.CurrentMatchParameter;
 
-            UpdateSettings();
+            this.UpdateSettings();
 
-            if (checkBoxDisplayPosition.Checked)
+            if (this.checkBoxDisplayPosition.Checked)
             {
-                DisplaySegmentAndPostion();
+                this.DisplaySegmentAndPostion();
             }
             else
             {
-                DisplaySegment();
+                this.DisplaySegment();
             }
         }
 
         private void buttonSaveConfig_Click(object sender, EventArgs e)
         {
-            _Options = PanGuSettings.CurrentMatchOption;
-            _Parameters = PanGuSettings.CurrentMatchParameter;
+            this._Options = PanGuSettings.CurrentMatchOption;
+            this._Parameters = PanGuSettings.CurrentMatchParameter;
 
-            UpdateSettings();
+            this.UpdateSettings();
 
             //TODO 此处暂停使用 2017.1.10
             //PanGuSettings.Save("PanGu.xml");
