@@ -26,7 +26,7 @@ using PanGu.Dictionaries;
 
 namespace PanGu.DictionaryManager
 {
-    public partial class FormMain : Form
+    public partial class MainWindow : Form
     {
         WordDictionary _WordDict = null;
         String m_DictFileName;
@@ -47,7 +47,7 @@ namespace PanGu.DictionaryManager
             }
         }
 
-        public FormMain()
+        public MainWindow()
         {
             this.InitializeComponent();
         }
@@ -101,7 +101,7 @@ namespace PanGu.DictionaryManager
 
             if (this.saveFileDialogDict.ShowDialog() == DialogResult.OK)
             {
-                FormInputDictVersion frmInputDictVersion = new FormInputDictVersion();
+                InputDictVersionView frmInputDictVersion = new InputDictVersionView();
                 frmInputDictVersion.Version = this._Version;
                 if (frmInputDictVersion.ShowDialog() == DialogResult.OK)
                 {
@@ -231,7 +231,7 @@ namespace PanGu.DictionaryManager
                     continue;
                 }
 
-                FormBatchInsert frmBatchInsert = new FormBatchInsert();
+                BatchInsertView frmBatchInsert = new BatchInsertView();
 
                 if (!allUse || lstWord == null)
                 {
@@ -263,7 +263,7 @@ namespace PanGu.DictionaryManager
             {
                 try
                 {
-                    FormEncoder frmEncoder = new FormEncoder();
+                    EncoderView frmEncoder = new EncoderView();
                     if (frmEncoder.ShowDialog() != DialogResult.OK)
                     {
                         return;
@@ -316,21 +316,21 @@ namespace PanGu.DictionaryManager
 
         private void findToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            FormFind frmFind = new FormFind();
+            FindView frmFind = new FindView();
 
             frmFind.ShowDialog();
 
             switch (frmFind.Mode)
             {
-                case FormFind.SearchMode.None:
+                case FindView.SearchMode.None:
                     this.listBoxList.Items.Clear();
                     break;
 
-                case FormFind.SearchMode.ByPos:
+                case FindView.SearchMode.ByPos:
                     this.ListWordsByPos(frmFind.POS);
                     break;
 
-                case FormFind.SearchMode.ByLength:
+                case FindView.SearchMode.ByLength:
                     this.ListWordsByLength(frmFind.Length);
                     break;
             }

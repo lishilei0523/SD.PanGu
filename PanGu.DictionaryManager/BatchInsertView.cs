@@ -21,7 +21,7 @@ using System.Windows.Forms;
 
 namespace PanGu.DictionaryManager
 {
-    public partial class FormBatchInsert : Form
+    public partial class BatchInsertView : Form
     {
         WordAttribute m_Word = new WordAttribute();
         bool m_Ok;
@@ -47,7 +47,7 @@ namespace PanGu.DictionaryManager
             }
         }
 
-        public FormBatchInsert()
+        public BatchInsertView()
         {
             this.InitializeComponent();
         }

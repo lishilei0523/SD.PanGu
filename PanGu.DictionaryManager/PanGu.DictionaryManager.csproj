@@ -10,7 +10,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>PanGu.DictionaryManager</RootNamespace>
     <AssemblyName>PanGu.DictionaryManager</AssemblyName>
-    <ApplicationIcon>WORDBOOK.ICO</ApplicationIcon>
+    <ApplicationIcon>favicon.ico</ApplicationIcon>
     <FileUpgradeFlags>
     </FileUpgradeFlags>
     <OldToolsVersion>3.5</OldToolsVersion>
@@ -58,35 +58,35 @@
     <Reference Include="System.Windows.Forms" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="FormBatchInsert.cs">
+    <Compile Include="BatchInsertView.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="FormBatchInsert.Designer.cs">
-      <DependentUpon>FormBatchInsert.cs</DependentUpon>
+    <Compile Include="BatchInsertView.Designer.cs">
+      <DependentUpon>BatchInsertView.cs</DependentUpon>
     </Compile>
-    <Compile Include="FormEncoder.cs">
+    <Compile Include="EncoderView.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="FormEncoder.Designer.cs">
-      <DependentUpon>FormEncoder.cs</DependentUpon>
+    <Compile Include="EncoderView.Designer.cs">
+      <DependentUpon>EncoderView.cs</DependentUpon>
     </Compile>
-    <Compile Include="FormFind.cs">
+    <Compile Include="FindView.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="FormFind.Designer.cs">
-      <DependentUpon>FormFind.cs</DependentUpon>
+    <Compile Include="FindView.Designer.cs">
+      <DependentUpon>FindView.cs</DependentUpon>
     </Compile>
-    <Compile Include="FormInputDictVersion.cs">
+    <Compile Include="InputDictVersionView.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="FormInputDictVersion.Designer.cs">
-      <DependentUpon>FormInputDictVersion.cs</DependentUpon>
+    <Compile Include="InputDictVersionView.Designer.cs">
+      <DependentUpon>InputDictVersionView.cs</DependentUpon>
     </Compile>
-    <Compile Include="FormMain.cs">
+    <Compile Include="MainWindow.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="FormMain.Designer.cs">
-      <DependentUpon>FormMain.cs</DependentUpon>
+    <Compile Include="MainWindow.Designer.cs">
+      <DependentUpon>MainWindow.cs</DependentUpon>
     </Compile>
     <Compile Include="PosCtrl.cs">
       <SubType>UserControl</SubType>
@@ -96,25 +96,25 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="FormBatchInsert.resx">
+    <EmbeddedResource Include="BatchInsertView.resx">
       <SubType>Designer</SubType>
-      <DependentUpon>FormBatchInsert.cs</DependentUpon>
+      <DependentUpon>BatchInsertView.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="FormEncoder.resx">
+    <EmbeddedResource Include="EncoderView.resx">
       <SubType>Designer</SubType>
-      <DependentUpon>FormEncoder.cs</DependentUpon>
+      <DependentUpon>EncoderView.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="FormFind.resx">
+    <EmbeddedResource Include="FindView.resx">
       <SubType>Designer</SubType>
-      <DependentUpon>FormFind.cs</DependentUpon>
+      <DependentUpon>FindView.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="FormInputDictVersion.resx">
-      <DependentUpon>FormInputDictVersion.cs</DependentUpon>
+    <EmbeddedResource Include="InputDictVersionView.resx">
+      <DependentUpon>InputDictVersionView.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="FormMain.resx">
+    <EmbeddedResource Include="MainWindow.resx">
       <SubType>Designer</SubType>
-      <DependentUpon>FormMain.cs</DependentUpon>
+      <DependentUpon>MainWindow.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="PosCtrl.resx">
       <DependentUpon>PosCtrl.cs</DependentUpon>
@@ -141,7 +141,7 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="WORDBOOK.ICO" />
+    <Content Include="favicon.ico" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include="Microsoft.Net.Client.3.5">

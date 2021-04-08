@@ -3,7 +3,7 @@ using System.Windows.Forms;
 
 namespace PanGu.DictionaryManager
 {
-    partial class FormFind
+    partial class FindView
     {
         /// <summary>
         /// Required designer variable.

@@ -3,7 +3,7 @@ using System.Windows.Forms;
 
 namespace PanGu.DictionaryManager
 {
-    public partial class FormFind : Form
+    public partial class FindView : Form
     {
         public enum SearchMode
         {
@@ -39,7 +39,7 @@ namespace PanGu.DictionaryManager
             }
         }
 
-        public FormFind()
+        public FindView()
         {
             this.InitializeComponent();
         }

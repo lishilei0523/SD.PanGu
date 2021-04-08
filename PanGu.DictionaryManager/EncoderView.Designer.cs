@@ -5,7 +5,7 @@ using System.Windows.Forms;
 
 namespace PanGu.DictionaryManager
 {
-    partial class FormEncoder
+    partial class EncoderView
     {
         /// <summary>
         /// 必需的设计器变量。
@@ -33,7 +33,7 @@ namespace PanGu.DictionaryManager
         /// </summary>
         private void InitializeComponent()
         {
-            ComponentResourceManager resources = new ComponentResourceManager(typeof(FormEncoder));
+            ComponentResourceManager resources = new ComponentResourceManager(typeof(EncoderView));
             this.comboBoxEncoder = new ComboBox();
             this.label1 = new Label();
             this.buttonOk = new Button();

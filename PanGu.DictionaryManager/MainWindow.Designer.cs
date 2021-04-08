@@ -5,7 +5,7 @@ using System.Windows.Forms;
 
 namespace PanGu.DictionaryManager
 {
-    partial class FormMain
+    partial class MainWindow
     {
         /// <summary>
         /// 必需的设计器变量。
@@ -34,7 +34,7 @@ namespace PanGu.DictionaryManager
         private void InitializeComponent()
         {
             this.components = new Container();
-            ComponentResourceManager resources = new ComponentResourceManager(typeof(FormMain));
+            ComponentResourceManager resources = new ComponentResourceManager(typeof(MainWindow));
             this.menuStrip = new MenuStrip();
             this.fileToolStripMenuItem = new ToolStripMenuItem();
             this.openBinDictFile13ToolStripMenuItem = new ToolStripMenuItem();

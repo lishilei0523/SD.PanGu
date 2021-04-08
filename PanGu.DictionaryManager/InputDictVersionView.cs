@@ -3,11 +3,11 @@ using System.Windows.Forms;
 
 namespace PanGu.DictionaryManager
 {
-    public partial class FormInputDictVersion : Form
+    public partial class InputDictVersionView : Form
     {
         DialogResult _Result = DialogResult.Cancel;
 
-        public FormInputDictVersion()
+        public InputDictVersionView()
         {
             this.InitializeComponent();
         }

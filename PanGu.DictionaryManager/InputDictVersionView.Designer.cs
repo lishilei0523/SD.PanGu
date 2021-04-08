@@ -3,7 +3,7 @@ using System.Windows.Forms;
 
 namespace PanGu.DictionaryManager
 {
-    partial class FormInputDictVersion
+    partial class InputDictVersionView
     {
         /// <summary>
         /// Required designer variable.

@@ -3,11 +3,11 @@ using System.Windows.Forms;
 
 namespace PanGu.DictionaryManager
 {
-    public partial class FormEncoder : Form
+    public partial class EncoderView : Form
     {
         bool m_Ok;
 
-        public FormEncoder()
+        public EncoderView()
         {
             this.InitializeComponent();
         }

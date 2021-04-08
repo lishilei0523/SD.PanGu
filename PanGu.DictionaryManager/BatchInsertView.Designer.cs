@@ -23,7 +23,7 @@ using System.Windows.Forms;
 
 namespace PanGu.DictionaryManager
 {
-    partial class FormBatchInsert
+    partial class BatchInsertView
     {
         /// <summary>
         /// 必需的设计器变量。
@@ -51,7 +51,7 @@ namespace PanGu.DictionaryManager
         /// </summary>
         private void InitializeComponent()
         {
-            ComponentResourceManager resources = new ComponentResourceManager(typeof(FormBatchInsert));
+            ComponentResourceManager resources = new ComponentResourceManager(typeof(BatchInsertView));
             this.label3 = new Label();
             this.numericUpDownFrequency = new NumericUpDown();
             this.label2 = new Label();
