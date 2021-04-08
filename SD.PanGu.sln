@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2013
-VisualStudioVersion = 12.0.40629.0
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30907.101
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PanGu.Lucene.Analyzer", "PanGu.Lucene.Analyzer\PanGu.Lucene.Analyzer.csproj", "{5A6AFB41-632D-46C0-B1AB-EB8B10C70A2A}"
 EndProject
@@ -28,13 +28,6 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PanGu.Lucene.Analyzer.Tests", "PanGu.Lucene.Analyzer.Tests\PanGu.Lucene.Analyzer.Tests.csproj", "{BBBFC39A-6F66-48BA-BDF3-64EC966EFFFF}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PanGu.HighLight.Tests", "PanGu.HighLight.Tests\PanGu.HighLight.Tests.csproj", "{D1DDF3BD-4DD7-4A5E-86BA-0DF13783A6EF}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{0A344014-FA4B-4789-922E-304401560E91}"
-	ProjectSection(SolutionItems) = preProject
-		.nuget\NuGet.Config = .nuget\NuGet.Config
-		.nuget\NuGet.exe = .nuget\NuGet.exe
-		.nuget\NuGet.targets = .nuget\NuGet.targets
-	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -150,5 +143,8 @@ Global
 		{6B5AB614-25F9-4628-9F4C-594C3B2F4049} = {10599B3B-F285-4AE4-8F47-8C2AF632CC4A}
 		{BBBFC39A-6F66-48BA-BDF3-64EC966EFFFF} = {ABA154EC-E6C4-4EAF-BE29-5035F7FCEC66}
 		{D1DDF3BD-4DD7-4A5E-86BA-0DF13783A6EF} = {ABA154EC-E6C4-4EAF-BE29-5035F7FCEC66}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {992FDB5C-55EF-449A-91CE-A699C4F8AE04}
 	EndGlobalSection
 EndGlobal
