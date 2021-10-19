@@ -16,7 +16,7 @@ namespace PanGu.Tests.TestCases
         {
             PanGuSection setting = PanGuSection.Setting;
 
-            Assert.AreEqual(setting.DictionaryPathElement.Value, "Content");
+            Assert.AreEqual(setting.DictionaryPathElement.Value, "Content/PanGu");
         }
 
         /// <summary>

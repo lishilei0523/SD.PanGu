@@ -33,7 +33,7 @@ namespace PanGu.Settings
             if (PanGuSection.Setting == null)
             {
                 //字典路径
-                _CurrentDictionaryPath = "Content";
+                _CurrentDictionaryPath = "Content/PanGu";
 
                 //匹配选项
                 _CurrentMatchOption = new MatchOption();

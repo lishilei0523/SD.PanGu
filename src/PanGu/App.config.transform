@@ -6,7 +6,7 @@
   <!--SD.PanGu配置-->
   <sd.panGu>
     <!--字典路径-->
-    <dictionaryPath>Content</dictionaryPath>
+    <dictionaryPath>Content/PanGu</dictionaryPath>
     <!--匹配设置-->
     <matchOptions>
       <!--中文人名识别-->
