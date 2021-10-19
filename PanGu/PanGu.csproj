@@ -1,171 +1,45 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+﻿<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
   <PropertyGroup>
-    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
-    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProductVersion>9.0.21022</ProductVersion>
-    <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{091E1C60-F77B-45A1-844C-86C5F508B57B}</ProjectGuid>
-    <OutputType>Library</OutputType>
-    <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>PanGu</RootNamespace>
-    <AssemblyName>PanGu</AssemblyName>
-    <TargetFrameworkVersion>v2.0</TargetFrameworkVersion>
-    <FileAlignment>512</FileAlignment>
-    <FileUpgradeFlags>
-    </FileUpgradeFlags>
-    <UpgradeBackupLocation>
-    </UpgradeBackupLocation>
-    <OldToolsVersion>3.5</OldToolsVersion>
+    <TargetFrameworks>net35;netcoreapp3.1</TargetFrameworks>
+    <Authors>Eaglet</Authors>
+    <Company>PanGu</Company>
+    <Product>PanGu Segment</Product>
+    <Copyright>Copyright © Eaglet 2009</Copyright>
+    <Version>2.3.1</Version>
+    <AssemblyVersion>2.3.1.0</AssemblyVersion>
+    <FileVersion>2.3.1.0</FileVersion>
   </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <DebugSymbols>true</DebugSymbols>
-    <DebugType>full</DebugType>
-    <Optimize>false</Optimize>
-    <OutputPath>bin\Debug\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-    <DocumentationFile>bin\Debug\PanGu.XML</DocumentationFile>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <DebugType>pdbonly</DebugType>
-    <Optimize>true</Optimize>
-    <OutputPath>bin\Release\</OutputPath>
-    <DefineConstants>TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-    <AllowUnsafeBlocks>false</AllowUnsafeBlocks>
-    <DocumentationFile>bin\Release\PanGu.XML</DocumentationFile>
-  </PropertyGroup>
+
   <ItemGroup>
-    <Reference Include="Microsoft.VisualBasic" />
-    <Reference Include="System" />
-    <Reference Include="System.Configuration" />
-    <Reference Include="System.Xml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="AnalyzerResource.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>AnalyzerResource.resx</DependentUpon>
-    </Compile>
-    <Compile Include="Configurations\DictionaryPathElement.cs" />
-    <Compile Include="Configurations\MatchOptionsElement.cs" />
-    <Compile Include="Configurations\MatchOptions\ChineseNameIdentifyElement.cs" />
-    <Compile Include="Configurations\MatchOptions\CustomRuleElement.cs" />
-    <Compile Include="Configurations\MatchOptions\EnglishMultiDimensionalityElement.cs" />
-    <Compile Include="Configurations\MatchOptions\EnglishSegmentElement.cs" />
-    <Compile Include="Configurations\MatchOptions\FilterEnglishElement.cs" />
-    <Compile Include="Configurations\MatchOptions\FilterNumericElement.cs" />
-    <Compile Include="Configurations\MatchOptions\FilterStopWordsElement.cs" />
-    <Compile Include="Configurations\MatchOptions\ForceSingleWordElement.cs" />
-    <Compile Include="Configurations\MatchOptions\FrequencyFirstElement.cs" />
-    <Compile Include="Configurations\MatchOptions\IgnoreCapitalElement.cs" />
-    <Compile Include="Configurations\MatchOptions\IgnoreSpaceElement.cs" />
-    <Compile Include="Configurations\MatchOptions\MultiDimensionalityElement.cs" />
-    <Compile Include="Configurations\MatchOptions\OutputSimplifiedTraditionalElement.cs" />
-    <Compile Include="Configurations\MatchOptions\SynonymOutputElement.cs" />
-    <Compile Include="Configurations\MatchOptions\TraditionalChineseEnabledElement.cs" />
-    <Compile Include="Configurations\MatchOptions\UnknownWordIdentifyElement.cs" />
-    <Compile Include="Configurations\MatchOptions\WildcardOutputElement.cs" />
-    <Compile Include="Configurations\MatchOptions\WildcardSegmentElement.cs" />
-    <Compile Include="Configurations\MatchParametersElement.cs" />
-    <Compile Include="Configurations\MatchParameters\BestRankElement.cs" />
-    <Compile Include="Configurations\MatchParameters\CustomRuleAssemblyFileNameElement.cs" />
-    <Compile Include="Configurations\MatchParameters\CustomRuleFullClassNameElement.cs" />
-    <Compile Include="Configurations\MatchParameters\EnglishLowerRankElement.cs" />
-    <Compile Include="Configurations\MatchParameters\EnglishRankElement.cs" />
-    <Compile Include="Configurations\MatchParameters\EnglishStemRankElement.cs" />
-    <Compile Include="Configurations\MatchParameters\FilterEnglishLengthElement.cs" />
-    <Compile Include="Configurations\MatchParameters\FilterNumericLengthElement.cs" />
-    <Compile Include="Configurations\MatchParameters\NumericRankElement.cs" />
-    <Compile Include="Configurations\MatchParameters\RedundancyElement.cs" />
-    <Compile Include="Configurations\MatchParameters\SecRankElement.cs" />
-    <Compile Include="Configurations\MatchParameters\SimplifiedTraditionalRankElement.cs" />
-    <Compile Include="Configurations\MatchParameters\SingleRankElement.cs" />
-    <Compile Include="Configurations\MatchParameters\SymbolRankElement.cs" />
-    <Compile Include="Configurations\MatchParameters\SynonymRankElement.cs" />
-    <Compile Include="Configurations\MatchParameters\ThirdRankElement.cs" />
-    <Compile Include="Configurations\MatchParameters\UnknowRankElement.cs" />
-    <Compile Include="Configurations\MatchParameters\WildcardRankElement.cs" />
-    <Compile Include="Configurations\PanGuConfiguration.cs" />
-    <Compile Include="Constants\Constants.cs" />
-    <Compile Include="Dictionaries\DictionaryLoader.cs" />
-    <Compile Include="Dictionaries\StopWord.cs" />
-    <Compile Include="Dictionaries\Synonym.cs" />
-    <Compile Include="Dictionaries\Wildcard.cs" />
-    <Compile Include="Dictionaries\WordDictionary.cs" />
-    <Compile Include="Enums\DFAResult.cs" />
-    <Compile Include="Enums\LexicalFunction.cs" />
-    <Compile Include="Enums\Mode.cs" />
-    <Compile Include="Enums\State.cs" />
-    <Compile Include="Enums\WordType.cs" />
-    <Compile Include="Framework\AppendList.cs" />
-    <Compile Include="Framework\DFA.cs" />
-    <Compile Include="Framework\Instance.cs" />
-    <Compile Include="Framework\Lexical.cs" />
-    <Compile Include="Framework\Lock.cs" />
-    <Compile Include="Framework\PorterStemmer.cs" />
-    <Compile Include="Framework\QuickSort.cs" />
-    <Compile Include="Framework\Regex.cs" />
-    <Compile Include="Framework\File.cs" />
-    <Compile Include="Framework\Path.cs" />
-    <Compile Include="Framework\Stream.cs" />
-    <Compile Include="Framework\SuperLinkedList.cs" />
-    <Compile Include="Framework\XmlSerialization.cs" />
-    <Compile Include="ICustomRule.cs" />
-    <Compile Include="Match\ChsFullTextMatch.cs" />
-    <Compile Include="Dictionaries\ChsName.cs" />
-    <Compile Include="Match\IChsFullTextMatch.cs" />
-    <Compile Include="Settings\MatchOption.cs" />
-    <Compile Include="Settings\MatchParameter.cs" />
-    <Compile Include="Enums\POS.cs" />
-    <Compile Include="Segment.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Settings\PanGuSettings.cs" />
-    <Compile Include="WordAttribute.cs" />
-    <Compile Include="WordInfo.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="AnalyzerResource.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>AnalyzerResource.Designer.cs</LastGenOutput>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="DictionaryFiles\ChsDoubleName1.txt">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="DictionaryFiles\ChsDoubleName2.txt">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="DictionaryFiles\ChsSingleName.txt">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="DictionaryFiles\Stopword.txt">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="DictionaryFiles\Synonym.txt">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="DictionaryFiles\Wildcard.txt" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="App.config.transform" />
     <None Include="DictionaryFiles\Dictionary.dct">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="Web.config.transform" />
+    <None Include="DictionaryFiles\ChsDoubleName1.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="DictionaryFiles\ChsDoubleName2.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="DictionaryFiles\ChsSingleName.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="DictionaryFiles\Stopword.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="DictionaryFiles\Synonym.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="DictionaryFiles\Wildcard.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
-  <ItemGroup />
-  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
-       Other similar extension points exist, see Microsoft.Common.targets.
-  <Target Name="BeforeBuild">
-  </Target>
-  <Target Name="AfterBuild">
-  </Target>
-  -->
+
+  <ItemGroup Condition="'$(TargetFramework)' == 'net35'">
+    <Reference Include="System.Configuration" />
+    <Reference Include="Microsoft.VisualBasic" />
+  </ItemGroup>
+
+  <ItemGroup Condition="'$(TargetFramework)' == 'netcoreapp3.1'">
+    <PackageReference Include="System.Configuration.ConfigurationManager" Version="4.7.0" />
+  </ItemGroup>
 </Project>
