@@ -10,6 +10,13 @@
     <FileVersion>2.4.1.0</FileVersion>
   </PropertyGroup>
 
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <DocumentationFile>bin\Debug\$(TargetFramework)\PanGu.Lucene.Analyzer.xml</DocumentationFile>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <DocumentationFile>bin\Release\$(TargetFramework)\PanGu.Lucene.Analyzer.xml</DocumentationFile>
+  </PropertyGroup>
+
   <ItemGroup>
     <PackageReference Include="Lucene.Net" Version="3.0.3" />
   </ItemGroup>

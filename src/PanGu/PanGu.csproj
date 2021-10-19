@@ -10,6 +10,13 @@
     <FileVersion>2.3.1.0</FileVersion>
   </PropertyGroup>
 
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <DocumentationFile>bin\Debug\$(TargetFramework)\PanGu.xml</DocumentationFile>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <DocumentationFile>bin\Release\$(TargetFramework)\PanGu.xml</DocumentationFile>
+  </PropertyGroup>
+
   <ItemGroup>
     <None Include="Content\**">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
