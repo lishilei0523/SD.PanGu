@@ -1,18 +1,11 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
   <PropertyGroup>
-    <TargetFramework>net4</TargetFramework>
+    <TargetFrameworks>net461;netcoreapp3.1</TargetFrameworks>
     <Authors>Eaglet</Authors>
     <Company>PanGu</Company>
-    <Product>PanGu.Lucene.Analyzer</Product>
+    <Product>PanGu.HighLight</Product>
     <Copyright>Copyright © Eaglet 2009</Copyright>
-    <Version>2.4.1</Version>
-    <AssemblyVersion>2.4.1.0</AssemblyVersion>
-    <FileVersion>2.4.1.0</FileVersion>
   </PropertyGroup>
-
-  <ItemGroup>
-    <PackageReference Include="Lucene.Net" Version="3.0.3" />
-  </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\PanGu\PanGu.csproj" />

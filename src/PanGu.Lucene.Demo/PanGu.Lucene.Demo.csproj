@@ -1,19 +1,20 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
   <PropertyGroup>
-    <TargetFramework>net35</TargetFramework>
-    <OutputType>WinExe</OutputType>
+    <TargetFramework>net461</TargetFramework>
+    <OutputType>Exe</OutputType>
     <UseWindowsForms>true</UseWindowsForms>
     <ApplicationIcon>favicon.ico</ApplicationIcon>
     <Authors>Eaglet</Authors>
     <Company>PanGu</Company>
-    <Product>PanGu.DictionaryManager</Product>
     <Copyright>Copyright © Eaglet 2009</Copyright>
-    <Version>2.1.0</Version>
-    <AssemblyVersion>2.1.0.0</AssemblyVersion>
-    <FileVersion>2.1.0.0</FileVersion>
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Lucene.Net" Version="3.0.3" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\PanGu\PanGu.csproj" />
+    <ProjectReference Include="..\PanGu.Lucene.Analyzer\PanGu.Lucene.Analyzer.csproj" />
   </ItemGroup>
 </Project>

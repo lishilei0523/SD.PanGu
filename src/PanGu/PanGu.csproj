@@ -1,6 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
   <PropertyGroup>
-    <TargetFrameworks>net35;netcoreapp3.1</TargetFrameworks>
+    <TargetFrameworks>net461;netcoreapp3.1</TargetFrameworks>
     <Authors>Eaglet</Authors>
     <Company>PanGu</Company>
     <Product>PanGu Segment</Product>
@@ -14,13 +14,13 @@
     <None Include="DictionaryFiles\Dictionary.dct">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Include="DictionaryFiles\ChsSingleName.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Include="DictionaryFiles\ChsDoubleName1.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="DictionaryFiles\ChsDoubleName2.txt">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="DictionaryFiles\ChsSingleName.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="DictionaryFiles\Stopword.txt">
@@ -34,7 +34,7 @@
     </None>
   </ItemGroup>
 
-  <ItemGroup Condition="'$(TargetFramework)' == 'net35'">
+  <ItemGroup Condition="'$(TargetFramework)' == 'net461'">
     <Reference Include="System.Configuration" />
     <Reference Include="Microsoft.VisualBasic" />
   </ItemGroup>
