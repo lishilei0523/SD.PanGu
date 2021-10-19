@@ -1,20 +1,20 @@
 ﻿using System.Configuration;
 using System.Xml;
 
-namespace PanGu.Configurations.MatchOptions
+namespace PanGu.Configurations
 {
     /// <summary>
-    /// 词频优先节点
+    /// 文本节点
     /// </summary>
-    internal class FrequencyFirstElement : ConfigurationElement
+    public class TextElement : ConfigurationElement
     {
         /// <summary>
-        /// 是否启用
+        /// 文本
         /// </summary>
         [ConfigurationProperty("data", IsRequired = true)]
-        public bool Enabled
+        public string Value
         {
-            get { return (bool)this["data"]; }
+            get { return (string)this["data"]; }
             set { this["data"] = value; }
         }
 
@@ -23,7 +23,7 @@ namespace PanGu.Configurations.MatchOptions
         /// </summary>
         protected override void DeserializeElement(XmlReader reader, bool serializeCollectionKey)
         {
-            this.Enabled = (bool)reader.ReadElementContentAs(typeof(bool), null);
+            this.Value = reader.ReadElementContentAs(typeof(string), null)?.ToString();
         }
     }
 }

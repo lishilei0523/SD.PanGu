@@ -1,12 +1,13 @@
 ﻿<configuration>
   <configSections>
-    <!--盘古分词配置节点-->
-    <section name="panGuConfiguration" type="PanGu.PanGuConfiguration, PanGu"/>
+    <!--SD.PanGu配置节点-->
+    <section name="sd.panGu" type="PanGu.PanGuSection, PanGu"/>
   </configSections>
-  <!--盘古分词配置-->
-  <panGuConfiguration>
+  <!--SD.PanGu配置-->
+  <sd.panGu>
     <!--字典路径-->
-    <dictionaryPath>DictionaryFiles</dictionaryPath>
+    <dictionaryPath>Content</dictionaryPath>
+    <!--匹配设置-->
     <matchOptions>
       <!--中文人名识别-->
       <chineseNameIdentify>true</chineseNameIdentify>
@@ -45,6 +46,7 @@
       <!--是否进行用户自定义规则匹配-->
       <customRule>false</customRule>
     </matchOptions>
+    <!--匹配参数-->
     <matchParameters>
       <!--未登录词权值-->
       <unknowRank>1</unknowRank>
@@ -83,5 +85,5 @@
       <!--多元分词冗余度-->
       <redundancy>0</redundancy>
     </matchParameters>
-  </panGuConfiguration>
+  </sd.panGu>
 </configuration>

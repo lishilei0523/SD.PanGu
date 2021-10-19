@@ -1,5 +1,4 @@
 ﻿using System.Configuration;
-using PanGu.Configurations.MatchParameters;
 
 namespace PanGu.Configurations
 {
@@ -8,218 +7,218 @@ namespace PanGu.Configurations
     /// </summary>
     internal class MatchParametersElement : ConfigurationElement
     {
-        #region # 未登录词权值节点 —— UnknowRankElement UnknowRankElement
+        #region # 未登录词权值节点 —— NumericElement UnknowRankElement
         /// <summary>
         /// 未登录词权值节点
         /// </summary>
         [ConfigurationProperty("unknowRank", IsRequired = true)]
-        public UnknowRankElement UnknowRankElement
+        public NumericElement UnknowRankElement
         {
-            get { return (UnknowRankElement)this["unknowRank"]; }
+            get { return (NumericElement)this["unknowRank"]; }
             set { this["unknowRank"] = value; }
         }
         #endregion
 
-        #region # 最匹配词权值节点 —— BestRankElement BestRankElement
+        #region # 最匹配词权值节点 —— NumericElement BestRankElement
         /// <summary>
         /// 最匹配词权值节点
         /// </summary>
         [ConfigurationProperty("bestRank", IsRequired = true)]
-        public BestRankElement BestRankElement
+        public NumericElement BestRankElement
         {
-            get { return (BestRankElement)this["bestRank"]; }
+            get { return (NumericElement)this["bestRank"]; }
             set { this["bestRank"] = value; }
         }
         #endregion
 
-        #region # 次匹配词权值节点 —— SecRankElement SecRankElement
+        #region # 次匹配词权值节点 —— NumericElement SecRankElement
         /// <summary>
         /// 次匹配词权值节点
         /// </summary>
         [ConfigurationProperty("secRank", IsRequired = true)]
-        public SecRankElement SecRankElement
+        public NumericElement SecRankElement
         {
-            get { return (SecRankElement)this["secRank"]; }
+            get { return (NumericElement)this["secRank"]; }
             set { this["secRank"] = value; }
         }
         #endregion
 
-        #region # 再次匹配词权值节点 —— ThirdRankElement ThirdRankElement
+        #region # 再次匹配词权值节点 —— NumericElement ThirdRankElement
         /// <summary>
         /// 再次匹配词权值节点
         /// </summary>
         [ConfigurationProperty("thirdRank", IsRequired = true)]
-        public ThirdRankElement ThirdRankElement
+        public NumericElement ThirdRankElement
         {
-            get { return (ThirdRankElement)this["thirdRank"]; }
+            get { return (NumericElement)this["thirdRank"]; }
             set { this["thirdRank"] = value; }
         }
         #endregion
 
-        #region # 强行输出的单字的权值节点 —— SingleRankElement SingleRankElement
+        #region # 强行输出的单字的权值节点 —— NumericElement SingleRankElement
         /// <summary>
         /// 强行输出的单字的权值节点
         /// </summary>
         [ConfigurationProperty("singleRank", IsRequired = true)]
-        public SingleRankElement SingleRankElement
+        public NumericElement SingleRankElement
         {
-            get { return (SingleRankElement)this["singleRank"]; }
+            get { return (NumericElement)this["singleRank"]; }
             set { this["singleRank"] = value; }
         }
         #endregion
 
-        #region # 数字的权值节点 —— NumericRankElement NumericRankElement
+        #region # 数字的权值节点 —— NumericElement NumericRankElement
         /// <summary>
         /// 数字的权值节点
         /// </summary>
         [ConfigurationProperty("numericRank", IsRequired = true)]
-        public NumericRankElement NumericRankElement
+        public NumericElement NumericRankElement
         {
-            get { return (NumericRankElement)this["numericRank"]; }
+            get { return (NumericElement)this["numericRank"]; }
             set { this["numericRank"] = value; }
         }
         #endregion
 
-        #region # 英文词汇的权值节点 —— EnglishRankElement EnglishRankElement
+        #region # 英文词汇的权值节点 —— NumericElement EnglishRankElement
         /// <summary>
         /// 英文词汇的权值节点
         /// </summary>
         [ConfigurationProperty("englishRank", IsRequired = true)]
-        public EnglishRankElement EnglishRankElement
+        public NumericElement EnglishRankElement
         {
-            get { return (EnglishRankElement)this["englishRank"]; }
+            get { return (NumericElement)this["englishRank"]; }
             set { this["englishRank"] = value; }
         }
         #endregion
 
-        #region # 英文词汇小写的权值节点 —— EnglishLowerRankElement EnglishLowerRankElement
+        #region # 英文词汇小写的权值节点 —— NumericElement EnglishLowerRankElement
         /// <summary>
         /// 英文词汇小写的权值节点
         /// </summary>
         [ConfigurationProperty("englishLowerRank", IsRequired = true)]
-        public EnglishLowerRankElement EnglishLowerRankElement
+        public NumericElement EnglishLowerRankElement
         {
-            get { return (EnglishLowerRankElement)this["englishLowerRank"]; }
+            get { return (NumericElement)this["englishLowerRank"]; }
             set { this["englishLowerRank"] = value; }
         }
         #endregion
 
-        #region # 英文词汇词根的权值节点 —— EnglishStemRankElement EnglishStemRankElement
+        #region # 英文词汇词根的权值节点 —— NumericElement EnglishStemRankElement
         /// <summary>
         /// 英文词汇词根的权值节点
         /// </summary>
         [ConfigurationProperty("englishStemRank", IsRequired = true)]
-        public EnglishStemRankElement EnglishStemRankElement
+        public NumericElement EnglishStemRankElement
         {
-            get { return (EnglishStemRankElement)this["englishStemRank"]; }
+            get { return (NumericElement)this["englishStemRank"]; }
             set { this["englishStemRank"] = value; }
         }
         #endregion
 
-        #region # 符号的权值节点 —— SymbolRankElement SymbolRankElement
+        #region # 符号的权值节点 —— NumericElement SymbolRankElement
         /// <summary>
         /// 符号的权值节点
         /// </summary>
         [ConfigurationProperty("symbolRank", IsRequired = true)]
-        public SymbolRankElement SymbolRankElement
+        public NumericElement SymbolRankElement
         {
-            get { return (SymbolRankElement)this["symbolRank"]; }
+            get { return (NumericElement)this["symbolRank"]; }
             set { this["symbolRank"] = value; }
         }
         #endregion
 
-        #region # 强制同时输出简繁汉字时，非原来文本的汉字输出权值节点 —— SimplifiedTrad...
+        #region # 强制同时输出简繁汉字时，非原来文本的汉字输出权值节点 —— NumericElement...
         /// <summary>
         /// 强制同时输出简繁汉字时，非原来文本的汉字输出权值节点
         /// </summary>
         [ConfigurationProperty("simplifiedTraditionalRank", IsRequired = true)]
-        public SimplifiedTraditionalRankElement SimplifiedTraditionalRankElement
+        public NumericElement SimplifiedTraditionalRankElement
         {
-            get { return (SimplifiedTraditionalRankElement)this["simplifiedTraditionalRank"]; }
+            get { return (NumericElement)this["simplifiedTraditionalRank"]; }
             set { this["simplifiedTraditionalRank"] = value; }
         }
         #endregion
 
-        #region # 同义词的权值节点 —— SynonymRankElement SynonymRankElement
+        #region # 同义词的权值节点 —— NumericElement SynonymRankElement
         /// <summary>
         /// 同义词的权值节点
         /// </summary>
         [ConfigurationProperty("synonymRank", IsRequired = true)]
-        public SynonymRankElement SynonymRankElement
+        public NumericElement SynonymRankElement
         {
-            get { return (SynonymRankElement)this["synonymRank"]; }
+            get { return (NumericElement)this["synonymRank"]; }
             set { this["synonymRank"] = value; }
         }
         #endregion
 
-        #region # 通配符匹配结果的权值节点 —— WildcardRankElement WildcardRankElement
+        #region # 通配符匹配结果的权值节点 —— NumericElement WildcardRankElement
         /// <summary>
         /// 通配符匹配结果的权值节点
         /// </summary>
         [ConfigurationProperty("wildcardRank", IsRequired = true)]
-        public WildcardRankElement WildcardRankElement
+        public NumericElement WildcardRankElement
         {
-            get { return (WildcardRankElement)this["wildcardRank"]; }
+            get { return (NumericElement)this["wildcardRank"]; }
             set { this["wildcardRank"] = value; }
         }
         #endregion
 
-        #region # 过滤大于此长度的英文节点 —— FilterEnglishLengthElement FilterEnglishLengthElement
+        #region # 过滤大于此长度的英文节点 —— NumericElement FilterEnglishLengthElement
         /// <summary>
         /// 过滤大于此长度的英文节点
         /// </summary>
         [ConfigurationProperty("filterEnglishLength", IsRequired = true)]
-        public FilterEnglishLengthElement FilterEnglishLengthElement
+        public NumericElement FilterEnglishLengthElement
         {
-            get { return (FilterEnglishLengthElement)this["filterEnglishLength"]; }
+            get { return (NumericElement)this["filterEnglishLength"]; }
             set { this["filterEnglishLength"] = value; }
         }
         #endregion
 
-        #region # 过滤大于此长度的数字节点 —— FilterNumericLengthElement FilterNumericLengthElement
+        #region # 过滤大于此长度的数字节点 —— NumericElement FilterNumericLengthElement
         /// <summary>
         /// 过滤大于此长度的数字节点
         /// </summary>
         [ConfigurationProperty("filterNumericLength", IsRequired = true)]
-        public FilterNumericLengthElement FilterNumericLengthElement
+        public NumericElement FilterNumericLengthElement
         {
-            get { return (FilterNumericLengthElement)this["filterNumericLength"]; }
+            get { return (NumericElement)this["filterNumericLength"]; }
             set { this["filterNumericLength"] = value; }
         }
         #endregion
 
-        #region # 用户自定义规则程序集节点 —— CustomRuleAssemblyFileNameElement CustomRuleAssembly...
+        #region # 用户自定义规则程序集节点 —— TextElement CustomRuleAssembly...
         /// <summary>
         /// 用户自定义规则程序集节点
         /// </summary>
         [ConfigurationProperty("customRuleAssemblyFileName", IsRequired = false)]
-        public CustomRuleAssemblyFileNameElement CustomRuleAssemblyFileNameElement
+        public TextElement CustomRuleAssemblyFileNameElement
         {
-            get { return (CustomRuleAssemblyFileNameElement)this["customRuleAssemblyFileName"]; }
+            get { return (TextElement)this["customRuleAssemblyFileName"]; }
             set { this["customRuleAssemblyFileName"] = value; }
         }
         #endregion
 
-        #region # 用户自定义规则的完整类名节点 —— CustomRuleFullClassNameElement CustomRuleFul...
+        #region # 用户自定义规则的完整类名节点 —— TextElement CustomRuleFul...
         /// <summary>
         /// 用户自定义规则的完整类名节点
         /// </summary>
         [ConfigurationProperty("customRuleFullClassName", IsRequired = false)]
-        public CustomRuleFullClassNameElement CustomRuleFullClassNameElement
+        public TextElement CustomRuleFullClassNameElement
         {
-            get { return (CustomRuleFullClassNameElement)this["customRuleFullClassName"]; }
+            get { return (TextElement)this["customRuleFullClassName"]; }
             set { this["customRuleFullClassName"] = value; }
         }
         #endregion
 
-        #region # 多元分词冗余度节点 —— RedundancyElement RedundancyElement
+        #region # 多元分词冗余度节点 —— NumericElement RedundancyElement
         /// <summary>
         /// 多元分词冗余度节点
         /// </summary>
         [ConfigurationProperty("redundancy", IsRequired = true)]
-        public RedundancyElement RedundancyElement
+        public NumericElement RedundancyElement
         {
-            get { return (RedundancyElement)this["redundancy"]; }
+            get { return (NumericElement)this["redundancy"]; }
             set { this["redundancy"] = value; }
         }
         #endregion

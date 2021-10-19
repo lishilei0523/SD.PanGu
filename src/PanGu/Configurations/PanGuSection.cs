@@ -7,19 +7,19 @@ namespace PanGu
     /// <summary>
     /// 盘古分词配置
     /// </summary>
-    internal class PanGuConfiguration : ConfigurationSection
+    internal class PanGuSection : ConfigurationSection
     {
-        #region # 访问器 —— static PanGuConfiguration Setting
+        #region # 访问器 —— static PanGuSection Setting
         /// <summary>
         /// 访问器
         /// </summary>
-        public static PanGuConfiguration Setting
+        public static PanGuSection Setting
         {
             get
             {
                 try
                 {
-                    PanGuConfiguration setting = (PanGuConfiguration)ConfigurationManager.GetSection("panGuConfiguration");
+                    PanGuSection setting = (PanGuSection)ConfigurationManager.GetSection("sd.panGu");
 
                     return setting;
                 }
@@ -31,14 +31,14 @@ namespace PanGu
         }
         #endregion
 
-        #region # 字典路径节点 —— DictionaryPathElement DictionaryPathElement
+        #region # 字典路径节点 —— TextElement DictionaryPathElement
         /// <summary>
         /// 字典路径节点
         /// </summary>
         [ConfigurationProperty("dictionaryPath", IsRequired = true)]
-        public DictionaryPathElement DictionaryPathElement
+        public TextElement DictionaryPathElement
         {
-            get { return ((DictionaryPathElement)this["dictionaryPath"]); }
+            get { return ((TextElement)this["dictionaryPath"]); }
         }
         #endregion
 

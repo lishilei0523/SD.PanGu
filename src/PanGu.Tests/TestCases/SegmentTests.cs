@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 
-namespace PanGu.Tests
+namespace PanGu.Tests.TestCases
 {
     /// <summary>
     /// 分词测试

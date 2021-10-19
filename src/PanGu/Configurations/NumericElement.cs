@@ -1,15 +1,15 @@
 ﻿using System.Configuration;
 using System.Xml;
 
-namespace PanGu.Configurations.MatchParameters
+namespace PanGu.Configurations
 {
     /// <summary>
-    /// 多元分词冗余度节点
+    /// 数值节点
     /// </summary>
-    internal class RedundancyElement : ConfigurationElement
+    public class NumericElement : ConfigurationElement
     {
         /// <summary>
-        /// 冗余度
+        /// 数值
         /// </summary>
         [ConfigurationProperty("data", IsRequired = true)]
         public int Value
@@ -23,7 +23,15 @@ namespace PanGu.Configurations.MatchParameters
         /// </summary>
         protected override void DeserializeElement(XmlReader reader, bool serializeCollectionKey)
         {
-            this.Value = (int)reader.ReadElementContentAs(typeof(int), null);
+            string content = reader.ReadElementContentAs(typeof(string), null)?.ToString();
+            if (int.TryParse(content, out int value))
+            {
+                this.Value = value;
+            }
+            else
+            {
+                this.Value = 0;
+            }
         }
     }
 }

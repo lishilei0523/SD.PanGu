@@ -11,25 +11,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Include="DictionaryFiles\Dictionary.dct">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="DictionaryFiles\ChsSingleName.txt">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="DictionaryFiles\ChsDoubleName1.txt">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="DictionaryFiles\ChsDoubleName2.txt">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="DictionaryFiles\Stopword.txt">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="DictionaryFiles\Synonym.txt">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="DictionaryFiles\Wildcard.txt">
+    <None Include="Content\**">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
   </ItemGroup>

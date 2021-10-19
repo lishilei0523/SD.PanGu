@@ -1,5 +1,4 @@
 ﻿using System.Configuration;
-using PanGu.Configurations.MatchOptions;
 
 namespace PanGu.Configurations
 {
@@ -8,218 +7,218 @@ namespace PanGu.Configurations
     /// </summary>
     internal class MatchOptionsElement : ConfigurationElement
     {
-        #region # 中文名识别节点 —— ChineseNameIdentifyElement ChineseNameIdentifyElement
+        #region # 中文名识别节点 —— BooleanElement ChineseNameIdentifyElement
         /// <summary>
         /// 中文名识别节点
         /// </summary>
         [ConfigurationProperty("chineseNameIdentify", IsRequired = true)]
-        public ChineseNameIdentifyElement ChineseNameIdentifyElement
+        public BooleanElement ChineseNameIdentifyElement
         {
-            get { return (ChineseNameIdentifyElement)this["chineseNameIdentify"]; }
+            get { return (BooleanElement)this["chineseNameIdentify"]; }
             set { this["chineseNameIdentify"] = value; }
         }
         #endregion
 
-        #region # 词频优先节点 —— FrequencyFirstElement FrequencyFirstElement
+        #region # 词频优先节点 —— BooleanElement FrequencyFirstElement
         /// <summary>
         /// 词频优先节点
         /// </summary>
         [ConfigurationProperty("frequencyFirst", IsRequired = true)]
-        public FrequencyFirstElement FrequencyFirstElement
+        public BooleanElement FrequencyFirstElement
         {
-            get { return (FrequencyFirstElement)this["frequencyFirst"]; }
+            get { return (BooleanElement)this["frequencyFirst"]; }
             set { this["frequencyFirst"] = value; }
         }
         #endregion
 
-        #region # 多元分词节点 —— MultiDimensionalityElement MultiDimensionalityElement
+        #region # 多元分词节点 —— BooleanElement MultiDimensionalityElement
         /// <summary>
         /// 多元分词节点
         /// </summary>
         [ConfigurationProperty("multiDimensionality", IsRequired = true)]
-        public MultiDimensionalityElement MultiDimensionalityElement
+        public BooleanElement MultiDimensionalityElement
         {
-            get { return (MultiDimensionalityElement)this["multiDimensionality"]; }
+            get { return (BooleanElement)this["multiDimensionality"]; }
             set { this["multiDimensionality"] = value; }
         }
         #endregion
 
-        #region # 英文多元分词节点 —— EnglishMultiDimensionalityElement EnglishMultiDimensionalityElement
+        #region # 英文多元分词节点 —— BooleanElement EnglishMultiDimensionalityElement
         /// <summary>
         /// 英文多元分词节点
         /// </summary>
         [ConfigurationProperty("englishMultiDimensionality", IsRequired = true)]
-        public EnglishMultiDimensionalityElement EnglishMultiDimensionalityElement
+        public BooleanElement EnglishMultiDimensionalityElement
         {
-            get { return (EnglishMultiDimensionalityElement)this["englishMultiDimensionality"]; }
+            get { return (BooleanElement)this["englishMultiDimensionality"]; }
             set { this["englishMultiDimensionality"] = value; }
         }
         #endregion
 
-        #region # 过滤停用词节点 —— FilterStopWordsElement FilterStopWordsElement
+        #region # 过滤停用词节点 —— BooleanElement FilterStopWordsElement
         /// <summary>
         /// 过滤停用词节点
         /// </summary>
         [ConfigurationProperty("filterStopWords", IsRequired = true)]
-        public FilterStopWordsElement FilterStopWordsElement
+        public BooleanElement FilterStopWordsElement
         {
-            get { return (FilterStopWordsElement)this["filterStopWords"]; }
+            get { return (BooleanElement)this["filterStopWords"]; }
             set { this["filterStopWords"] = value; }
         }
         #endregion
 
-        #region # 忽略空格、回车、Tab节点 —— IgnoreSpaceElement IgnoreSpaceElement
+        #region # 忽略空格、回车、Tab节点 —— BooleanElement IgnoreSpaceElement
         /// <summary>
         /// 忽略空格、回车、Tab节点
         /// </summary>
         [ConfigurationProperty("ignoreSpace", IsRequired = true)]
-        public IgnoreSpaceElement IgnoreSpaceElement
+        public BooleanElement IgnoreSpaceElement
         {
-            get { return (IgnoreSpaceElement)this["ignoreSpace"]; }
+            get { return (BooleanElement)this["ignoreSpace"]; }
             set { this["ignoreSpace"] = value; }
         }
         #endregion
 
-        #region # 强制一元分词节点 —— ForceSingleWordElement ForceSingleWordElement
+        #region # 强制一元分词节点 —— BooleanElement ForceSingleWordElement
         /// <summary>
         /// 强制一元分词节点
         /// </summary>
         [ConfigurationProperty("forceSingleWord", IsRequired = true)]
-        public ForceSingleWordElement ForceSingleWordElement
+        public BooleanElement ForceSingleWordElement
         {
-            get { return (ForceSingleWordElement)this["forceSingleWord"]; }
+            get { return (BooleanElement)this["forceSingleWord"]; }
             set { this["forceSingleWord"] = value; }
         }
         #endregion
 
-        #region # 繁体中文开关节点 —— TraditionalChineseEnabledElement TraditionalChineseEnabledElement
+        #region # 繁体中文开关节点 —— BooleanElement TraditionalChineseEnabledElement
         /// <summary>
         /// 繁体中文开关节点
         /// </summary>
         [ConfigurationProperty("traditionalChineseEnabled", IsRequired = true)]
-        public TraditionalChineseEnabledElement TraditionalChineseEnabledElement
+        public BooleanElement TraditionalChineseEnabledElement
         {
-            get { return (TraditionalChineseEnabledElement)this["traditionalChineseEnabled"]; }
+            get { return (BooleanElement)this["traditionalChineseEnabled"]; }
             set { this["traditionalChineseEnabled"] = value; }
         }
         #endregion
 
-        #region # 同时输出简体和繁体节点 —— OutputSimplifiedTraditionalElement OutputSimplifiedTraditionalElement
+        #region # 同时输出简体和繁体节点 —— BooleanElement OutputSimplifiedTraditionalElement
         /// <summary>
         /// 同时输出简体和繁体节点
         /// </summary>
         [ConfigurationProperty("outputSimplifiedTraditional", IsRequired = true)]
-        public OutputSimplifiedTraditionalElement OutputSimplifiedTraditionalElement
+        public BooleanElement OutputSimplifiedTraditionalElement
         {
-            get { return (OutputSimplifiedTraditionalElement)this["outputSimplifiedTraditional"]; }
+            get { return (BooleanElement)this["outputSimplifiedTraditional"]; }
             set { this["outputSimplifiedTraditional"] = value; }
         }
         #endregion
 
-        #region # 未登录词识别节点 —— UnknownWordIdentifyElement UnknownWordIdentifyElement
+        #region # 未登录词识别节点 —— BooleanElement UnknownWordIdentifyElement
         /// <summary>
         /// 未登录词识别节点
         /// </summary>
         [ConfigurationProperty("unknownWordIdentify", IsRequired = true)]
-        public UnknownWordIdentifyElement UnknownWordIdentifyElement
+        public BooleanElement UnknownWordIdentifyElement
         {
-            get { return (UnknownWordIdentifyElement)this["unknownWordIdentify"]; }
+            get { return (BooleanElement)this["unknownWordIdentify"]; }
             set { this["unknownWordIdentify"] = value; }
         }
         #endregion
 
-        #region # 过滤英文节点 —— FilterEnglishElement FilterEnglishElement
+        #region # 过滤英文节点 —— BooleanElement FilterEnglishElement
         /// <summary>
         /// 过滤英文节点
         /// </summary>
         [ConfigurationProperty("filterEnglish", IsRequired = true)]
-        public FilterEnglishElement FilterEnglishElement
+        public BooleanElement FilterEnglishElement
         {
-            get { return (FilterEnglishElement)this["filterEnglish"]; }
+            get { return (BooleanElement)this["filterEnglish"]; }
             set { this["filterEnglish"] = value; }
         }
         #endregion
 
-        #region # 过滤数字节点 —— FilterNumericElement FilterNumericElement
+        #region # 过滤数字节点 —— BooleanElement FilterNumericElement
         /// <summary>
         /// 过滤数字节点
         /// </summary>
         [ConfigurationProperty("filterNumeric", IsRequired = true)]
-        public FilterNumericElement FilterNumericElement
+        public BooleanElement FilterNumericElement
         {
-            get { return (FilterNumericElement)this["filterNumeric"]; }
+            get { return (BooleanElement)this["filterNumeric"]; }
             set { this["filterNumeric"] = value; }
         }
         #endregion
 
-        #region # 忽略英文大小写节点 —— IgnoreCapitalElement IgnoreCapitalElement
+        #region # 忽略英文大小写节点 —— BooleanElement IgnoreCapitalElement
         /// <summary>
         /// 忽略英文大小写节点
         /// </summary>
         [ConfigurationProperty("ignoreCapital", IsRequired = true)]
-        public IgnoreCapitalElement IgnoreCapitalElement
+        public BooleanElement IgnoreCapitalElement
         {
-            get { return (IgnoreCapitalElement)this["ignoreCapital"]; }
+            get { return (BooleanElement)this["ignoreCapital"]; }
             set { this["ignoreCapital"] = value; }
         }
         #endregion
 
-        #region # 英文分词节点 —— EnglishSegmentElement EnglishSegmentElement
+        #region # 英文分词节点 —— BooleanElement EnglishSegmentElement
         /// <summary>
         /// 英文分词节点
         /// </summary>
         [ConfigurationProperty("englishSegment", IsRequired = true)]
-        public EnglishSegmentElement EnglishSegmentElement
+        public BooleanElement EnglishSegmentElement
         {
-            get { return (EnglishSegmentElement)this["englishSegment"]; }
+            get { return (BooleanElement)this["englishSegment"]; }
             set { this["englishSegment"] = value; }
         }
         #endregion
 
-        #region # 同义词输出节点 —— SynonymOutputElement SynonymOutputElement
+        #region # 同义词输出节点 —— BooleanElement SynonymOutputElement
         /// <summary>
         /// 同义词输出节点
         /// </summary>
         [ConfigurationProperty("synonymOutput", IsRequired = true)]
-        public SynonymOutputElement SynonymOutputElement
+        public BooleanElement SynonymOutputElement
         {
-            get { return (SynonymOutputElement)this["synonymOutput"]; }
+            get { return (BooleanElement)this["synonymOutput"]; }
             set { this["synonymOutput"] = value; }
         }
         #endregion
 
-        #region # 通配符匹配输出节点 —— WildcardOutputElement WildcardOutputElement
+        #region # 通配符匹配输出节点 —— BooleanElement WildcardOutputElement
         /// <summary>
         /// 通配符匹配输出节点
         /// </summary>
         [ConfigurationProperty("wildcardOutput", IsRequired = true)]
-        public WildcardOutputElement WildcardOutputElement
+        public BooleanElement WildcardOutputElement
         {
-            get { return (WildcardOutputElement)this["wildcardOutput"]; }
+            get { return (BooleanElement)this["wildcardOutput"]; }
             set { this["wildcardOutput"] = value; }
         }
         #endregion
 
-        #region # 对通配符匹配的结果分词节点 —— WildcardSegmentElement WildcardSegmentElement
+        #region # 对通配符匹配的结果分词节点 —— BooleanElement WildcardSegmentElement
         /// <summary>
         /// 对通配符匹配的结果分词节点
         /// </summary>
         [ConfigurationProperty("wildcardSegment", IsRequired = true)]
-        public WildcardSegmentElement WildcardSegmentElement
+        public BooleanElement WildcardSegmentElement
         {
-            get { return (WildcardSegmentElement)this["wildcardSegment"]; }
+            get { return (BooleanElement)this["wildcardSegment"]; }
             set { this["wildcardSegment"] = value; }
         }
         #endregion
 
-        #region # 用户自定义规则匹配节点 —— CustomRuleElement CustomRuleElement
+        #region # 用户自定义规则匹配节点 —— BooleanElement CustomRuleElement
         /// <summary>
         /// 用户自定义规则匹配节点
         /// </summary>
         [ConfigurationProperty("customRule", IsRequired = true)]
-        public CustomRuleElement CustomRuleElement
+        public BooleanElement CustomRuleElement
         {
-            get { return (CustomRuleElement)this["customRule"]; }
+            get { return (BooleanElement)this["customRule"]; }
             set { this["customRule"] = value; }
         }
         #endregion

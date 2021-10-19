@@ -1,18 +1,18 @@
 ﻿using System.Configuration;
 using System.Xml;
 
-namespace PanGu.Configurations.MatchOptions
+namespace PanGu.Configurations
 {
     /// <summary>
-    /// 过滤停用词节点
+    /// 布尔节点
     /// </summary>
-    internal class FilterStopWordsElement : ConfigurationElement
+    public class BooleanElement : ConfigurationElement
     {
         /// <summary>
-        /// 是否启用
+        /// 布尔值
         /// </summary>
         [ConfigurationProperty("data", IsRequired = true)]
-        public bool Enabled
+        public bool Value
         {
             get { return (bool)this["data"]; }
             set { this["data"] = value; }
@@ -23,7 +23,15 @@ namespace PanGu.Configurations.MatchOptions
         /// </summary>
         protected override void DeserializeElement(XmlReader reader, bool serializeCollectionKey)
         {
-            this.Enabled = (bool)reader.ReadElementContentAs(typeof(bool), null);
+            string content = reader.ReadElementContentAs(typeof(string), null)?.ToString();
+            if (bool.TryParse(content, out bool value))
+            {
+                this.Value = value;
+            }
+            else
+            {
+                this.Value = false;
+            }
         }
     }
 }
