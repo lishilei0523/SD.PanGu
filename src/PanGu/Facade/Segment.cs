@@ -11,152 +11,200 @@ using System.Text;
 
 namespace PanGu
 {
+    /// <summary>
+    /// 分词器
+    /// </summary>
     public class Segment
     {
-        //    const string PATTERNS = @"[０-９\d]+\%|[０-９\d]{1,2}月|[０-９\d]{1,2}日|[０-９\d]{1,4}年|" +
+        #region Constants and Fields
+
+        //const string PATTERNS = @"[０-９\d]+\%|[０-９\d]{1,2}月|[０-９\d]{1,2}日|[０-９\d]{1,4}年|" +
         //@"[０-９\d]{1,4}-[０-９\d]{1,2}-[０-９\d]{1,2}|" +
         //@"\s+|" +
         //@"[０-９\d]+|[^ａ-ｚＡ-Ｚa-zA-Z0-9０-９\u4e00-\u9fa5]|[ａ-ｚＡ-Ｚa-zA-Z]+|[\u4e00-\u9fa5]+";
-
         const string PATTERNS = @"([０-９\d]+)|([ａ-ｚＡ-Ｚa-zA-Z_]+)";
 
-        #region Private fields
-
-        static object _LockObj = new object();
-        static bool _Inited = false;
+        private static object _LockObj = new object();
+        private static bool _Inited = false;
+        private static DictionaryLoader _DictLoader;
         private static Dictionary<string, string> _InfinitiveVerbTable = null;
-
         internal static WordDictionary _WordDictionary = null;
         internal static ChsName _ChsName = null;
         internal static StopWord _StopWord = null;
         internal static Synonym _Synonym = null;
         internal static Wildcard _Wildcard = null;
-
-        static DictionaryLoader _DictLoader;
         private MatchOption _Options;
         private MatchParameter _Parameters;
+
         #endregion
 
+        #region Initialization
 
-        #region Merge functions
-
-        /// <summary>
-        /// 合并英文专用词。
-        /// 如果字典中有英文专用词如U.S.A, C++.C#等
-        /// 需要对初步分词后的英文和字母进行合并
-        /// </summary>
-        /// <param name="words"></param>
-        /// <param name="start"></param>
-        /// <param name="end"></param>
-        /// <returns></returns>
-        //private String MergeEnglishSpecialWord(CExtractWords extractWords, ArrayList words, int start, ref int end)
-        //{
-        //    StringBuilder str = new StringBuilder();
-
-        //    int i;
-
-        //    for (i = start; i < words.Count; i++)
-        //    {
-        //        string word = (string)words[i];
-
-        //        //word 为空或者为空格回车换行等分割符号，中断扫描
-        //        if (word.Trim() == "")
-        //        {
-        //            break;
-        //        }
-
-        //        //如果遇到中文，中断扫描
-        //        if (word[0] >= 0x4e00 && word[0] <= 0x9fa5)
-        //        {
-        //            break;
-        //        }
-
-        //        str.Append(word);
-        //    }
-
-        //    String mergeString = str.ToString();
-        //    List<T_WordInfo> exWords = extractWords.ExtractFullText(mergeString);
-
-        //    if (exWords.Count == 1)
-        //    {
-        //        T_WordInfo info = (T_WordInfo)exWords[0];
-        //        if (info.Word.Length == mergeString.Length)
-        //        {
-        //            end = i;
-        //            return mergeString;
-        //        }
-        //    }
-
-        //    return null;
-
-        //}
-
-        private bool MergeEnglishSpecialWord(string orginalText, SuperLinkedList<WordInfo> wordInfoList, ref SuperLinkedListNode<WordInfo> current)
+        public static void Init()
         {
-            SuperLinkedListNode<WordInfo> cur = current;
+            Init(null);
+        }
 
-            cur = cur.Next;
-
-            int last = -1;
-
-            while (cur != null)
+        public static void Init(string fileName)
+        {
+            lock (_LockObj)
             {
-                if (cur.Value.WordType == WordType.Symbol || cur.Value.WordType == WordType.English)
+                if (_Inited)
                 {
-                    last = cur.Value.Position + cur.Value.Word.Length;
-                    cur = cur.Next;
+                    return;
                 }
-                else
-                {
-                    break;
-                }
+
+                InitInfinitiveVerbTable();
+
+                LoadDictionary();
+
+                _Inited = true;
+            }
+        }
+
+        private static void LoadDictionary()
+        {
+            _WordDictionary = new WordDictionary();
+            string dir = PanGuSettings.CurrentDictionaryPath;
+            _WordDictionary.Load(string.Format(@"{0}\{1}", dir, Constants.DictionaryFileName));
+
+            _ChsName = new ChsName();
+            _ChsName.LoadChsName(PanGuSettings.CurrentDictionaryPath);
+
+
+            _WordDictionary.ChineseName = _ChsName;
+
+            _StopWord = new StopWord();
+            _StopWord.LoadStopwordsDict(string.Format(@"{0}\{1}", dir, Constants.StopwordFileName));
+
+            _Synonym = new Synonym();
+
+            if (PanGuSettings.CurrentMatchOption.SynonymOutput)
+            {
+                _Synonym.Load(dir);
             }
 
+            _Wildcard = new Wildcard(PanGuSettings.CurrentMatchOption,
+                PanGuSettings.CurrentMatchParameter);
 
-            if (last >= 0)
+            if (PanGuSettings.CurrentMatchOption.WildcardOutput)
             {
-                int first = current.Value.Position;
-
-                string newWord = orginalText.Substring(first, last - first);
-
-                WordAttribute wa = _WordDictionary.GetWordAttr(newWord);
-
-                if (wa == null)
-                {
-                    return false;
-                }
-
-                while (current != cur)
-                {
-                    SuperLinkedListNode<WordInfo> removeItem = current;
-                    current = current.Next;
-                    wordInfoList.Remove(removeItem);
-                }
-
-                WordInfo newWordInfo = new WordInfo(new PositionLength(first, last - first,
-                    wa), orginalText, _Parameters);
-
-                newWordInfo.WordType = WordType.English;
-                newWordInfo.Rank = _Parameters.EnglishRank;
-
-                if (current == null)
-                {
-                    wordInfoList.AddLast(newWordInfo);
-                }
-                else
-                {
-                    wordInfoList.AddBefore(current, newWordInfo);
-                }
-
-                return true;
+                _Wildcard.Load(dir);
             }
 
+            _DictLoader = new DictionaryLoader(PanGuSettings.CurrentDictionaryPath);
+        }
 
-            return false;
+        private static void InitInfinitiveVerbTable()
+        {
+            if (_InfinitiveVerbTable != null)
+            {
+                return;
+            }
+
+            _InfinitiveVerbTable = new Dictionary<string, string>();
+
+            using (StringReader sr = new StringReader(AnalyzerResource.INFINITIVE))
+            {
+
+                string line = sr.ReadLine();
+
+                while (!string.IsNullOrEmpty(line))
+                {
+                    string[] strs = Regex.Split(line, "\t+");
+
+                    if (strs.Length != 3)
+                    {
+                        continue;
+                    }
+
+                    for (int i = 1; i < 3; i++)
+                    {
+                        string key = strs[i].ToLower().Trim();
+
+                        if (!_InfinitiveVerbTable.ContainsKey(key))
+                        {
+                            _InfinitiveVerbTable.Add(key, strs[0].Trim().ToLower());
+                        }
+                    }
+
+                    line = sr.ReadLine();
+                }
+            }
 
         }
 
         #endregion
+
+        #region Public methods
+
+        public static ICollection<string> Resolve(string text, MatchOption options = null, MatchParameter parameters = null)
+        {
+            Segment segment = new Segment();
+            ICollection<WordInfo> wordInfos = segment.DoSegment(text, options, parameters);
+
+            ICollection<string> words = new HashSet<string>();
+            foreach (WordInfo wordInfo in wordInfos)
+            {
+                words.Add(wordInfo.Word);
+            }
+
+            return words;
+        }
+
+        public static ICollection<WordInfo> ResolveRaw(string text, MatchOption options = null, MatchParameter parameters = null)
+        {
+            Segment segment = new Segment();
+            ICollection<WordInfo> wordInfos = segment.DoSegment(text, options, parameters);
+
+            return wordInfos;
+        }
+
+        public ICollection<WordInfo> DoSegment(string text, MatchOption options = null, MatchParameter parameters = null)
+        {
+            if (string.IsNullOrEmpty(text))
+            {
+                return new SuperLinkedList<WordInfo>();
+            }
+
+            try
+            {
+                DictionaryLoader.Lock.Enter(Mode.Share);
+                _Options = options;
+                _Parameters = parameters;
+
+                Init();
+
+                if (_Options == null)
+                {
+                    _Options = PanGuSettings.CurrentMatchOption;
+                }
+
+                if (_Parameters == null)
+                {
+                    _Parameters = PanGuSettings.CurrentMatchParameter;
+                }
+
+                SuperLinkedList<WordInfo> result = PreSegment(text);
+
+                if (_Options.FilterStopWords)
+                {
+                    FilterStopWord(result);
+                }
+
+                ProcessAfterSegment(text, result);
+
+                return result;
+            }
+            finally
+            {
+                DictionaryLoader.Lock.Leave();
+            }
+        }
+
+        #endregion
+
+        #region Private methods
 
         private SuperLinkedList<WordInfo> GetInitSegment(string text)
         {
@@ -636,159 +684,125 @@ namespace PanGu
             }
         }
 
-        #region Public methods
-        public ICollection<WordInfo> DoSegment(string text)
-        {
-            return DoSegment(text, null, null);
-        }
-
-        public ICollection<WordInfo> DoSegment(string text, MatchOption options)
-        {
-            return DoSegment(text, options, null);
-        }
-
-        public ICollection<WordInfo> DoSegment(string text, MatchOption options, MatchParameter parameters)
-        {
-            if (string.IsNullOrEmpty(text))
-            {
-                return new SuperLinkedList<WordInfo>();
-            }
-
-            try
-            {
-                DictionaryLoader.Lock.Enter(Mode.Share);
-                _Options = options;
-                _Parameters = parameters;
-
-                Init();
-
-                if (_Options == null)
-                {
-                    _Options = PanGuSettings.CurrentMatchOption;
-                }
-
-                if (_Parameters == null)
-                {
-                    _Parameters = PanGuSettings.CurrentMatchParameter;
-                }
-
-                SuperLinkedList<WordInfo> result = PreSegment(text);
-
-                if (_Options.FilterStopWords)
-                {
-                    FilterStopWord(result);
-                }
-
-                ProcessAfterSegment(text, result);
-
-                return result;
-            }
-            finally
-            {
-                DictionaryLoader.Lock.Leave();
-            }
-        }
-
         #endregion
 
-        #region Initialization
+        #region Merge functions
 
-        static private void LoadDictionary()
+        /// <summary>
+        /// 合并英文专用词。
+        /// 如果字典中有英文专用词如U.S.A, C++.C#等
+        /// 需要对初步分词后的英文和字母进行合并
+        /// </summary>
+        /// <param name="words"></param>
+        /// <param name="start"></param>
+        /// <param name="end"></param>
+        /// <returns></returns>
+        //private String MergeEnglishSpecialWord(CExtractWords extractWords, ArrayList words, int start, ref int end)
+        //{
+        //    StringBuilder str = new StringBuilder();
+
+        //    int i;
+
+        //    for (i = start; i < words.Count; i++)
+        //    {
+        //        string word = (string)words[i];
+
+        //        //word 为空或者为空格回车换行等分割符号，中断扫描
+        //        if (word.Trim() == "")
+        //        {
+        //            break;
+        //        }
+
+        //        //如果遇到中文，中断扫描
+        //        if (word[0] >= 0x4e00 && word[0] <= 0x9fa5)
+        //        {
+        //            break;
+        //        }
+
+        //        str.Append(word);
+        //    }
+
+        //    String mergeString = str.ToString();
+        //    List<T_WordInfo> exWords = extractWords.ExtractFullText(mergeString);
+
+        //    if (exWords.Count == 1)
+        //    {
+        //        T_WordInfo info = (T_WordInfo)exWords[0];
+        //        if (info.Word.Length == mergeString.Length)
+        //        {
+        //            end = i;
+        //            return mergeString;
+        //        }
+        //    }
+
+        //    return null;
+
+        //}
+
+        private bool MergeEnglishSpecialWord(string orginalText, SuperLinkedList<WordInfo> wordInfoList, ref SuperLinkedListNode<WordInfo> current)
         {
-            _WordDictionary = new WordDictionary();
-            string dir = PanGuSettings.CurrentDictionaryPath;
-            _WordDictionary.Load(string.Format(@"{0}\{1}", dir, Constants.DictionaryFileName));
+            SuperLinkedListNode<WordInfo> cur = current;
 
-            _ChsName = new ChsName();
-            _ChsName.LoadChsName(PanGuSettings.CurrentDictionaryPath);
+            cur = cur.Next;
 
+            int last = -1;
 
-            _WordDictionary.ChineseName = _ChsName;
-
-            _StopWord = new StopWord();
-            _StopWord.LoadStopwordsDict(string.Format(@"{0}\{1}", dir, Constants.StopwordFileName));
-
-            _Synonym = new Synonym();
-
-            if (PanGuSettings.CurrentMatchOption.SynonymOutput)
+            while (cur != null)
             {
-                _Synonym.Load(dir);
-            }
-
-            _Wildcard = new Wildcard(PanGuSettings.CurrentMatchOption,
-                PanGuSettings.CurrentMatchParameter);
-
-            if (PanGuSettings.CurrentMatchOption.WildcardOutput)
-            {
-                _Wildcard.Load(dir);
-            }
-
-            _DictLoader = new DictionaryLoader(PanGuSettings.CurrentDictionaryPath);
-        }
-
-        private static void InitInfinitiveVerbTable()
-        {
-            if (_InfinitiveVerbTable != null)
-            {
-                return;
-            }
-
-            _InfinitiveVerbTable = new Dictionary<string, string>();
-
-            using (StringReader sr = new StringReader(AnalyzerResource.INFINITIVE))
-            {
-
-                string line = sr.ReadLine();
-
-                while (!string.IsNullOrEmpty(line))
+                if (cur.Value.WordType == WordType.Symbol || cur.Value.WordType == WordType.English)
                 {
-                    string[] strs = Regex.Split(line, "\t+");
-
-                    if (strs.Length != 3)
-                    {
-                        continue;
-                    }
-
-                    for (int i = 1; i < 3; i++)
-                    {
-                        string key = strs[i].ToLower().Trim();
-
-                        if (!_InfinitiveVerbTable.ContainsKey(key))
-                        {
-                            _InfinitiveVerbTable.Add(key, strs[0].Trim().ToLower());
-                        }
-                    }
-
-                    line = sr.ReadLine();
+                    last = cur.Value.Position + cur.Value.Word.Length;
+                    cur = cur.Next;
+                }
+                else
+                {
+                    break;
                 }
             }
 
-        }
 
-
-        public static void Init()
-        {
-            Init(null);
-        }
-
-        public static void Init(string fileName)
-        {
-            lock (_LockObj)
+            if (last >= 0)
             {
-                if (_Inited)
+                int first = current.Value.Position;
+
+                string newWord = orginalText.Substring(first, last - first);
+
+                WordAttribute wa = _WordDictionary.GetWordAttr(newWord);
+
+                if (wa == null)
                 {
-                    return;
+                    return false;
                 }
 
-                InitInfinitiveVerbTable();
+                while (current != cur)
+                {
+                    SuperLinkedListNode<WordInfo> removeItem = current;
+                    current = current.Next;
+                    wordInfoList.Remove(removeItem);
+                }
 
-                LoadDictionary();
+                WordInfo newWordInfo = new WordInfo(new PositionLength(first, last - first,
+                    wa), orginalText, _Parameters);
 
-                _Inited = true;
+                newWordInfo.WordType = WordType.English;
+                newWordInfo.Rank = _Parameters.EnglishRank;
+
+                if (current == null)
+                {
+                    wordInfoList.AddLast(newWordInfo);
+                }
+                else
+                {
+                    wordInfoList.AddBefore(current, newWordInfo);
+                }
+
+                return true;
             }
+
+
+            return false;
+
         }
-
-
 
         #endregion
     }

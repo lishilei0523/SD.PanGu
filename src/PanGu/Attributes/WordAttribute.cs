@@ -20,7 +20,6 @@ using System;
 
 namespace PanGu
 {
-
     [Serializable]
     public class WordAttribute : IComparable<WordAttribute>
     {
@@ -65,44 +64,5 @@ namespace PanGu
         }
 
         #endregion
-    }
-
-    [Serializable]
-    public struct WordAttributeStruct
-    {
-        /// <summary>
-        /// Word
-        /// </summary>
-        public String Word;
-
-        /// <summary>
-        /// Part of speech
-        /// </summary>
-        public POS Pos;
-
-        /// <summary>
-        /// Frequency for this word
-        /// </summary>
-        public double Frequency;
-
-        public WordAttributeStruct(WordAttribute wa)
-        {
-            this.Word = wa.Word;
-            this.Pos = wa.Pos;
-            this.Frequency = wa.Frequency;
-        }
-
-        public WordAttributeStruct(string word, POS pos, double frequency)
-        {
-            this.Word = word;
-            this.Pos = pos;
-            this.Frequency = frequency;
-        }
-
-        public override string ToString()
-        {
-            return this.Word;
-        }
-
     }
 }

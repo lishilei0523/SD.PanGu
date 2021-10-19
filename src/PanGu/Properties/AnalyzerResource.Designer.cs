@@ -50,7 +50,7 @@ namespace PanGu
             {
                 if (ReferenceEquals(resourceMan, null))
                 {
-                    ResourceManager temp = new ResourceManager("PanGu.AnalyzerResource", typeof(AnalyzerResource).Assembly);
+                    ResourceManager temp = new ResourceManager("PanGu.Properties.AnalyzerResource", typeof(AnalyzerResource).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
