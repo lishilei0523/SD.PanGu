@@ -5,7 +5,7 @@ namespace PanGu.Configurations
     /// <summary>
     /// 匹配选项节点
     /// </summary>
-    internal class MatchOptionsElement : ConfigurationElement
+    public class MatchOptionsElement : ConfigurationElement
     {
         #region # 中文名识别节点 —— BooleanElement ChineseNameIdentifyElement
         /// <summary>

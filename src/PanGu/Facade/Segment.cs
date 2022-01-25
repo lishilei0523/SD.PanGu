@@ -142,7 +142,6 @@ namespace PanGu
         {
             Segment segment = new Segment();
             ICollection<WordInfo> wordInfos = segment.DoSegment(text, options, parameters);
-
             ICollection<string> words = new HashSet<string>();
             foreach (WordInfo wordInfo in wordInfos)
             {

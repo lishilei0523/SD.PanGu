@@ -5,7 +5,7 @@ namespace PanGu.Configurations
     /// <summary>
     /// 参数节点
     /// </summary>
-    internal class MatchParametersElement : ConfigurationElement
+    public class MatchParametersElement : ConfigurationElement
     {
         #region # 未登录词权值节点 —— NumericElement UnknowRankElement
         /// <summary>

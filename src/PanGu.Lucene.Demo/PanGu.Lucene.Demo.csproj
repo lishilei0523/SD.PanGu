@@ -1,12 +1,15 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
   <PropertyGroup>
-    <TargetFramework>net461</TargetFramework>
+    <TargetFramework>net40</TargetFramework>
     <OutputType>Exe</OutputType>
     <UseWindowsForms>true</UseWindowsForms>
     <ApplicationIcon>favicon.ico</ApplicationIcon>
     <Authors>Eaglet</Authors>
     <Company>PanGu</Company>
     <Copyright>Copyright © Eaglet 2009</Copyright>
+    <Version>2.4.0</Version>
+    <AssemblyVersion>2.4.0.0</AssemblyVersion>
+    <FileVersion>2.4.0.0</FileVersion>
   </PropertyGroup>
 
   <ItemGroup>
