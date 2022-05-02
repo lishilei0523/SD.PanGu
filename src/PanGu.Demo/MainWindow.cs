@@ -24,9 +24,9 @@ using System.Windows.Forms;
 
 namespace PanGu.Demo
 {
-    public partial class FormDemo : Form
+    public partial class MainWindow : Form
     {
-        String _InitSource = "盘古分词 简介: 盘古分词 是由eaglet 开发的一款基于字典的中英文分词组件\r\n" +
+        string _InitSource = "盘古分词 简介: 盘古分词 是由eaglet 开发的一款基于字典的中英文分词组件\r\n" +
             "主要功能: 中英文分词，未登录词识别,多元歧义自动识别,全角字符识别能力\r\n" +
             "主要性能指标:\r\n" +
             "分词准确度:90%以上\r\n" +
@@ -42,7 +42,7 @@ namespace PanGu.Demo
         private MatchOption _Options;
         private MatchParameter _Parameters;
 
-        public FormDemo()
+        public MainWindow()
         {
             this.InitializeComponent();
         }
